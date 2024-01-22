@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-tasklist',
@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class TasklistComponent {
 
+  constructor(private elRef:ElementRef) {
+    
+  }
+  ngOnInit(){
+    this.elRef.nativeElement.addEventListener("click",()=>{
+        this.elRef.nativeElement.style.left="200px";
+    })
+
+    
+  }
 }

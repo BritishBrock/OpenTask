@@ -1,3 +1,7 @@
-@for (task of tasks; track $index) {
-    <app-task [task]="task"></app-task>
-}
+<div class="TaskViewerBoard">
+    @for (task of tasks; track $index) {
+        <app-task [task]="task"></app-task>
+    }
+    
+    <app-tasklist></app-tasklist>
+</div>
