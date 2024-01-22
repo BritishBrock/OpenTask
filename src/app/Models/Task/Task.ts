@@ -1,6 +1,6 @@
 export class Task{
-    id:Number;
-    constructor(id:Number){
+    id:number;
+    constructor(id:number){
         this.id = id;
     }
 }
