@@ -12,19 +12,20 @@ export class ActionComponentComponent {
 constructor(private DragService:DragServiceService){}
 
   ngOnInit(){
-    console.log(this.nativeElement)
     if(this.nativeElement) {
-     
+
+
       this.nativeElement.addEventListener("mousedown",(event:any)=>{
-        
         if(!this.DragService.htmlElementSelected)
         this.DragService.selectHTMLElement(this.nativeElement!);
-
       })
       this.nativeElement.addEventListener("mouseup",(event:any)=>{
         if(this.DragService.htmlElementSelected)
         this.DragService.clearSelectedHTMLElement();
       })
+
+
+
     }
   }
 }
