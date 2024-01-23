@@ -38,7 +38,7 @@ testem.log
 /typings
 *.firebaserc
 *.firebase.json
-
+.env
 # System files
 .DS_Store
 Thumbs.db
