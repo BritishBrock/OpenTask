@@ -7,6 +7,7 @@ import { TaskViewerComponent } from './task-viewer/task-viewer.component';
 import { TaskComponent } from './components/task/task.component';
 import { ActionComponentComponent } from './components/action-component/action-component.component';
 import { TasklistComponent } from './components/tasklist/tasklist.component';
+import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TasklistComponent } from './components/tasklist/tasklist.component';
     TaskViewerComponent,
     TaskComponent,
     ActionComponentComponent,
-    TasklistComponent
+    TasklistComponent,
+    ContextMenuComponent
   ],
   imports: [
     BrowserModule,

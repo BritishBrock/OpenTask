@@ -1,0 +1,15 @@
+#contextMenuBody{
+    position: absolute;
+    width: 200px;
+    height: 300px;
+    background-color: rgb(206, 206, 206);
+    z-index: 999999999;
+display: grid;
+    .item{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor:pointer;
+        user-select: none; 
+    }
+}
