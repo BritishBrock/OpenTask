@@ -1,9 +1,10 @@
-<div class="taskBody border w-80 h-20 border-teal-600 flex flex-col justify-center items-center">
+<div class="taskBody border w-64 h-auto  border-black flex flex-col items-center rounded-md text-center text-wrap overflow-hidden cursor-pointer  bg-gray-50 relative">
+    @if(task.colorTag){
+        <div class="header w-full h-5" [style]="{'backgroundColor':task.colorTag}"></div>
+    }
 
-
-    wefwefwefewf
-
-
+    <div class="text"> {{task.name}}</div>
+    <div class="editIcon absolute w-6 h-6  p-1 rounded-full opacity-0 flex justify-center items-center transition ease-in right-1 top-1  bg-gray-800  z-10  hover:bg-gray-600 "><i class="gg-pen text-white w-2 h-1"></i></div>
 
     <app-action-component [nativeElement]="this.nativeElement"></app-action-component>
 </div>

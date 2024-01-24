@@ -1,5 +1,13 @@
 
 :host{
     position: absolute;
+    z-index: 10;
 }
-
+.taskBody{
+    user-select: none; 
+}
+.taskBody:hover{
+    .editIcon{
+        opacity: 1;
+    }
+}
