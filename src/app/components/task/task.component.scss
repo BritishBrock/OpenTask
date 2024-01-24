@@ -2,27 +2,4 @@
 :host{
     position: absolute;
 }
-.taskBody{
-    width: 200px;
-    height:50px;
-    background-color: rgb(196, 196, 196);
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 
-    .taskColorTag{
-        width: 100%;
-        height: 10px;
-        border-top-right-radius:20px;
-        border-top-left-radius: 20px;
-        background-color: red;
-    }
-
-    .taskName{
-        width: 100%;
-        height: 100%;
-    }
-}
