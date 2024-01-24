@@ -21,7 +21,7 @@ constructor(private DragService:DragServiceService,private ContextMenuService:Co
       this.nativeElement.addEventListener("mouseup",(event:any)=>{
         if(this.DragService.htmlElementSelected)
         this.DragService.clearSelectedHTMLElement();
-  
+        
       })
     }
   }

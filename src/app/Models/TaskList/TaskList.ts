@@ -12,4 +12,5 @@ export class TaskList{
     getTaskFromList(id:number){
         this.tasks.get(id);
     }
+    
 }
