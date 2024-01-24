@@ -1,7 +1,13 @@
-<div class="taskListBody">
-    
+<div class="taskListBody w-96 h-auto rounded-md bg-blue-400 opacity-75 flex  flex-col p-6" >  
+    <div class="taskListHeader w-full h-20 font-bold  flex justify-center items-center">
+            header example
+    </div>
 
-
+    <div id="dropBox" class="dropBox bg-slate-400 bg-opacity-70 rounded-lg border-2 border-black border-dashed w-full h-16 flex justify-center items-center">
+            <div class="addButton flex justify-center items-center w-12 h-12 font-semibold text-5xl">
+                +
+            </div>
+    </div>
 
 
     <app-action-component [nativeElement]="nativeElement"></app-action-component>
