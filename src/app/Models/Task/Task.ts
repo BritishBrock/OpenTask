@@ -6,7 +6,7 @@ export class Task{
     name:string;
     colorTag:string;
     component;
-    htmlElement!:HTMLElement;
+    htmlElement?:HTMLElement;
     pos:Coord;
     constructor(id:number,name:string,colorTag:string){
         this.pos = {x:0,y:0}
@@ -21,5 +21,9 @@ export class Task{
     }
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
+    }
+    removeHtmlElement(){
+        this.htmlElement?.remove()
+        this.htmlElement = undefined;
     }
 }

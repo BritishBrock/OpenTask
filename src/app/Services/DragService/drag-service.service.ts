@@ -27,7 +27,10 @@ export class DragServiceService {
   
 
   getPlaceOfDropped(){
-    console.log(this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos))
+    let TaskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
+    if(TaskList == undefined)return; 
+    TaskList.addTaskToList(this.Tasks);
+    this.Tasks.removeHtmlElement();
   }
     
 
