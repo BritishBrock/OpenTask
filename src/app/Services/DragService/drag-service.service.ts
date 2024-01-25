@@ -8,22 +8,22 @@ export class DragServiceService {
 
   constructor() { }
 
-  htmlElementSelected?:HTMLElement;
+  Tasks?:any;
   
-  selectHTMLElement(element:HTMLElement){
-    this.htmlElementSelected = element;
+  selectHTMLElement(element:any){
+    this.Tasks = element;
   }
 
   moveSelectedHTMLElement(newCoord:Coord){
-    if(!this.htmlElementSelected)return;
-    console.log(this.htmlElementSelected.style.left)
-    console.log(this.htmlElementSelected.offsetWidth)
-    this.htmlElementSelected.style.left =    newCoord.x  -(this.htmlElementSelected.offsetWidth /2)     + "px";
-    this.htmlElementSelected.style.top = newCoord.y  -(this.htmlElementSelected.offsetHeight/2)  +  "px";
     
+    if(!this.Tasks)return;
+  
+    this.Tasks.htmlElement.style.left =    newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)     + "px";
+    this.Tasks.htmlElement.style.top = newCoord.y  -(this.Tasks.htmlElement.offsetHeight/2)  +  "px";
+    console.log(this.Tasks.htmlElement.style.left)
   }
   clearSelectedHTMLElement(){
-    this.htmlElementSelected = undefined;
+    this.Tasks = undefined;
   }
   
     

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskViewerComponent } from './task-viewer/task-viewer.component';
 import { TaskComponent } from './components/task/task.component';
-import { ActionComponentComponent } from './components/action-component/action-component.component';
 import { TasklistComponent } from './components/tasklist/tasklist.component';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
@@ -14,7 +13,6 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
     AppComponent,
     TaskViewerComponent,
     TaskComponent,
-    ActionComponentComponent,
     TasklistComponent,
     ContextMenuComponent
   ],
