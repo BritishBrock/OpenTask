@@ -22,6 +22,7 @@ export class TaskComponent {
      
       this.nativeElement.addEventListener("mouseup",(event:any)=>{
         if(this.DragService.Tasks)
+        this.DragService.getPlaceOfDropped();
         this.DragService.clearSelectedHTMLElement();
         
       })

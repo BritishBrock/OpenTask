@@ -23,7 +23,16 @@ export class TaskViewerBoardService {
   }
 
   getTaskListsAtPosition(coord:Coord){
-    
+      //need possible fix later one. Boundries not correct i believe.
+      for(let i = 0; i < this.globalTaskLists.length;i++){
+        if(
+          coord.x < this.globalTaskLists[i].pos.x + this.globalTaskLists[i].htmlElement.clientWidth &&
+          coord.x > this.globalTaskLists[i].pos.x &&
+          coord.y < this.globalTaskLists[i].pos.y + this.globalTaskLists[i].htmlElement.clientHeight &&
+          coord.y > this.globalTaskLists[i].pos.y 
+        ){console.log("f");return this.globalTaskLists[i];}
+      }
+      return undefined;
   }
   
 }

@@ -1,4 +1,5 @@
 import { TaskComponent } from "../../components/task/task.component";
+import { Coord } from "../../interfaces/Coord/Coord";
 
 export class Task{
     id:number;
@@ -6,7 +7,9 @@ export class Task{
     colorTag:string;
     component;
     htmlElement!:HTMLElement;
+    pos:Coord;
     constructor(id:number,name:string,colorTag:string){
+        this.pos = {x:0,y:0}
         this.id = id;
         this.name= name;
         this.colorTag = colorTag;
