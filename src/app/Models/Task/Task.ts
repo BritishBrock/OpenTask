@@ -8,6 +8,8 @@ export class Task{
     component;
     htmlElement?:HTMLElement;
     pos:Coord;
+    taskListId?:number;
+    isInTaskList:boolean = false;
     constructor(id:number,name:string,colorTag:string){
         this.pos = {x:0,y:0}
         this.id = id;
@@ -21,9 +23,18 @@ export class Task{
     }
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
+        if(this.isInTaskList)this.htmlElement.style.position = "relative";
+        else this.htmlElement.style.position = "fixed";
     }
     removeHtmlElement(){
         this.htmlElement?.remove()
         this.htmlElement = undefined;
+    }
+    setTaskListId(id:number){
+        this.taskListId = id;
+        this.isInTaskList = true;
+    }
+    removeTaskListId(){
+        this.isInTaskList = false;
     }
 }

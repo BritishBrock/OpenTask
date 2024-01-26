@@ -6,7 +6,9 @@ export class TaskList{
     
     tasks:Map<Number,Task> =  new Map<number,Task>();
     pos:Coord;
-    constructor(){
+    id:number;
+    constructor(id:number){
+        this.id = id;
         this.component = TasklistComponent;
         this.pos = {x:0,y:0}
     }

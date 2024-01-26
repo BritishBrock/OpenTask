@@ -18,8 +18,12 @@ export class DragServiceService {
   moveSelectedHTMLElement(newCoord:Coord){
     if(!this.Tasks)return;
     this.Tasks.pos = newCoord;
+   
+    //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
+    this.Tasks.htmlElement.style.position= "fixed";
     this.Tasks.htmlElement.style.left =  newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)     + "px";
     this.Tasks.htmlElement.style.top = newCoord.y  -(this.Tasks.htmlElement.offsetHeight/2)  +  "px";
+
   }
   clearSelectedHTMLElement(){
     this.Tasks = undefined;
@@ -27,9 +31,10 @@ export class DragServiceService {
   
 
   getPlaceOfDropped(){
-    let TaskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
-    if(TaskList == undefined)return; 
-    TaskList.addTaskToList(this.Tasks);
+    let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
+    if(taskList == undefined)return; 
+    taskList.addTaskToList(this.Tasks);
+    this.Tasks.setTaskListId(taskList.id)
     this.Tasks.removeHtmlElement();
   }
     

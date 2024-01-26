@@ -11,7 +11,7 @@ export class TaskViewerBoardService {
   constructor() { }
 
   globalTasks:Task[] = []
-  globalTaskLists:TaskList[] = [new TaskList()];
+  globalTaskLists:TaskList[] = [new TaskList(0)];
 
 
   addToGlobalTasks(task:Task){

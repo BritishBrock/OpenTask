@@ -1,10 +1,13 @@
-<div class="taskListBody w-96 h-auto rounded-md bg-blue-400 opacity-75 flex  flex-col p-6" >  
+<div class="taskListBody w-96 h-auto rounded-md bg-blue-400 justify-center items-center opacity-75 flex  flex-col p-6" >  
     <div class="taskListHeader w-full h-20 font-bold  flex justify-center items-center">
             header example
     </div>
-    @for (item of taskList.tasks; track $index) {
-        {{item[1].name}}
-    }
+    <div class="tasks flex m-1 flex-col justify-center items-center">
+        @for (task of taskList.tasks; track $index) {
+            <ng-container style="margin: 10px;" *ngComponentOutlet="task[1].component  inputs: {task:task[1]};"/>
+        }
+    </div>
+  
     <div id="dropBox" class="dropBox bg-slate-400 bg-opacity-70 rounded-lg border-2 border-black border-dashed w-full h-16 flex justify-center items-center">
             <div class="addButton flex justify-center items-center w-12 h-12 font-semibold text-5xl">
                 +
