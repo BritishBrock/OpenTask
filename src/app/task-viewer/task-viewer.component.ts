@@ -12,8 +12,8 @@ import { TaskViewerBoardService } from '../Services/taskViewerBoard/task-viewer-
   styleUrl: './task-viewer.component.scss'
 })
 export class TaskViewerComponent {
-  tasks:Task[] =[];
-  taskList:TaskList =this.taskviewerService.globalTaskLists[0];
+  tasks:Map<Number,Task> = this.taskviewerService.globalTasks;
+  taskList:TaskList =this.taskviewerService.globalTaskLists.get(0)!;
   constructor(private FactoryService:FactoryService,private elRef:ElementRef,private dragService:DragServiceService,private taskviewerService:TaskViewerBoardService){
     this.elRef.nativeElement.addEventListener("mousemove",(event:any)=>{
       if(!this.dragService.Tasks)return;
@@ -25,7 +25,7 @@ export class TaskViewerComponent {
   });
   }
   ngOnInit(){
-    this.tasks = this.FactoryService.generateTasks(10);
+   
     
   }
 

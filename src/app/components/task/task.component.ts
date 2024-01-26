@@ -16,6 +16,7 @@ export class TaskComponent {
     this.nativeElement = this.elRef.nativeElement;
   }
   ngOnInit(){
+
     if(this.nativeElement) {
       this.task.setHtmlElement(this.nativeElement);
       this.mousedown();

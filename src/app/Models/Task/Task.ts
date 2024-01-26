@@ -24,7 +24,12 @@ export class Task{
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
         if(this.isInTaskList)this.htmlElement.style.position = "relative";
-        else this.htmlElement.style.position = "fixed";
+        else{
+            console.log("d")
+            this.htmlElement.style.left = this.pos.x + "px";
+            this.htmlElement.style.top = this.pos.y + "px";
+            this.htmlElement.style.position = "fixed"
+        };
     }
     removeHtmlElement(){
         this.htmlElement?.remove()

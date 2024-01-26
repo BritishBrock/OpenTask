@@ -12,7 +12,7 @@ export class FactoryService {
   generateTasks(amount:number){
     let arrayOfTasks:Task[] = [];
     for(let i = 0; i < amount;i++){
-      arrayOfTasks.push(new Task(i, TASKACTIONS[Math.floor(Math.random() * TASKACTIONS.length)] +" task "+  TASKDATES[Math.floor(Math.random() * TASKDATES.length)], this.generateColor() ));
+      arrayOfTasks.push(new Task(i + 10, TASKACTIONS[Math.floor(Math.random() * TASKACTIONS.length)] +" task "+  TASKDATES[Math.floor(Math.random() * TASKDATES.length)], this.generateColor() ));
     }
     return arrayOfTasks;
   }

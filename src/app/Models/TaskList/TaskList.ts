@@ -15,10 +15,16 @@ export class TaskList{
     component;
     htmlElement!:HTMLElement;
     addTaskToList(task:Task){
+        console.log(task.id)
         this.tasks.set(task.id,task);
+        console.log(this.tasks)
     }
     getTaskFromList(id:number){
         this.tasks.get(id);
+    }
+    removeFromList(id:number){
+        this.tasks.get(id)?.removeHtmlElement();
+        this.tasks.delete(id);
     }
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
