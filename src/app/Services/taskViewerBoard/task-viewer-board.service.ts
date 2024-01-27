@@ -16,21 +16,31 @@ export class TaskViewerBoardService {
     }
     this.addToGlobalTasksList(new TaskList(0));
   }
-  globalTasks:Map<Number,Task> =  new Map<number,Task>();
-  globalTaskLists:Map<Number,TaskList> =  new Map<number,TaskList>();
+  globalTasks:Task[]= [];
+  globalTaskLists:TaskList[] = [];
 
   addToGlobalTasks(task:Task){
-    this.globalTasks.set(task.id,task);
+    this.globalTasks.push(task);
   }
  addToGlobalTasksList(taskList:TaskList){
-    this.globalTaskLists.set(taskList.id,taskList);
+    this.globalTaskLists.push(taskList);
   }
+
   getFromGlobalTasksList(id:number){
-    return this.globalTaskLists.get(id) ?? undefined;
+    for(let i = 0; i < this.globalTaskLists.length;i++){
+      if(this.globalTaskLists[i].id == id){
+        return this.globalTaskLists[i];
+      }
+    }
+    return undefined;
   }
 
   removeTaskFromGlobalTasks(id:number){
-    this.globalTasks.delete(id);
+    for(let i = 0; i < this.globalTasks.length;i++){
+      if(this.globalTasks[i].id == id){
+        this.globalTasks.splice(i, 1);
+      }
+    }
   }
 
   
@@ -43,7 +53,7 @@ export class TaskViewerBoardService {
 
   getTaskListsAtPosition(coord:Coord){
       //need possible fix later one. Boundries not correct i believe.
-      let globalTaskListsArray = Array.from(this.globalTaskLists,([key,value])=>{return value})
+      let globalTaskListsArray =this.globalTaskLists
       for(let i = 0; i < globalTaskListsArray.length;i++){
         if(
           coord.x < globalTaskListsArray[i].pos.x + globalTaskListsArray[i].htmlElement.clientWidth &&

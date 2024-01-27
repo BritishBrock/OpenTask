@@ -4,7 +4,7 @@
     </div>
     <div class="tasks flex m-1 flex-col justify-center items-center">
         @for (task of taskList.tasks; track $index) {
-            <ng-container style="margin: 10px;" *ngComponentOutlet="task[1].component  inputs: {task:task[1]};"/>
+            <ng-container style="margin: 10px;" *ngComponentOutlet="task.component  inputs: {task:task};"/>
         }
     </div>
   

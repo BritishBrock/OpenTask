@@ -34,21 +34,22 @@ export class DragServiceService {
     let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
     if(taskList == undefined){
       if(this.Tasks.isInTaskList){
-        this.taskViewerService.globalTaskLists.get(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
-        this.Tasks.removeHtmlElement();
+        this.Tasks.removeHmtl()
         this.Tasks.removeTaskListId();
         this.taskViewerService.addToGlobalTasks(this.Tasks);
-        console.log(this.taskViewerService.globalTasks)
-        console.log(this.taskViewerService.globalTaskLists.get(this.Tasks.taskListId))
+        this.taskViewerService.getFromGlobalTasksList(0)?.removeFromList(this.Tasks.id);
       }
     }else{
-      taskList.addTaskToList(this.Tasks);
-      this.Tasks.setTaskListId(taskList.id);
-      this.taskViewerService.removeTaskFromGlobalTasks(this.Tasks.id);
-      this.Tasks.removeHtmlElement();
+      if(!this.Tasks.isInTaskList){
+        this.Tasks.removeHmtl()
+        this.Tasks.setTaskListId(taskList.id);
+        taskList.addTaskToList(this.Tasks);
+        this.taskViewerService.removeTaskFromGlobalTasks(this.Tasks.id);
+      }
     } 
-
- 
+    console.log(this.taskViewerService.globalTasks)
+    console.log(this.taskViewerService.getFromGlobalTasksList(0))
+    delete this.Tasks;
   }
     
 

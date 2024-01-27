@@ -23,23 +23,17 @@ export class Task{
     }
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
-        if(this.isInTaskList)this.htmlElement.style.position = "relative";
-        else{
-            console.log("d")
-            this.htmlElement.style.left = this.pos.x + "px";
-            this.htmlElement.style.top = this.pos.y + "px";
-            this.htmlElement.style.position = "fixed"
-        };
     }
-    removeHtmlElement(){
-        this.htmlElement?.remove()
-        this.htmlElement = undefined;
-    }
+
     setTaskListId(id:number){
         this.taskListId = id;
         this.isInTaskList = true;
     }
     removeTaskListId(){
         this.isInTaskList = false;
+        delete this.taskListId;
+    }
+    removeHmtl(){
+        delete this.htmlElement;
     }
 }
