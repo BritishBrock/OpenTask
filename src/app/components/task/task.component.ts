@@ -17,7 +17,7 @@ export class TaskComponent {
   }
   ngOnInit(){
       if(this.task.isInTaskList){
-       
+        this.nativeElement!.style.position = "relative"
       }else{
        
       }
@@ -58,5 +58,11 @@ export class TaskComponent {
     this.ContextMenuService.changeDisplayOfContextMenu(coords);
   }
 
+  ngOnDestroy(){
+    
+      this.nativeElement?.remove();
+    
+  
+  }
 
 }

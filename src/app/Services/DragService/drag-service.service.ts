@@ -34,14 +34,12 @@ export class DragServiceService {
     let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
     if(taskList == undefined){
       if(this.Tasks.isInTaskList){
-        this.Tasks.removeHmtl()
         this.Tasks.removeTaskListId();
         this.taskViewerService.addToGlobalTasks(this.Tasks);
         this.taskViewerService.getFromGlobalTasksList(0)?.removeFromList(this.Tasks.id);
       }
     }else{
       if(!this.Tasks.isInTaskList){
-        this.Tasks.removeHmtl()
         this.Tasks.setTaskListId(taskList.id);
         taskList.addTaskToList(this.Tasks);
         this.taskViewerService.removeTaskFromGlobalTasks(this.Tasks.id);
