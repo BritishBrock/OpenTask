@@ -1,0 +1,7 @@
+Tasklist
+
+<div class="tasks">
+    @for (task of taskList.tasks; track $index) {
+        <app-task [task]="task"></app-task>
+    }
+</div>
