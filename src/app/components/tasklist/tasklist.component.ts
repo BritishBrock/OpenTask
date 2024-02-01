@@ -48,7 +48,7 @@ export class TasklistComponent {
   }
 
   openContectMenu(coords:Coord){
-    this.ContextMenuService.switchContextMenu();
-    this.ContextMenuService.changeDisplayOfContextMenu(coords);
+    // this.ContextMenuService.switchContextMenu();
+    // this.ContextMenuService.changeDisplayOfContextMenu(coords);
   }
 }

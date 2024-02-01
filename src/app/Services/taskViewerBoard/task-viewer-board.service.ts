@@ -12,6 +12,7 @@ export class TaskViewerBoardService {
   constructor(private FactoryService:FactoryService) { 
     let arr = this.FactoryService.generateTasks(10);
     for(let i = 0; i < arr.length;i++){
+      arr[i].pos = {x:10,y:50 * i}
       this.addToGlobalTasks(arr[i]);
     }
     this.addToGlobalTasksList(new TaskList(0));

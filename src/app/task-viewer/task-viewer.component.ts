@@ -20,9 +20,9 @@ export class TaskViewerComponent {
       this.dragService.moveSelectedHTMLElement({x:event.x,y:event.y} as Coord);
     })
 
-    this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
-      event.preventDefault();
-  });
+  //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
+  //     event.preventDefault();
+  // });
   }
   ngOnInit(){
    
