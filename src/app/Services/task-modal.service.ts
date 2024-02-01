@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Task } from '../Models/Task/Task';
 import { Subject } from 'rxjs';
+import { Task } from '../Models/Task/Task';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskViewerService {
+export class TaskModalService {
 
   constructor() { }
-
-  taskSelected?:Task;
+  
+  taskModal:Subject<Task> = new Subject<Task>();
 
 }

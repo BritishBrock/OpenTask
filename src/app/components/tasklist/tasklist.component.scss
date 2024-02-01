@@ -11,6 +11,13 @@
     box-shadow: 0px 0px 20px 5px rgb(146, 146, 146);
     padding: 25px;
 
+    .tasks{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
 
     .taskListHeader{
         width: 100%;

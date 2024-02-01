@@ -61,7 +61,7 @@ export class TaskViewerBoardService {
           coord.x > globalTaskListsArray[i].pos.x &&
           coord.y < globalTaskListsArray[i].pos.y + globalTaskListsArray[i].htmlElement.clientHeight &&
           coord.y > globalTaskListsArray[i].pos.y 
-        ){console.log("f");return globalTaskListsArray[i];}
+        ){return globalTaskListsArray[i];}
       }
       return undefined;
   }

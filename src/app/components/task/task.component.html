@@ -1,10 +1,14 @@
 <div class="taskBody">
+
     @if(task.colorTag){
         <div class="header" [style]="{'backgroundColor':task.colorTag}"></div>
     }
 
     <div class="text"> {{task.name}}</div>
-    <div class="editIcon"><i class="gg-pen"></i></div>
-
+    <div class="editIcon" (click)="openTaskModal()">
+        <i class="gg-pen"></i>
+    </div>
 
 </div>
+
+
