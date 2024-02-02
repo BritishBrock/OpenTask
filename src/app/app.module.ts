@@ -8,6 +8,8 @@ import { TaskComponent } from './components/task/task.component';
 import { TasklistComponent } from './components/tasklist/tasklist.component';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
+import { TaskStylingComponent } from './components/task-modal/task-styling/task-styling.component';
+import { TaskDetailsComponent } from './components/task-modal/task-details/task-details.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
     TaskComponent,
     TasklistComponent,
     ContextMenuComponent,
-    TaskModalComponent
+    TaskModalComponent,
+    TaskStylingComponent,
+    TaskDetailsComponent
   ],
   imports: [
     BrowserModule,

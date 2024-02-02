@@ -1,10 +1,12 @@
 <div class="taskModal" *ngIf="isTaskModalOpen">
     <div class="contentEditor card">
-
+        @if (component) {
+            <ng-container *ngComponentOutlet="component"/>
+        }
     </div>
     <div class="attributePicker card">
         @for (opcion of taskOpcions; track $index) {
-            <div class="taskOpcion" (click)="check()">
+            <div class="taskOpcion" (click)="opcion?.onclick()">
                 {{opcion.title}}
             </div>
         }

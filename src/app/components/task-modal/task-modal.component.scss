@@ -17,11 +17,12 @@
     height: 80%;
     border-radius: 1%;
     margin: 25px;
- 
+    min-width: 300px;
   }
 
   .contentEditor {
     flex: 3;
+    min-width: 500px;
     height: 90%;
   }
 
