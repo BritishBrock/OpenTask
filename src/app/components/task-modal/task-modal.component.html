@@ -1,7 +1,7 @@
 <div class="taskModal" *ngIf="isTaskModalOpen">
     <div class="contentEditor card">
         @if (component) {
-            <ng-container *ngComponentOutlet="component"/>
+            <ng-container *ngComponentOutlet="component  inputs: {task:task};  "/>
         }
     </div>
     <div class="attributePicker card">

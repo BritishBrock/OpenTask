@@ -53,10 +53,11 @@ export class TaskModalComponent {
 
 
   ngOnInit(){
-    this.component = TaskDetailsComponent;
+
     this.taskModalService.taskModal.subscribe((task:Task)=>{
-      this.task = task;
       if(!task) return;
+      this.task = task;
+      this.component = TaskDetailsComponent;
       this.isTaskModalOpen=true;
     })
   }

@@ -10,6 +10,7 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
 import { TaskStylingComponent } from './components/task-modal/task-styling/task-styling.component';
 import { TaskDetailsComponent } from './components/task-modal/task-details/task-details.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,15 @@ import { TaskDetailsComponent } from './components/task-modal/task-details/task-
     ContextMenuComponent,
     TaskModalComponent,
     TaskStylingComponent,
-    TaskDetailsComponent
+    TaskDetailsComponent,
+
+  ],
+  exports:[
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

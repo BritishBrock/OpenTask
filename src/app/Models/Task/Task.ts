@@ -10,6 +10,7 @@ export class Task{
     pos:Coord;
     taskListId?:number;
     isInTaskList:boolean = false;
+    descripcion?:string;
     constructor(id:number,name:string,colorTag:string){
         this.pos = {x:0,y:0}
         this.id = id;
