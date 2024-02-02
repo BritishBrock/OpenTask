@@ -14,13 +14,43 @@ export class TaskModalComponent {
   constructor(private taskModalService:TaskModalService){}
 
 
+
+
+
+  taskOpcions = [
+    {
+      title:"Task Styling",
+    },
+    {
+      title:"Task Styling",
+    },
+    {
+      title:"Task Styling",
+    },
+    {
+      title:"Task Styling"
+    },
+    {
+      title:"Task Styling"
+    },
+    {
+      title:"Task Styling"
+    },
+  ]
+  check(){
+    console.log("testing")
+  }
+
+
+
+
+
+
+
   ngOnInit(){
     this.taskModalService.taskModal.subscribe((task:Task)=>{
       if(!task) return;
       this.isTaskModalOpen=true;
-      let copy:Task =  Object.assign(Object.create(Object.getPrototypeOf(task)), task)
-      delete copy.htmlElement;
-      console.log(JSON.stringify(copy))
     })
   }
 

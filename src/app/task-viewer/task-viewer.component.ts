@@ -23,7 +23,6 @@ export class TaskViewerComponent {
       if(this.dragService.Tasks)
       this.dragService.moveSelectedHTMLElement({x:event.x,y:event.y} as Coord);
     else if(this.isselect){
-      console.log("f")
       let width =  Math.abs(this.iSX - event.x)
       let height =   Math.abs(this.iSY - event.y)
 

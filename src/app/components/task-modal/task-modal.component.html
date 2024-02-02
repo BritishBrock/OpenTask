@@ -1,12 +1,13 @@
 <div class="taskModal" *ngIf="isTaskModalOpen">
-    <div class="styleEditor card">
-
-    </div>
     <div class="contentEditor card">
 
     </div>
-    <div class="attributeEditor card">
-
+    <div class="attributePicker card">
+        @for (opcion of taskOpcions; track $index) {
+            <div class="taskOpcion" (click)="check()">
+                {{opcion.title}}
+            </div>
+        }
     </div>
 
     <div class="closeButton" (click)="isTaskModalOpen = false">
