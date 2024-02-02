@@ -1,8 +1,19 @@
-<div class="taskListBody">
+<div class="taskListBody" >  
+    <div class="taskListHeader">
+            header example
+    </div>
+    <div class="tasks">
+        @for (task of taskList.tasks; track $index) {
+            <ng-container style="margin: 10px;" *ngComponentOutlet="task.component  inputs: {task:task};"/>
+        }
+    </div>
+  
+    <div class="dropBox">
+            <div class="addButton ">
+                +
+            </div>
+    </div>
+
+
     
-
-
-
-
-    <app-action-component [nativeElement]="nativeElement"></app-action-component>
 </div>

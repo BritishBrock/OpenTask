@@ -1,9 +1,14 @@
-<div class="taskBody border w-80 h-20 border-teal-600 flex flex-col justify-center items-center">
+<div class="taskBody">
 
+    @if(task.colorTag){
+        <div class="header" [style]="{'backgroundColor':task.colorTag}"></div>
+    }
 
-    wefwefwefewf
+    <div class="text"> {{task.name}}</div>
+    <div class="editIcon" (click)="openTaskModal()">
+        <i class="gg-pen"></i>
+    </div>
 
-
-
-    <app-action-component [nativeElement]="this.nativeElement"></app-action-component>
 </div>
+
+

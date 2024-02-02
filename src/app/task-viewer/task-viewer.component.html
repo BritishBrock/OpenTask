@@ -1,14 +1,12 @@
 <div class="TaskViewerBoard">
     @for (task of tasks; track $index) {
-        <app-task [task]="task"></app-task>
+        <ng-container *ngComponentOutlet="task.component  inputs: {task:task}; "/>
     }
     
-    <app-tasklist></app-tasklist>
-
-
-
+    <app-tasklist [taskList]="taskList"></app-tasklist>
 
 
 
     <app-context-menu></app-context-menu>
+    <app-task-modal></app-task-modal>
 </div>

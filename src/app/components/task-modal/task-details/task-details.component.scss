@@ -1,0 +1,34 @@
+.taskDetailsBody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+.divider{
+    width: 100%;
+    border: 1px solid #a9a9a9;
+    height: 1px;
+}
+
+.nameWrapper{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .name{
+        text-align: left;
+        border: none;
+        width: 100%;
+        height: 100%;
+        font-size: 24px;
+        padding: 15px;
+        font-weight: 700;
+        color: #7b7b7b;
+    }
+}
+
+.description{
+    width: 80%;
+    height: 200px;
+}
+
+}

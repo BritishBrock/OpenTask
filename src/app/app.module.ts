@@ -5,22 +5,31 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskViewerComponent } from './task-viewer/task-viewer.component';
 import { TaskComponent } from './components/task/task.component';
-import { ActionComponentComponent } from './components/action-component/action-component.component';
 import { TasklistComponent } from './components/tasklist/tasklist.component';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
+import { TaskModalComponent } from './components/task-modal/task-modal.component';
+import { TaskStylingComponent } from './components/task-modal/task-styling/task-styling.component';
+import { TaskDetailsComponent } from './components/task-modal/task-details/task-details.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskViewerComponent,
     TaskComponent,
-    ActionComponentComponent,
     TasklistComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    TaskModalComponent,
+    TaskStylingComponent,
+    TaskDetailsComponent,
+
+  ],
+  exports:[
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
