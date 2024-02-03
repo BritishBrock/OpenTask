@@ -11,6 +11,7 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
 import { TaskStylingComponent } from './components/task-modal/task-styling/task-styling.component';
 import { TaskDetailsComponent } from './components/task-modal/task-details/task-details.component';
 import { FormsModule } from '@angular/forms';
+import { TaskColorsComponent } from './components/task-modal/task-colors/task-colors.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     TaskModalComponent,
     TaskStylingComponent,
     TaskDetailsComponent,
+    TaskColorsComponent,
 
   ],
   exports:[

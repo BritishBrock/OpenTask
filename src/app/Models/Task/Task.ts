@@ -11,6 +11,7 @@ export class Task{
     taskListId?:number;
     isInTaskList:boolean = false;
     descripcion?:string;
+    cardColorTagType:number = 0;
     constructor(id:number,name:string,colorTag:string){
         this.pos = {x:0,y:0}
         this.id = id;
@@ -19,9 +20,7 @@ export class Task{
         this.component = TaskComponent
        
     }
-    changeColorTag(){
 
-    }
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
     }
