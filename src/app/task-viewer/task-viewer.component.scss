@@ -1,11 +1,13 @@
 :host{
-    position: relative;
-
-}
-.TaskViewerBoard{
+  display: flex;
     position: relative;
     width: 5000px;
     height: 4000px;
+}
+.TaskViewerBoard{
+    position: relative;
+    width: 100%;
+    height: 100%;
     background: 
     linear-gradient( /* background color fading left to right , to blend with every others gradient bg */
       to left, 
