@@ -10,19 +10,21 @@ import { FactoryService } from '../../Factory/factory.service';
 export class TaskViewerBoardService {
 
   constructor(private FactoryService:FactoryService) { 
+    let arr = this.FactoryService.generateTasks(10);
+    for(let i = 0; i < arr.length;i++){
+      arr[i].pos = {x:10,y:50 * i}
+      this.addToGlobalTasks(arr[i]);
+    }
+    this.addToGlobalTasksList(new TaskList(0));
   }
-  globalTasks:Task[]= [new Task(0,"test","red")];
-  globalTaskLists:TaskList[] = [new TaskList(0)];
+  globalTasks:Task[]= [];
+  globalTaskLists:TaskList[] = [];
 
   addToGlobalTasks(task:Task){
     this.globalTasks.push(task);
   }
  addToGlobalTasksList(taskList:TaskList){
     this.globalTaskLists.push(taskList);
-  }
-
-  getTasksList(){
-    return this.globalTasks;
   }
 
   getFromGlobalTasksList(id:number){
@@ -35,11 +37,11 @@ export class TaskViewerBoardService {
   }
 
   removeTaskFromGlobalTasks(id:number){
-      for(let i = 0; i < this.globalTasks.length;i++){
-        if(this.globalTasks[i].id == id){
-          this.globalTasks.splice(i, 1);
-        }
+    for(let i = 0; i < this.globalTasks.length;i++){
+      if(this.globalTasks[i].id == id){
+        this.globalTasks.splice(i, 1);
       }
+    }
   }
 
   

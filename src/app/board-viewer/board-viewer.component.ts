@@ -9,7 +9,7 @@ import { TaskViewerListComponent } from './task-viewer-list/task-viewer-list.com
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerComponent;
+    component:any = TaskViewerListComponent;
 
 
     boardViews = [
@@ -17,12 +17,14 @@ export class BoardViewerComponent {
         title:"Visual Task",
         onclick:()=>{
           this.component = TaskViewerComponent;
+          this.isNavClosed=false;
         }
       },
       {
         title:"List Tasks",
         onclick:()=>{
           this.component = TaskViewerListComponent;
+          this.isNavClosed=false;
         }
       },
     ]

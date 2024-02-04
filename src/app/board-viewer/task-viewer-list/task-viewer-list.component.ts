@@ -12,8 +12,9 @@ export class TaskViewerListComponent {
   constructor(private TaskViewerBoardService:TaskViewerBoardService){}
   tasks:Task[]= []
   ngOnInit(){
-    console.log( this.TaskViewerBoardService.getTasksList());
     this.tasks = [...this.TaskViewerBoardService.globalTasks];
+  }
+  ngAfterViewInit(){
     for(let i = 0; this.TaskViewerBoardService.globalTaskLists.length;i++){
       if(this.TaskViewerBoardService.globalTaskLists[i].tasks.length > 0){
         this.tasks.push(...this.TaskViewerBoardService.globalTaskLists[i].tasks)
