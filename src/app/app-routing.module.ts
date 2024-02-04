@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TaskViewerComponent } from './task-viewer/task-viewer.component';
+import { TaskViewerComponent } from './board-viewer/task-viewer/task-viewer.component';
 
 const routes: Routes = [
   {path:"taskviewer",component:TaskViewerComponent},

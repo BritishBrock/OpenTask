@@ -1,0 +1,24 @@
+
+<div class="openNav" *ngIf="!isNavClosed" (click)="isNavClosed = true">
+    o
+</div>
+
+<div class="nav" *ngIf="isNavClosed">
+    <div class="close" (click)="isNavClosed = false">
+        x
+    </div>
+    <div class="boardInfo">
+
+    </div>
+
+    <div class="boardViews">
+        @for (opcion of boardViews; track $index) {
+            <div class="boardViewsOpcion" (click)="opcion?.onclick()">
+                {{opcion.title}}
+            </div>
+        }
+    </div>
+
+</div>
+
+<ng-container *ngComponentOutlet="component "/>

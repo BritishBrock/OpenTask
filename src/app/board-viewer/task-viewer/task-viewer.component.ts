@@ -1,10 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
-import { FactoryService } from '../Factory/factory.service';
-import { Task } from '../Models/Task/Task';
-import { DragServiceService } from '../Services/DragService/drag-service.service';
-import { Coord } from '../interfaces/Coord/Coord';
-import { TaskList } from '../Models/TaskList/TaskList';
-import { TaskViewerBoardService } from '../Services/taskViewerBoard/task-viewer-board.service';
+import { FactoryService } from '../../Factory/factory.service';
+import { Task } from '../../Models/Task/Task';
+import { DragServiceService } from '../../Services/DragService/drag-service.service';
+import { Coord } from '../../interfaces/Coord/Coord';
+import { TaskList } from '../../Models/TaskList/TaskList';
+import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 
 @Component({
   selector: 'app-task-viewer',
@@ -13,7 +13,7 @@ import { TaskViewerBoardService } from '../Services/taskViewerBoard/task-viewer-
 })
 export class TaskViewerComponent {
   tasks:Task[] = this.taskviewerService.globalTasks;
-  taskList:TaskList =this.taskviewerService.globalTaskLists[0];
+  taskList:TaskList = this.taskviewerService.globalTaskLists[0];
   select:HTMLElement= document.createElement("div");
   htmlElement!:HTMLElement;
   isselect = false;

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TaskViewerComponent } from './task-viewer/task-viewer.component';
+import { TaskViewerComponent } from './board-viewer/task-viewer/task-viewer.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasklistComponent } from './components/tasklist/tasklist.component';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
@@ -12,6 +12,8 @@ import { TaskStylingComponent } from './components/task-modal/task-styling/task-
 import { TaskDetailsComponent } from './components/task-modal/task-details/task-details.component';
 import { FormsModule } from '@angular/forms';
 import { TaskColorsComponent } from './components/task-modal/task-colors/task-colors.component';
+import { BoardViewerComponent } from './board-viewer/board-viewer.component';
+import { TaskViewerListComponent } from './board-viewer/task-viewer-list/task-viewer-list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { TaskColorsComponent } from './components/task-modal/task-colors/task-co
     TaskStylingComponent,
     TaskDetailsComponent,
     TaskColorsComponent,
+    BoardViewerComponent,
+    TaskViewerListComponent,
 
   ],
   exports:[
