@@ -9,7 +9,7 @@ import { TaskViewerListComponent } from './task-viewer-list/task-viewer-list.com
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerListComponent;
+    component:any = TaskViewerComponent;
 
 
     boardViews = [
