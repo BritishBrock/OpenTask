@@ -3,6 +3,7 @@ import { TaskModalService } from '../../Services/task-modal.service';
 import { Task } from '../../Models/Task/Task';
 import { TaskStylingComponent } from './task-styling/task-styling.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { TaskColorsComponent } from './task-colors/task-colors.component';
 
 @Component({
   selector: 'app-task-modal',
@@ -34,7 +35,10 @@ export class TaskModalComponent {
       }
     },
     {
-      title:"Task Styling",
+      title:"Task Colors",
+      onclick:()=>{
+        this.component = TaskColorsComponent;
+      }
     },
     {
       title:"Task Styling"

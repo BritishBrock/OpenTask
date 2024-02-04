@@ -1,5 +1,5 @@
 <div class="taskBody">
-
+@if (task.cardColorTagType == 0) {
     @if(task.colorTag){
         <div class="header" [style]="{'backgroundColor':task.colorTag}"></div>
     }
@@ -8,6 +8,19 @@
     <div class="editIcon" (click)="openTaskModal()">
         <i class="gg-pen"></i>
     </div>
+}
+@if(task.cardColorTagType == 1){
+    <div class="header2" [style]="{'backgroundColor':task.colorTag, 'height':'100%'}">
+    
+        <div class="text"> {{task.name}}</div>
+        <div class="editIcon" (click)="openTaskModal()">
+            <i class="gg-pen"></i>
+        </div>
+    
+    </div>
+}
+
+
 
 </div>
 

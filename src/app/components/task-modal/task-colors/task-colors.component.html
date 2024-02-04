@@ -1,0 +1,32 @@
+<div class="taskColorsBody">
+    <div class="type">
+        <h3>Choose Card Color Type</h3>
+        <div class="cardType">
+           
+            <div class="card" (click)="cardType(0)">
+                <div class="headerColor1">
+
+                </div>
+                <div class="lines">
+                    @for (item of [0,1,2,3,4,5,6]; track $index) {
+                        <div class="line"></div>
+                    }
+
+                </div>
+            </div>
+            <div class="card" (click)="cardType(1)">
+                <div class="headerColor2">
+                    <div class="lines">
+                        @for (item of [0,1,2,3,4,5,6]; track $index) {
+                            <div class="line"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="colorPicker">
+       <input type="color" [(ngModel)]="task.colorTag" name="" id="">
+    </div>
+</div>
