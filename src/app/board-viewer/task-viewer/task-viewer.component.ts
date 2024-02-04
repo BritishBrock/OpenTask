@@ -12,7 +12,7 @@ import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-view
   styleUrl: './task-viewer.component.scss'
 })
 export class TaskViewerComponent {
-  tasks:Task[] = this.taskviewerService.globalTasks;
+  tasks:Task[] =[]
   taskList:TaskList = this.taskviewerService.globalTaskLists[0];
   select:HTMLElement= document.createElement("div");
   htmlElement!:HTMLElement;
@@ -32,6 +32,8 @@ export class TaskViewerComponent {
   // });
   }
   ngOnInit(){
+    this.tasks =  this.taskviewerService.globalTasks;
+
     this.htmlElement = this.elRef.nativeElement;
     //set view in the center
 
