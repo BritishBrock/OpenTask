@@ -12,6 +12,8 @@ export class Task{
     isInTaskList:boolean = false;
     descripcion?:string;
     cardColorTagType:number = 0;
+    endDate?:Date;
+    startDate?:Date;
     constructor(id:number,name:string,colorTag:string){
         this.pos = {x:0,y:0}
         this.id = id;

@@ -15,16 +15,11 @@ export class TaskViewerListComponent {
     this.tasks = [...this.TaskViewerBoardService.globalTasks];
 
     for(let i = 0;i < this.TaskViewerBoardService.globalTaskLists.length;i++){
-      console.log("tasklist")
       for(let y = 0; y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;y++){
-        console.log("task")
         this.tasks.push(this.TaskViewerBoardService.globalTaskLists[i].tasks[y])
       }
     }  
 
-  }
-  ngAfterViewInit(){
-   
   }
 
 }
