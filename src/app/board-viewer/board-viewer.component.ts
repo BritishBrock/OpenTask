@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TaskViewerComponent } from './task-viewer/task-viewer.component';
 import { TaskViewerListComponent } from './task-viewer-list/task-viewer-list.component';
+import { TaskViewerCalendarComponent } from './task-viewer-calendar/task-viewer-calendar.component';
 
 @Component({
   selector: 'app-board-viewer',
@@ -9,7 +10,7 @@ import { TaskViewerListComponent } from './task-viewer-list/task-viewer-list.com
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerComponent;
+    component:any = TaskViewerCalendarComponent;
 
 
     boardViews = [
@@ -24,6 +25,13 @@ export class BoardViewerComponent {
         title:"List Tasks",
         onclick:()=>{
           this.component = TaskViewerListComponent;
+          this.isNavClosed=false;
+        }
+      },
+      {
+        title:"List Calender",
+        onclick:()=>{
+          this.component = TaskViewerCalendarComponent;
           this.isNavClosed=false;
         }
       },

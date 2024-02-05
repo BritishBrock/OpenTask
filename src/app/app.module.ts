@@ -15,6 +15,7 @@ import { TaskColorsComponent } from './components/task-modal/task-colors/task-co
 import { BoardViewerComponent } from './board-viewer/board-viewer.component';
 import { TaskViewerListComponent } from './board-viewer/task-viewer-list/task-viewer-list.component';
 import { TaskDateComponent } from './components/task-modal/task-date/task-date.component';
+import { TaskViewerCalendarComponent } from './board-viewer/task-viewer-calendar/task-viewer-calendar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TaskDateComponent } from './components/task-modal/task-date/task-date.c
     BoardViewerComponent,
     TaskViewerListComponent,
     TaskDateComponent,
+    TaskViewerCalendarComponent,
 
   ],
   exports:[
