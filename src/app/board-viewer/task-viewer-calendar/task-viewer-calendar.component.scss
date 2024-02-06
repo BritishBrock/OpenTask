@@ -1,0 +1,35 @@
+:host{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+::ng-deep .table{
+    .weekDays{
+        display: flex;
+         .days{
+            width:190px;
+            height: 20px; 
+            border: 1px solid black
+         }
+        }
+    
+        .calendarbody{
+    .calRow{
+        display: flex;
+        .tableCell{
+            width:190px ;
+            height: 165px;
+            border: 1px solid black
+        }
+        .bg-info{
+            background-color: aquamarine;
+        }
+    }
+}
+
+}

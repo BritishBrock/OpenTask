@@ -113,13 +113,13 @@ export class TaskViewerCalendarComponent {
     let date = 1;
     for (let i = 0; i < 6; i++) {
         // creates a table row
-        let row = document.createElement("tr");
+        let row = document.createElement("div");
         row.classList.add("calRow")
 
         //creating individual cells, filing them up with data.
-        for (let j = 0; j < 7; j++) {
+        for (let j = 1; j < 8; j++) {
             if (i === 0 && j < firstDay) {
-                let cell = document.createElement("td");
+                let cell = document.createElement("div");
                 let cellText = document.createTextNode("");
                 cell.classList.add("tableCell")
                 cell.appendChild(cellText);
@@ -130,7 +130,7 @@ export class TaskViewerCalendarComponent {
             }
 
             else {
-              let cell = document.createElement("td");
+              let cell = document.createElement("div");
               let cellText = document.createTextNode(date +"");
               let c = date+"";
               cell.onclick =()=>{this.cellCliked(c)}
