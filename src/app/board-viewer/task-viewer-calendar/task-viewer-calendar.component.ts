@@ -23,12 +23,14 @@ export class TaskViewerCalendarComponent {
   taskEndDates:any = {};
 
   addToDateMap(task:Task){
-    if(Object.hasOwn(this.taskEndDates,task.endDate+"")){
-      this.taskEndDates[task.endDate+""].push(task)
+    let key = new Date(task.endDate!).getFullYear() + "-" +  (new Date(task.endDate!+"").getMonth()+1  ) +"-"+new Date(task.endDate!).getDate()
+    if(Object.hasOwn(this.taskEndDates,key)){
+      this.taskEndDates[key].push(task)
     }else{
-      this.taskEndDates[task.endDate+""] = [];
-      this.taskEndDates[task.endDate+""].push(task)
+      this.taskEndDates[key] = [];
+      this.taskEndDates[key].push(task)
     }
+    console.log(this.taskEndDates)
   }
 
 
@@ -51,6 +53,7 @@ export class TaskViewerCalendarComponent {
 
     this.today = new Date();
     this.currentMonth = this.today.getMonth();
+    
     this.currentYear = this.today.getFullYear();
  
     this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -68,7 +71,6 @@ export class TaskViewerCalendarComponent {
 
   addTasksToCalender(){
     Object.entries(this.taskEndDates).every(([key,values])=>{
-
       if(this.currentMonth == new Date(key).getMonth() && this.currentYear == new Date(key).getFullYear()){
         let value:any = values;
         if(value.length == 1){
@@ -160,7 +162,7 @@ export class TaskViewerCalendarComponent {
 
 
 cellCliked(date?:any){
-  console.log(""+date +" "+ this.currentMonth +" "+this.currentYear)
+  console.log( this.taskEndDates[""+ this.currentYear +"-"+ (this.currentMonth+1) +"-"+date])
 }
 
 
