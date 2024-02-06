@@ -111,7 +111,7 @@ export class TaskViewerCalendarComponent {
 
     // creating all cells
     let date = 1;
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         // creates a table row
         let row = document.createElement("div");
         row.classList.add("calRow")
@@ -126,7 +126,11 @@ export class TaskViewerCalendarComponent {
                 row.appendChild(cell);
             }
             else if (date > daysInMonth) {
-                break;
+              let cell = document.createElement("div");
+              let cellText = document.createTextNode("");
+              cell.classList.add("tableCell")
+              cell.appendChild(cellText);
+              row.appendChild(cell);
             }
 
             else {
