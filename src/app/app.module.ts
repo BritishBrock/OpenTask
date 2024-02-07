@@ -16,6 +16,7 @@ import { BoardViewerComponent } from './board-viewer/board-viewer.component';
 import { TaskViewerListComponent } from './board-viewer/task-viewer-list/task-viewer-list.component';
 import { TaskDateComponent } from './components/task-modal/task-date/task-date.component';
 import { TaskViewerCalendarComponent } from './board-viewer/task-viewer-calendar/task-viewer-calendar.component';
+import { BoardPickerComponent } from './board-picker/board-picker.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TaskViewerCalendarComponent } from './board-viewer/task-viewer-calendar
     TaskViewerListComponent,
     TaskDateComponent,
     TaskViewerCalendarComponent,
+    BoardPickerComponent,
 
   ],
   exports:[
