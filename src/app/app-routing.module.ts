@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TaskViewerComponent } from './board-viewer/task-viewer/task-viewer.component';
+import { BoardViewerComponent } from './board-viewer/board-viewer.component';
 
 const routes: Routes = [
-  {path:"taskviewer",component:TaskViewerComponent},
-  {path:"",component:TaskViewerComponent}
+  {path:":id",component:BoardViewerComponent}
 ];
 
 @NgModule({

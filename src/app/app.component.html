@@ -1,1 +1,13 @@
-<app-board-viewer></app-board-viewer>
+<router-outlet></router-outlet>
+
+<div class="mainBoardPicker">
+    @for (board of boards; track $index) {
+        <div class="board">
+
+        </div>
+    
+    }
+    <div class="createBoard" (click)="addBoard()">
+        +
+    </div>
+</div>
