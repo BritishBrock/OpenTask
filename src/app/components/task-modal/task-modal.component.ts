@@ -4,6 +4,7 @@ import { Task } from '../../Models/Task/Task';
 import { TaskStylingComponent } from './task-styling/task-styling.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { TaskColorsComponent } from './task-colors/task-colors.component';
+import { TaskDateComponent } from './task-date/task-date.component';
 
 @Component({
   selector: 'app-task-modal',
@@ -41,13 +42,10 @@ export class TaskModalComponent {
       }
     },
     {
-      title:"Task Styling"
-    },
-    {
-      title:"Task Styling"
-    },
-    {
-      title:"Task Styling"
+      title:"Task Date",
+      onclick:()=>{
+        this.component = TaskDateComponent;
+      }
     },
   ]
 

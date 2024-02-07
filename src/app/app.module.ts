@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { TaskColorsComponent } from './components/task-modal/task-colors/task-colors.component';
 import { BoardViewerComponent } from './board-viewer/board-viewer.component';
 import { TaskViewerListComponent } from './board-viewer/task-viewer-list/task-viewer-list.component';
+import { TaskDateComponent } from './components/task-modal/task-date/task-date.component';
+import { TaskViewerCalendarComponent } from './board-viewer/task-viewer-calendar/task-viewer-calendar.component';
+import { BoardPickerComponent } from './board-picker/board-picker.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { TaskViewerListComponent } from './board-viewer/task-viewer-list/task-vi
     TaskColorsComponent,
     BoardViewerComponent,
     TaskViewerListComponent,
+    TaskDateComponent,
+    TaskViewerCalendarComponent,
+    BoardPickerComponent,
 
   ],
   exports:[

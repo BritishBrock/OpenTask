@@ -1,0 +1,10 @@
+<div class="mainBoardPicker">
+    @for (board of boards; track $index) {
+        <div class="board" (click)="selectBoard(board.id)">
+
+        </div>
+    }
+    <div class="createBoard" (click)="addBoard()">
+        +
+    </div>
+</div>

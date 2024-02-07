@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { BoardService } from './Services/board/board.service';
+import { Board } from './Models/Board/Board';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +10,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OpenTask';
-
-
 
 }
