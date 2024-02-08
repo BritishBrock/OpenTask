@@ -24,19 +24,19 @@ ngOnInit(){
 
   //testing
 
-  let b = new Board(0);
-  b.boardTasks.push(new Task(0,"rt","red"))
-  let tasklist = new TaskList(0);
-  tasklist.tasks.push(new Task(1,"f","red"))
-  b.boardTaskLists.push(tasklist)
+  // let b = new Board(0);
+  // b.boardTasks.push(new Task(0,"rt","red"))
+  // let tasklist = new TaskList(0);
+  // tasklist.tasks.push(new Task(1,"f","red"))
+  // b.boardTaskLists.push(tasklist)
 
-  console.log(JSON.stringify(b))
+  // console.log(JSON.stringify(b))
 
 
 }
   selectBoard(boardId:number){
-    this.boardService.setActiveBoard(boardId);
-    this.Router.navigateByUrl(boardId+"");
+    if(this.boardService.setActiveBoard(boardId))this.Router.navigateByUrl(boardId+"");
+    
   }
   addBoard(){
     this.boardService.addEmptyBoard();

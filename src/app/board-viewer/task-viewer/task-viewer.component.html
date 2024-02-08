@@ -2,8 +2,10 @@
     @for (task of tasks; track $index) {
         <ng-container *ngComponentOutlet="task.component  inputs: {task:task}; "/>
     }
-    
-    <app-tasklist [taskList]="taskList"></app-tasklist>
+    @for (taskList of taskLists; track $index) {
+        <ng-container *ngComponentOutlet="taskList.component  inputs: {taskList:taskList}; "/>
+    }
+
 
 
 
