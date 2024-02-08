@@ -1,3 +1,5 @@
+
+<h1>Boards</h1>
 <div class="mainBoardPicker">
     @for (board of boards; track $index) {
         <div class="board" (click)="selectBoard(board.id)">
@@ -8,3 +10,11 @@
         +
     </div>
 </div>
+
+<h1>Import boards</h1>
+
+<input type="file" name="" id=""  (change)="check($event)">
+
+<h1>save boards</h1>
+
+<a [href]="fileUrl" download="file.json">DownloadFile</a>
