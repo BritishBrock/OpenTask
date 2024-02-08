@@ -3,6 +3,9 @@ import { Board } from '../Models/Board/Board';
 import { BoardService } from '../Services/board/board.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { BoardSerializer } from '../Models/Board/BoardSerializer';
+import { Task } from '../Models/Task/Task';
+import { TaskList } from '../Models/TaskList/TaskList';
 
 @Component({
   selector: 'app-board-picker',
@@ -16,7 +19,20 @@ export class BoardPickerComponent {
   constructor(private boardService:BoardService,private Router:Router,private sanitizer: DomSanitizer){}
 
 ngOnInit(){
-  this.boards = this.boardService.globalBoards
+  this.boards = this.boardService.globalBoards;
+
+
+  //testing
+
+  let b = new Board(0);
+  b.boardTasks.push(new Task(0,"rt","red"))
+  let tasklist = new TaskList(0);
+  tasklist.tasks.push(new Task(1,"f","red"))
+  b.boardTaskLists.push(tasklist)
+
+  console.log(JSON.stringify(b))
+
+
 }
   selectBoard(boardId:number){
     this.boardService.setActiveBoard(boardId);
@@ -33,6 +49,10 @@ checking:any;
     let fileReader = new FileReader();
     fileReader.onload = (e:any) => {
       this.checking = fileReader.result;
+
+      this.boards.push(...BoardSerializer.DeSerialize(JSON.parse(this.checking)))
+
+
       this.save()
     }
     fileReader.readAsText(file);
