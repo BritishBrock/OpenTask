@@ -52,7 +52,7 @@ checking:any;
 
       this.boards.push(...BoardSerializer.DeSerialize(JSON.parse(this.checking)))
 
-
+      console.log(this.boards);
       this.save()
     }
     fileReader.readAsText(file);

@@ -69,13 +69,6 @@ export class TasklistComponent {
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
-     
-      this.nativeElement.addEventListener("mouseup",(event:any)=>{
-        if(this.DragService.Tasks)
-        this.DragService.getPlaceOfDropped();
-        this.DragService.clearSelectedHTMLElement();
-        
-      })
     }
   }
 
