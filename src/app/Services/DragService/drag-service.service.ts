@@ -10,7 +10,7 @@ export class DragServiceService {
   constructor(private taskViewerService:TaskViewerBoardService) { }
 
   Tasks?:any;
-  
+  currentBardPos:Coord = {x:0,y:0}
   selectHTMLElement(element:any){
     this.Tasks = element;
   }
@@ -22,7 +22,7 @@ export class DragServiceService {
     //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
     this.Tasks.htmlElement.style.position= "fixed";
     this.Tasks.htmlElement.style.left =  newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)     + "px";
-    this.Tasks.htmlElement.style.top = newCoord.y  -(this.Tasks.htmlElement.offsetHeight/2)  +  "px";
+    this.Tasks.htmlElement.style.top = newCoord.y  -10  +  "px";
 
   }
   clearSelectedHTMLElement(){

@@ -94,9 +94,10 @@ export class TaskViewerComponent {
       this.select.style.position ="absolute";
       this.select.style.border = " 1px dashed blue";
     } else if(this.isMoving && this.mouseDown  ){     
-      console.log((( (this.iMY - event.y)  - ((this.iMY - event.y) *2)  )/100)  )
-      this.htmlElement.style.left =   parseInt(this.htmlElement.style.left)  +   (( (this.iMX - event.x)  - ((this.iMX - event.x) *2)  )/100) +"px";
-      this.htmlElement.style.top =  parseInt(this.htmlElement.style.top)  +   (( (this.iMY - event.y)  - ((this.iMY - event.y) *2)  )/100) +"px";
+      this.dragService.currentBardPos.x =  parseInt(this.htmlElement.style.left)  +   (( (this.iMX - event.x)  - ((this.iMX - event.x) *2)  )/100) ;
+      this.dragService.currentBardPos.y =  parseInt(this.htmlElement.style.top)  +   (( (this.iMY - event.y)  - ((this.iMY - event.y) *2)  )/100) 
+      this.htmlElement.style.left =   this.dragService.currentBardPos.x +"px"
+      this.htmlElement.style.top =  this.dragService.currentBardPos.y +"px";
     }
     })
 
