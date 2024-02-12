@@ -38,8 +38,8 @@ export class TaskViewerComponent {
     this.htmlElement = this.elRef.nativeElement;
     //set view in the center
 
-    this.htmlElement.style.left = 0 + "px";
-    this.htmlElement.style.top = -0+ "px";
+    this.htmlElement.style.left = this.dragService.currentBardPos.x + "px";
+    this.htmlElement.style.top = this.dragService.currentBardPos.y+"px";
 
 
     window.addEventListener("keydown",(event)=>{
