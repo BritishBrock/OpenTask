@@ -23,8 +23,8 @@ export class TasklistComponent {
       this.nativeElement.addEventListener("mouseup",(event:any)=>{
        
         this.nativeElement!.style.position = "absolute"
-        this.nativeElement!.style.left =(this.DragService.currentBardPos.x*-1) + this.taskList.pos.x  - (this.taskList.htmlElement!.offsetWidth/2)+"px";
-        this.nativeElement!.style.top = (this.DragService.currentBardPos.y*-1) +this.taskList.pos.y - (this.taskList.htmlElement!.offsetHeight/2)+"px";
+        this.nativeElement!.style.left = this.taskList.pos.x  +"px";
+        this.nativeElement!.style.top =  this.taskList.pos.y +"px";
       
    
         if(this.DragService.Tasks)

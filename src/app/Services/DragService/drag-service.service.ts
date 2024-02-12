@@ -18,11 +18,14 @@ export class DragServiceService {
   moveSelectedHTMLElement(newCoord:Coord){
     if(!this.Tasks)return;
     this.Tasks.pos = newCoord;
-   
+    this.Tasks.pos.y = newCoord.y - +10  ;
+    this.Tasks.pos.x = newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)
     //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
     this.Tasks.htmlElement.style.position= "fixed";
-    this.Tasks.htmlElement.style.left =  newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)     + "px";
-    this.Tasks.htmlElement.style.top = newCoord.y  -10  +  "px";
+    this.Tasks.htmlElement.style.left =  newCoord.x   + "px";
+    this.Tasks.htmlElement.style.top =  newCoord.y +  "px";
+    this.Tasks.pos.y =(this.currentBardPos.y*-1) +this.Tasks.pos.y;
+    this.Tasks.pos.x = (this.currentBardPos.x*-1) + this.Tasks.pos.x
 
   }
   clearSelectedHTMLElement(){

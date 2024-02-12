@@ -27,8 +27,8 @@ export class TaskComponent {
   ngOnInit(){
     this.nativeElement!.addEventListener("mouseup",(event:any)=>{
       this.nativeElement!.style.position = "absolute"
-      this.nativeElement!.style.left =(this.DragService.currentBardPos.x*-1) + this.task.pos.x - (this.task.htmlElement!.offsetWidth/2)+"px";
-      this.nativeElement!.style.top = (this.DragService.currentBardPos.y*-1) +this.task.pos.y - (this.task.htmlElement!.offsetHeight/2)+"px";
+      this.nativeElement!.style.left =+ this.task.pos.x+"px";
+      this.nativeElement!.style.top = +this.task.pos.y  +"px";
     
      
       if(this.DragService.Tasks)
@@ -81,7 +81,8 @@ export class TaskComponent {
 
 
   ngOnChanges(){
-    this.nativeElement!.style.position = "absolute"
+    this.nativeElement!.style.position = "absolute";
+
     this.nativeElement!.style.left =  this.task.pos.x +"px";
     this.nativeElement!.style.top = this.task.pos.y +"px";
   

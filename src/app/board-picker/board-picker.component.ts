@@ -20,19 +20,7 @@ export class BoardPickerComponent {
 
 ngOnInit(){
   this.boards = this.boardService.globalBoards;
-
-
-  //testing
-
-  // let b = new Board(0);
-  // b.boardTasks.push(new Task(0,"rt","red"))
-  // let tasklist = new TaskList(0);
-  // tasklist.tasks.push(new Task(1,"f","red"))
-  // b.boardTaskLists.push(tasklist)
-
-  // console.log(JSON.stringify(b))
-
-
+  this.save();
 }
   selectBoard(boardId:number){
     if(this.boardService.setActiveBoard(boardId))this.Router.navigateByUrl(boardId+"");
@@ -52,7 +40,7 @@ checking:any;
 
       this.boards.push(...BoardSerializer.DeSerialize(JSON.parse(this.checking)))
 
-      console.log(this.boards);
+
       this.save()
     }
     fileReader.readAsText(file);
@@ -60,10 +48,8 @@ checking:any;
   }
   fileUrl:any
   save(){
-
-
     const data = this.checking;
-    const blob = new Blob([data], {
+    const blob = new Blob([JSON.stringify(this.boards)], {
       type: 'json'
   });
   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
