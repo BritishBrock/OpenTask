@@ -10,7 +10,7 @@ export class DragServiceService {
   constructor(private taskViewerService:TaskViewerBoardService) { }
 
   Tasks?:any;
-  
+  currentBardPos:Coord = {x:0,y:0}
   selectHTMLElement(element:any){
     this.Tasks = element;
   }
@@ -18,17 +18,19 @@ export class DragServiceService {
   moveSelectedHTMLElement(newCoord:Coord){
     if(!this.Tasks)return;
     this.Tasks.pos = newCoord;
-   
+    this.Tasks.pos.y = newCoord.y - +10  ;
+    this.Tasks.pos.x = newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)
     //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
     this.Tasks.htmlElement.style.position= "fixed";
-    this.Tasks.htmlElement.style.left =  newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)     + "px";
-    this.Tasks.htmlElement.style.top = newCoord.y  -(this.Tasks.htmlElement.offsetHeight/2)  +  "px";
+    this.Tasks.htmlElement.style.left =  newCoord.x   + "px";
+    this.Tasks.htmlElement.style.top =  newCoord.y +  "px";
+    this.Tasks.pos.y =(this.currentBardPos.y*-1) +this.Tasks.pos.y;
+    this.Tasks.pos.x = (this.currentBardPos.x*-1) + this.Tasks.pos.x
 
   }
   clearSelectedHTMLElement(){
     this.Tasks = undefined;
   }
-  
 
   getPlaceOfDropped(){
     let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
@@ -36,7 +38,8 @@ export class DragServiceService {
       if(this.Tasks.isInTaskList){
         this.Tasks.removeTaskListId();
         this.taskViewerService.addToGlobalTasks(this.Tasks);
-        this.taskViewerService.getFromGlobalTasksList(0)?.removeFromList(this.Tasks.id);
+        //this shouldnt be 0 should be tasklist id from task
+        this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
       }
     }else{
       if(!this.Tasks.isInTaskList){

@@ -1,0 +1,11 @@
+.SimpleViewerBoard{
+    min-height: 100%;
+height: auto;
+width: 100%;
+display: flex;
+    .tasksGroup{
+    width: 400px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.712);
+}
+}

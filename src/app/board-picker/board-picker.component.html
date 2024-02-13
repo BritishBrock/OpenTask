@@ -1,10 +1,28 @@
+
+<h1>Boards</h1>
 <div class="mainBoardPicker">
     @for (board of boards; track $index) {
         <div class="board" (click)="selectBoard(board.id)">
-
+                Board {{board.id}}
         </div>
     }
     <div class="createBoard" (click)="addBoard()">
         +
     </div>
+</div>
+
+
+
+
+
+<div class="wip">
+    <h5>WIP</h5>
+    <h1>Import boards</h1>
+
+    <input type="file" name="" id=""  (change)="check($event)">
+    
+    <h1>save boards</h1>
+    
+    <a [href]="fileUrl" download="file.json">DownloadFile</a>
+    
 </div>

@@ -21,9 +21,10 @@ export class TasklistComponent {
       this.mousedown();
      
       this.nativeElement.addEventListener("mouseup",(event:any)=>{
+       
         this.nativeElement!.style.position = "absolute"
-        this.nativeElement!.style.left = this.taskList.pos.x +"px";
-        this.nativeElement!.style.top = this.taskList.pos.y +"px";
+        this.nativeElement!.style.left = this.taskList.pos.x  +"px";
+        this.nativeElement!.style.top =  this.taskList.pos.y +"px";
       
    
         if(this.DragService.Tasks)
@@ -68,13 +69,6 @@ export class TasklistComponent {
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
-     
-      this.nativeElement.addEventListener("mouseup",(event:any)=>{
-        if(this.DragService.Tasks)
-        this.DragService.getPlaceOfDropped();
-        this.DragService.clearSelectedHTMLElement();
-        
-      })
     }
   }
 

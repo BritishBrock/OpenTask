@@ -25,7 +25,22 @@ export class TaskComponent {
     this.nativeElement = this.elRef.nativeElement;
   }
   ngOnInit(){
-    
+    this.nativeElement!.addEventListener("mouseup",(event:any)=>{
+      this.nativeElement!.style.position = "absolute"
+      this.nativeElement!.style.left =+ this.task.pos.x+"px";
+      this.nativeElement!.style.top = +this.task.pos.y  +"px";
+      if(this.task.isInTaskList){
+        this.nativeElement!.style.position = "relative"
+        this.nativeElement!.style.left = "0";
+        this.nativeElement!.style.top = "0";
+      }
+     
+      if(this.DragService.Tasks)
+      this.DragService.getPlaceOfDropped();
+      this.DragService.clearSelectedHTMLElement();
+
+
+    })
     
   }
 
@@ -70,26 +85,23 @@ export class TaskComponent {
 
 
   ngOnChanges(){
+    this.nativeElement!.style.position = "absolute";
+
+    this.nativeElement!.style.left =  this.task.pos.x +"px";
+    this.nativeElement!.style.top = this.task.pos.y +"px";
+  
     if(this.task.isInTaskList){
       this.nativeElement!.style.position = "relative"
       this.nativeElement!.style.left = "0";
       this.nativeElement!.style.top = "0";
-    }else{
-      this.nativeElement!.style.position = "absolute"
-      this.nativeElement!.style.left = this.task.pos.x +"px";
-      this.nativeElement!.style.top = this.task.pos.y +"px";
     }
+    
 
     if(this.nativeElement) {
       this.task.setHtmlElement(this.nativeElement);
       this.mousedown();
      
-      this.nativeElement.addEventListener("mouseup",(event:any)=>{
-        if(this.DragService.Tasks)
-        this.DragService.getPlaceOfDropped();
-        this.DragService.clearSelectedHTMLElement();
-        
-      })
+      
     }
   }
 

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { TaskViewerComponent } from './task-viewer/task-viewer.component';
 import { TaskViewerListComponent } from './task-viewer-list/task-viewer-list.component';
 import { TaskViewerCalendarComponent } from './task-viewer-calendar/task-viewer-calendar.component';
+import { SimpleViewerComponent } from './simple-viewer/simple-viewer.component';
 
 @Component({
   selector: 'app-board-viewer',
@@ -10,10 +11,18 @@ import { TaskViewerCalendarComponent } from './task-viewer-calendar/task-viewer-
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerCalendarComponent;
-
+    component:any = TaskViewerComponent;
+    constructor(private elRef:ElementRef){}
 
     boardViews = [
+      // {
+      //   title:"Simple View",
+      //   onclick:()=>{
+      //     this.elRef.nativeElement.style.overflow = "auto";
+      //     this.component = SimpleViewerComponent;
+      //     this.isNavClosed=false;
+      //   }
+      // },
       {
         title:"Visual Task",
         onclick:()=>{
@@ -35,6 +44,7 @@ export class BoardViewerComponent {
           this.isNavClosed=false;
         }
       },
+      
     ]
 
 
