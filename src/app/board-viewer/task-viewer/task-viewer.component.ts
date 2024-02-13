@@ -69,7 +69,7 @@ export class TaskViewerComponent {
 
   createTask(x:number,y:number){
     let t  =new Task(Math.floor(Math.random()*1000000000000),"new task","#FFAA97")
-    t.pos = {x:x,y:y};
+    t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
     console.log(t)
     this.taskviewerService.globalTasks.push(t);
     this.isCreating = ""; 
@@ -77,7 +77,7 @@ export class TaskViewerComponent {
   }
   createTaskList(x:number,y:number){
     let t  =new TaskList(Math.floor(Math.random()*1000000000000))
-    t.pos = {x:x,y:y};
+    t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
     console.log(t)
     this.taskviewerService.globalTaskLists.push(t);
     this.isCreating = ""; 
