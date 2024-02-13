@@ -33,15 +33,15 @@ export class TaskViewerComponent {
     {
       title:"Task",
       click: ()=>{
-        console.log("e")
         this.isCreating = "task"; 
         this.htmlElement.style.backgroundColor = "grey"
       }
     },
     {
-      title:"Task",
+      title:"Task List",
       click: ()=>{
-        this.isCreating = "task"; 
+        this.isCreating = "taskList"; 
+        this.htmlElement.style.backgroundColor = "grey"
       }
     },
     {
@@ -72,6 +72,14 @@ export class TaskViewerComponent {
     t.pos = {x:x,y:y};
     console.log(t)
     this.taskviewerService.globalTasks.push(t);
+    this.isCreating = ""; 
+    this.htmlElement.style.backgroundColor = "white"
+  }
+  createTaskList(x:number,y:number){
+    let t  =new TaskList(Math.floor(Math.random()*1000000000000))
+    t.pos = {x:x,y:y};
+    console.log(t)
+    this.taskviewerService.globalTaskLists.push(t);
     this.isCreating = ""; 
     this.htmlElement.style.backgroundColor = "white"
   }
@@ -118,6 +126,7 @@ export class TaskViewerComponent {
       if( this.isCreating){
         console.log("f")
         if(this.isCreating == "task") this.createTask(event.x,event.y)
+        if(this.isCreating == "taskList") this.createTaskList(event.x,event.y)
       }
 
 
