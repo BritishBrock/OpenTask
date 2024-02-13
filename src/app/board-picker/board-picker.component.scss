@@ -12,6 +12,10 @@
         background: #e0e0e0;
         box-shadow:  28px 28px 67px #b3b3b3,
                     -28px -28px 67px #ffffff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 40px;
     }
     .createBoard{
         width: 300px;
@@ -44,3 +48,22 @@
         font-size: 60px;
     }
 }
+
+
+.wip{
+    margin:0  20px;
+    height:auto;
+    width:500px;
+    border:2px solid black;
+    h5{
+        padding: 0px;
+        width:30px;
+        margin-top:-10px;
+        margin-left:5px;
+        background:white;
+    }
+    *{
+        padding: 10px;
+    }
+}
+
