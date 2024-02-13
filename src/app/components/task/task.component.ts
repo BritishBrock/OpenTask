@@ -29,7 +29,11 @@ export class TaskComponent {
       this.nativeElement!.style.position = "absolute"
       this.nativeElement!.style.left =+ this.task.pos.x+"px";
       this.nativeElement!.style.top = +this.task.pos.y  +"px";
-    
+      if(this.task.isInTaskList){
+        this.nativeElement!.style.position = "relative"
+        this.nativeElement!.style.left = "0";
+        this.nativeElement!.style.top = "0";
+      }
      
       if(this.DragService.Tasks)
       this.DragService.getPlaceOfDropped();

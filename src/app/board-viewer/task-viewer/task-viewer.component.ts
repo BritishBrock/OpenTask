@@ -124,7 +124,6 @@ export class TaskViewerComponent {
       }
 
       if( this.isCreating){
-        console.log("f")
         if(this.isCreating == "task") this.createTask(event.x,event.y)
         if(this.isCreating == "taskList") this.createTaskList(event.x,event.y)
       }
@@ -140,7 +139,6 @@ export class TaskViewerComponent {
           y: event.y,
         } as Coord);
       else if (this.isselect) {
-        console.log('f');
         let width = Math.abs(this.iSX - event.x);
         let height = Math.abs(this.iSY - event.y);
         this.select.style.width = width + 'px';
@@ -163,7 +161,6 @@ export class TaskViewerComponent {
     });
 
     this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
-      console.log('off');
       this.iMX = 0;
       this.iMY = 0;
       this.mouseDown = false;
