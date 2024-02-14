@@ -134,6 +134,35 @@ export class TaskViewerComponent {
 
 
     });
+    this.elRef.nativeElement.addEventListener("touchmove", (event: any) => {
+      event.preventDefault();
+      var touch = event.targetTouches[0];
+      if (this.dragService.Tasks){
+        
+        console.log( touch)
+        this.dragService.moveSelectedHTMLElement({
+          x: touch.clientX,
+          y: touch.clientY,
+        } as Coord);
+      }
+      else if (this.isselect && this.isselectM) {
+        let width = Math.abs(this.iSX - event.x);
+        let height = Math.abs(this.iSY - event.y);
+        this.select.style.width = width + 'px';
+        this.select.style.height = height + 'px';
+        this.select.style.left =Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
+        this.select.style.top = this.iSY + 'px';
+        this.select.style.position = 'absolute';
+        this.select.style.border = ' 1px dashed blue';
+      }
+      if (this.mouseDown) {
+        this.dragService.currentBardPos.x = parseInt(this.htmlElement.style.left) +(event.movementX  ) ;
+        this.dragService.currentBardPos.y =  parseInt(this.htmlElement.style.top) +(event.movementY ) ;
+        this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
+        this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
+      }
+    });
+
 
     this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
       if (this.dragService.Tasks)

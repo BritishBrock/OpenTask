@@ -41,6 +41,22 @@ export class TaskComponent {
 
 
     })
+    this.nativeElement!.addEventListener("touchend",(event:any)=>{
+      this.nativeElement!.style.position = "absolute"
+      this.nativeElement!.style.left =+ this.task.pos.x+"px";
+      this.nativeElement!.style.top = +this.task.pos.y  +"px";
+      if(this.task.isInTaskList){
+        this.nativeElement!.style.position = "relative"
+        this.nativeElement!.style.left = "0";
+        this.nativeElement!.style.top = "0";
+      }
+     
+      if(this.DragService.Tasks)
+      this.DragService.getPlaceOfDropped();
+      this.DragService.clearSelectedHTMLElement();
+
+
+    })
     
   }
 
@@ -59,6 +75,13 @@ export class TaskComponent {
           case 3:
              this.openContectMenu({x:event.x,y:event.y});
           break;
+      }
+    })
+    this.nativeElement.addEventListener("touchstart",(event:any)=>{
+      event.preventDefault();
+    
+            if(!this.DragService.Tasks){
+       this.DragService.selectHTMLElement(this.task)
       }
     })
   }
