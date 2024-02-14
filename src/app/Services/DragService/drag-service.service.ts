@@ -36,10 +36,9 @@ export class DragServiceService {
     let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
     if(taskList == undefined){
       if(this.Tasks.isInTaskList){
+        this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
         this.Tasks.removeTaskListId();
         this.taskViewerService.addToGlobalTasks(this.Tasks);
-        //this shouldnt be 0 should be tasklist id from task
-        this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
       }
     }else{
       if(!this.Tasks.isInTaskList){
@@ -48,7 +47,8 @@ export class DragServiceService {
         this.taskViewerService.removeTaskFromGlobalTasks(this.Tasks.id);
       }
     } 
-
+    console.log(this.taskViewerService.globalTasks)
+    console.log(this.taskViewerService.globalTaskLists)
     delete this.Tasks;
   }
     
