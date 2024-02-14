@@ -47,8 +47,6 @@ export class DragServiceService {
         this.taskViewerService.removeTaskFromGlobalTasks(this.Tasks.id);
       }
     } 
-    console.log(this.taskViewerService.globalTasks)
-    console.log(this.taskViewerService.globalTaskLists)
     delete this.Tasks;
   }
     

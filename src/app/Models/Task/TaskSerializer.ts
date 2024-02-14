@@ -12,7 +12,6 @@ export class TaskSerializer{
         for(let i = 0; i < taskJsonArray.length;i++){
             let newTask = new Task(taskJsonArray[i].id,taskJsonArray[i].name,taskJsonArray[i].colorTag);
             newTask.isInTaskList = taskJsonArray[i].isInTaskList;
-            console.log(newTask)
             newTask.taskListId = taskJsonArray[i].taskListId;
             newTask.pos = taskJsonArray[i].pos as Coord;
             taskArray.push(newTask)
