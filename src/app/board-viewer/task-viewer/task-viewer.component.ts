@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FactoryService } from '../../Factory/factory.service';
 import { Task } from '../../Models/Task/Task';
 import { DragServiceService } from '../../Services/DragService/drag-service.service';
@@ -83,6 +83,9 @@ export class TaskViewerComponent {
     this.htmlElement.style.backgroundColor = "white"
   }
   ngOnInit() {
+
+
+
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
 
@@ -204,5 +207,35 @@ export class TaskViewerComponent {
   zoomOut() {
     // this.zoom -= 0.1;
     // this.htmlElement.style.scale = this.zoom+"" ;
+  }
+  ngAfterViewInit(){
+   
+    let c = <HTMLCanvasElement>document.getElementById("canvas");
+    c.width = this.htmlElement.clientWidth;
+    c.height = this.htmlElement.clientHeight;
+    var ctx = c.getContext("2d")!;
+
+
+    for(let i = 0; i < this.taskLists.length;i++){
+      if(this.taskLists[i].relatesTo != undefined){
+        console.log("this:  x:" + this.taskLists[i].pos.x + " y: " +this.taskLists[i].pos.y)
+        console.log("that:  x:" + this.taskLists[i].relatesTo!.pos.x + " y: " +this.taskLists[i].relatesTo!.pos.y)
+       
+        if(this.taskLists[i].pos.x > this.taskLists[i].relatesTo!.pos.x){
+          ctx.moveTo(this.taskLists[i].pos.x ,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+          ctx.lineTo(( this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2) , this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+          ctx.lineTo((this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2), this.taskLists[i].relatesTo!.pos.y);
+        } 
+        else {
+          ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y + this.taskLists[i].relatesTo!.pos.y);
+        }
+        ctx.stroke();
+      }
+    }
+
+    
+
   }
 }

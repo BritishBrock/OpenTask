@@ -7,6 +7,7 @@ export class TaskList{
     tasks:Task[] = [];
     pos:Coord;
     id:number;
+    relatesTo?:TaskList;
     constructor(id:number){
         this.id = id;
         this.component = TasklistComponent;
