@@ -165,11 +165,13 @@ export class TaskViewerComponent {
 
 
     this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
-      if (this.dragService.Tasks)
-        this.dragService.moveSelectedHTMLElement({
-          x: event.x,
-          y: event.y,
-        } as Coord);
+      if (this.dragService.Tasks){
+        this.redoCanvas()
+          this.dragService.moveSelectedHTMLElement({
+            x: event.x,
+            y: event.y,
+          } as Coord);
+      }
       else if (this.isselect && this.isselectM) {
         let width = Math.abs(this.iSX - event.x);
         let height = Math.abs(this.iSY - event.y);
@@ -236,6 +238,33 @@ export class TaskViewerComponent {
     }
 
     
+
+  }
+
+
+  redoCanvas(){
+    let c = <HTMLCanvasElement>document.getElementById("canvas");
+    c.width = this.htmlElement.clientWidth;
+    c.height = this.htmlElement.clientHeight;
+    var ctx = c.getContext("2d")!;
+    ctx.clearRect(0, 0, c.width, c.height);
+
+    for(let i = 0; i < this.taskLists.length;i++){
+      if(this.taskLists[i].relatesTo != undefined){
+        if(this.taskLists[i].pos.x > this.taskLists[i].relatesTo!.pos.x){
+          ctx.moveTo(this.taskLists[i].pos.x ,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+          ctx.lineTo(( this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2) , this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+          ctx.lineTo((this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2), this.taskLists[i].relatesTo!.pos.y);
+        } 
+        else {
+          ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y + this.taskLists[i].relatesTo!.pos.y);
+        }
+        ctx.stroke();
+      }
+    }
+
 
   }
 }

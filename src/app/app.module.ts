@@ -19,6 +19,7 @@ import { TaskViewerCalendarComponent } from './board-viewer/task-viewer-calendar
 import { BoardPickerComponent } from './board-picker/board-picker.component';
 import { SimpleViewerComponent } from './board-viewer/simple-viewer/simple-viewer.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { SimpleViewerComponent } from './board-viewer/simple-viewer/simple-viewe
     TaskViewerCalendarComponent,
     BoardPickerComponent,
     SimpleViewerComponent,
+
 
   ],
   exports:[

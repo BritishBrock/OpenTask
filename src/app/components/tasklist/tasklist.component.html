@@ -1,7 +1,6 @@
-<div class="taskListBody" >  
-    <div class="taskListHeader">
-            header example
-    </div>
+<div class="taskListBody" (dblclick)="doubleClick()">  
+    
+    <input type="text" [(ngModel)]="taskList.title" class="taskListHeader" />
     <div class="tasks">
         @for (task of taskList.tasks; track $index) {
             <ng-container style="margin: 10px;" *ngComponentOutlet="task.component  inputs: {task:task};"/>

@@ -5,6 +5,7 @@ import { TaskStylingComponent } from './task-styling/task-styling.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { TaskColorsComponent } from './task-colors/task-colors.component';
 import { TaskDateComponent } from './task-date/task-date.component';
+import { TaskList } from '../../Models/TaskList/TaskList';
 
 @Component({
   selector: 'app-task-modal',
@@ -16,6 +17,8 @@ import { TaskDateComponent } from './task-date/task-date.component';
 export class TaskModalComponent {
   isTaskModalOpen:boolean = false;
   task?:Task;
+  isTaskListModalOpen:boolean = false;
+  taskList?:TaskList;
   constructor(private taskModalService:TaskModalService){}
 
 
@@ -62,6 +65,18 @@ export class TaskModalComponent {
       this.component = TaskDetailsComponent;
       this.isTaskModalOpen=true;
     })
+
+    this.taskModalService.taskListModal.subscribe((taskList:TaskList)=>{
+      if(!taskList) return;
+      this.taskList = taskList;
+      this.isTaskModalOpen=true;
+    })
   }
+
+
+
+
+ 
+
 
 }
