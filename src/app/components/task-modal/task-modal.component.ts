@@ -20,7 +20,6 @@ import { Subject } from 'rxjs';
 export class TaskModalComponent {
   isTaskModalOpen:boolean = false;
   task?:Task;
-  isTaskListModalOpen:boolean = false;
   taskList?:TaskList;
   constructor(private taskModalService:TaskModalService){}
 
@@ -75,8 +74,10 @@ export class TaskModalComponent {
   input:any;
   ngOnInit(){
 
-    this.event.subscribe((event)=>{
-        console.log(event)
+    this.event.subscribe((event:any)=>{
+        if(event.function == "goTo"){
+        
+        }
     })
 
 

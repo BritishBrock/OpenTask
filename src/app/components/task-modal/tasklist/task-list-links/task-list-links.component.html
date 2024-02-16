@@ -2,6 +2,12 @@
 
 @if(taskList.relatesTo){
     {{taskList.relatesTo.title }}
+
+    <button (click)="deleteLink()">Delete</button>
+    <button (click)="goTo(taskList.relatesTo.pos)">goTo</button>
+    
+
+
 }@else{
 
     <select name="" id="" [(ngModel)]="bind" (change)="view()">

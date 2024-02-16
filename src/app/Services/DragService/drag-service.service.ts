@@ -10,7 +10,8 @@ export class DragServiceService {
   constructor(private taskViewerService:TaskViewerBoardService) { }
 
   Tasks?:any;
-  currentBardPos:Coord = {x:0,y:0}
+  currentBardPos:Coord = {x:0,y:0};
+  viewBoard?:HTMLElement;
   selectHTMLElement(element:any){
     this.Tasks = element;
   }
@@ -30,6 +31,28 @@ export class DragServiceService {
   }
   clearSelectedHTMLElement(){
     this.Tasks = undefined;
+  }
+
+  goToBoardPosEL(pos:Coord){
+    if(!this.viewBoard)return;
+    let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+    let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+    this.currentBardPos.y =  (pos.y - vh/2) * -1 ;
+    this.currentBardPos.x = (pos.x - vw/2) *-1;
+    this.viewBoard.style.left = this.currentBardPos.x  + 'px';
+    this.viewBoard.style.top = this.currentBardPos.y + 'px';
+
+  }
+
+  setBoardPos(pos:Coord){
+    if(!this.viewBoard)return;
+    let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+    let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+    this.currentBardPos.y =  (pos.y - vh/2) * -1 ;
+    this.currentBardPos.x = (pos.x - vw/2) *-1;
+    this.viewBoard.style.left = this.currentBardPos.x  + 'px';
+    this.viewBoard.style.top = this.currentBardPos.y + 'px';
+
   }
 
   getPlaceOfDropped(){

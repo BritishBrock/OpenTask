@@ -83,13 +83,14 @@ export class TaskViewerComponent {
     this.htmlElement.style.backgroundColor = "white"
   }
   ngOnInit() {
-
+    
 
 
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
 
     this.htmlElement = this.elRef.nativeElement;
+    this.dragService.viewBoard = this.htmlElement;
     //set view in the center
 
     this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';

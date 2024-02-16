@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskList } from '../../../../Models/TaskList/TaskList';
 import { TaskViewerBoardService } from '../../../../Services/taskViewerBoard/task-viewer-board.service';
 import { Subject } from 'rxjs';
+import { DragServiceService } from '../../../../Services/DragService/drag-service.service';
+import { Coord } from '../../../../interfaces/Coord/Coord';
 
 @Component({
   selector: 'app-task-list-links',
@@ -12,8 +14,8 @@ export class TaskListLinksComponent {
   @Input() taskList!:TaskList;
   @Input() event!:Subject<any>;
   bind?:number;
-  globalTaskList:TaskList[] = this.taskviewer.globalTaskLists;
-  constructor(private taskviewer:TaskViewerBoardService){}
+  globalTaskList:TaskList[] = this.taskviewer.globalTaskLists
+  constructor(private taskviewer:TaskViewerBoardService,private dragService:DragServiceService){}
   ngOnInit(){
    
   }
@@ -25,9 +27,14 @@ export class TaskListLinksComponent {
         this.taskList.relatesTo = this.globalTaskList[i];
       }
     }
-    this.event.next("lol")
   }
 
+  deleteLink(){
+    delete this.taskList.relatesTo;
+  }
+  goTo(pos:Coord){
+    this.dragService.goToBoardPosEL( pos);
+  }
 
 
 }
