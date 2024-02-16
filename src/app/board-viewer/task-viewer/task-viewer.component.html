@@ -1,4 +1,8 @@
 <div class="TaskViewerBoard">
+
+    <canvas id="canvas"></canvas>
+
+
     @for (task of tasks; track $index) {
         <ng-container *ngComponentOutlet="task.component  inputs: {task:task}; "/>
     }

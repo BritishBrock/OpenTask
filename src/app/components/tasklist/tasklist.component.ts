@@ -3,6 +3,7 @@ import { TaskList } from '../../Models/TaskList/TaskList';
 import { DragServiceService } from '../../Services/DragService/drag-service.service';
 import { ContextMenuService } from '../../Services/ContextMenu/context-menu.service';
 import { Coord } from '../../interfaces/Coord/Coord';
+import { TaskModalService } from '../../Services/task-modal.service';
 
 @Component({
   selector: 'app-tasklist',
@@ -12,7 +13,7 @@ import { Coord } from '../../interfaces/Coord/Coord';
 export class TasklistComponent {
   nativeElement?:HTMLElement;
   @Input() taskList!:TaskList;
-  constructor(private elRef:ElementRef,private DragService:DragServiceService,private ContextMenuService:ContextMenuService) {
+  constructor(private elRef:ElementRef,private DragService:DragServiceService,private ContextMenuService:ContextMenuService,private taskModalService:TaskModalService) {
     this.nativeElement = this.elRef.nativeElement;
   }
   ngOnInit(){
@@ -34,7 +35,9 @@ export class TasklistComponent {
     }
   }
 
-
+  doubleClick(){
+    this.taskModalService.taskListModal.next(this.taskList);
+  }
   mousedown(){
     if(!this.nativeElement) return;
     this.nativeElement.addEventListener("mousedown",(event:any)=>{

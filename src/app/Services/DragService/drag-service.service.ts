@@ -10,7 +10,8 @@ export class DragServiceService {
   constructor(private taskViewerService:TaskViewerBoardService) { }
 
   Tasks?:any;
-  currentBardPos:Coord = {x:0,y:0}
+  currentBardPos:Coord = {x:0,y:0};
+  viewBoard?:HTMLElement;
   selectHTMLElement(element:any){
     this.Tasks = element;
   }
@@ -32,6 +33,34 @@ export class DragServiceService {
     this.Tasks = undefined;
   }
 
+  goToBoardPosEL(pos:Coord){
+    if(!this.viewBoard)return;
+    let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+    let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+    this.currentBardPos.y =  (pos.y - vh/2) * -1 ;
+    this.currentBardPos.x = (pos.x - vw/2) *-1;
+    this.viewBoard.style.left = this.currentBardPos.x  + 'px';
+    this.viewBoard.style.top = this.currentBardPos.y + 'px';
+
+  }
+
+  setBoardPos(pos:Coord){
+    if(!this.viewBoard)return;
+
+    this.currentBardPos.y =  pos.y ;
+    this.currentBardPos.x = pos.x;
+    console.log(this.currentBardPos.x)
+    let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+    let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+    if(this.currentBardPos.y >0)this.currentBardPos.y = 0
+    if(this.currentBardPos.x >0)this.currentBardPos.x = 0
+     if(this.currentBardPos.y < (this.viewBoard.clientHeight - vh)*-1 )this.currentBardPos.y = (this.viewBoard.clientHeight - vh)*-1
+     if(this.currentBardPos.x < (this.viewBoard.clientWidth - vw)*-1) this.currentBardPos.x =  (this.viewBoard.clientWidth - vw)*-1
+    this.viewBoard.style.left = this.currentBardPos.x  + 'px';
+    this.viewBoard.style.top = this.currentBardPos.y + 'px';
+
+  }
+
   getPlaceOfDropped(){
     let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
     if(taskList == undefined){
@@ -45,10 +74,13 @@ export class DragServiceService {
         this.Tasks.setTaskListId(taskList.id);
         taskList.addTaskToList(this.Tasks);
         this.taskViewerService.removeTaskFromGlobalTasks(this.Tasks.id);
+      }else{
+        this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
+        this.Tasks.removeTaskListId();
+        this.Tasks.setTaskListId(taskList.id);
+        taskList.addTaskToList(this.Tasks);
       }
     } 
-    console.log(this.taskViewerService.globalTasks)
-    console.log(this.taskViewerService.globalTaskLists)
     delete this.Tasks;
   }
     

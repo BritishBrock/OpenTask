@@ -10,12 +10,24 @@ import { FactoryService } from '../../Factory/factory.service';
 export class TaskViewerBoardService {
 
   constructor(private FactoryService:FactoryService) { 
-    let arr = this.FactoryService.generateTasks(10);
-    for(let i = 0; i < arr.length;i++){
-      arr[i].pos = {x:10,y:50 * i}
-      this.addToGlobalTasks(arr[i]);
-    }
-    this.addToGlobalTasksList(new TaskList(0));
+    // let arr = this.FactoryService.generateTasks(10);
+    // for(let i = 0; i < arr.length;i++){
+    //   arr[i].pos = {x:10,y:50 * i}
+    //   this.addToGlobalTasks(arr[i]);
+    // }
+    let t1 = new TaskList(0);
+ 
+    let t2 = new TaskList(1);
+    let t3 = new TaskList(2);
+    t1.title = "title 1"
+    t1.relatesTo = t2;
+    t1.pos = {x:0,y:200}
+    t2.pos = {x:1000,y:0}
+    t3.pos = {x:500,y:500}
+
+    this.addToGlobalTasksList(t1);
+    this.addToGlobalTasksList(t2);
+
   }
   globalTasks:Task[]= [];
   globalTaskLists:TaskList[] = [];

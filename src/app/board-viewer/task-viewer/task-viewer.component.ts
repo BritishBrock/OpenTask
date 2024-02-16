@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FactoryService } from '../../Factory/factory.service';
 import { Task } from '../../Models/Task/Task';
 import { DragServiceService } from '../../Services/DragService/drag-service.service';
@@ -17,6 +17,7 @@ export class TaskViewerComponent {
   select: HTMLElement = document.createElement('div');
   htmlElement!: HTMLElement;
   isselect = false;
+  isselectM = false;
   iSX = 0;
   iSY = 0;
 
@@ -70,7 +71,6 @@ export class TaskViewerComponent {
   createTask(x:number,y:number){
     let t  =new Task(Math.floor(Math.random()*1000000000000),"new task","#FFAA97")
     t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
-    console.log(t)
     this.taskviewerService.globalTasks.push(t);
     this.isCreating = ""; 
     this.htmlElement.style.backgroundColor = "white"
@@ -78,26 +78,29 @@ export class TaskViewerComponent {
   createTaskList(x:number,y:number){
     let t  =new TaskList(Math.floor(Math.random()*1000000000000))
     t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
-    console.log(t)
     this.taskviewerService.globalTaskLists.push(t);
     this.isCreating = ""; 
     this.htmlElement.style.backgroundColor = "white"
   }
   ngOnInit() {
+    
+
+
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
 
     this.htmlElement = this.elRef.nativeElement;
+    this.dragService.viewBoard = this.htmlElement;
     //set view in the center
 
     this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
     this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
 
     window.addEventListener('keydown', (event) => {
-      if (event.key == ' ') this.isMoving = true;
+      if (event.key == 'Shift') this.isselect= true;
     });
     window.addEventListener('keyup', (event) => {
-      if (event.key == ' ') this.isMoving = false;
+      if (event.key == 'Shift') this.isselect= false;
     });
     window.addEventListener('wheel', (event) => {
       if (event.deltaY == -100) {
@@ -111,17 +114,19 @@ export class TaskViewerComponent {
     this.elRef.nativeElement.addEventListener('mousedown', (event: any) => {
       if (this.dragService.Tasks) return;
 
-      if (!this.isMoving) {
-        this.isselect = true;
+     
+        this.isselectM= true;
         this.iSX = event.x;
         this.iSY = event.y;
         this.elRef.nativeElement.append(this.select);
-      }
-       else {
-        this.iMX = event.x;
-        this.iMY = event.y;
-        this.mouseDown = true;
-      }
+      
+       if(!this.isselect){
+
+         this.iMX = event.x;
+         this.iMY = event.y;
+         this.mouseDown = true;
+       }
+      
 
       if( this.isCreating){
         if(this.isCreating == "task") this.createTask(event.x,event.y)
@@ -131,32 +136,53 @@ export class TaskViewerComponent {
 
 
     });
-
-    this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
-      if (this.dragService.Tasks)
+    this.elRef.nativeElement.addEventListener("touchmove", (event: any) => {
+      event.preventDefault();
+      var touch = event.targetTouches[0];
+      if (this.dragService.Tasks){
+        
         this.dragService.moveSelectedHTMLElement({
-          x: event.x,
-          y: event.y,
+          x: touch.clientX,
+          y: touch.clientY,
         } as Coord);
-      else if (this.isselect) {
+      }
+      else if (this.isselect && this.isselectM) {
         let width = Math.abs(this.iSX - event.x);
         let height = Math.abs(this.iSY - event.y);
         this.select.style.width = width + 'px';
         this.select.style.height = height + 'px';
-        this.select.style.left =
-          Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
+        this.select.style.left =Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
         this.select.style.top = this.iSY + 'px';
         this.select.style.position = 'absolute';
         this.select.style.border = ' 1px dashed blue';
-      } else if (this.isMoving && this.mouseDown) {
-        this.dragService.currentBardPos.x =
-          parseInt(this.htmlElement.style.left) +
-          (this.iMX - event.x - (this.iMX - event.x) * 2) / 100;
-        this.dragService.currentBardPos.y =
-          parseInt(this.htmlElement.style.top) +
-          (this.iMY - event.y - (this.iMY - event.y) * 2) / 100;
-        this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
-        this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
+      }
+      if (this.mouseDown) {
+        this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+      }
+    });
+
+
+    this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
+      if (this.dragService.Tasks){
+        this.redoCanvas()
+          this.dragService.moveSelectedHTMLElement({
+            x: event.x,
+            y: event.y,
+          } as Coord);
+      }
+      else if (this.isselect && this.isselectM) {
+        let width = Math.abs(this.iSX - event.x);
+        let height = Math.abs(this.iSY - event.y);
+        this.select.style.width = width + 'px';
+        this.select.style.height = height + 'px';
+        this.select.style.left =Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
+        this.select.style.top = this.iSY + 'px';
+        this.select.style.position = 'absolute';
+        this.select.style.border = ' 1px dashed blue';
+      }
+      if (this.mouseDown) {
+        this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+      
       }
     });
 
@@ -165,8 +191,8 @@ export class TaskViewerComponent {
       this.iMY = 0;
       this.mouseDown = false;
       this.isMoving = false;
+      this.isselectM= false;
       if (this.dragService.Tasks) return;
-      this.isselect = false;
     });
   }
 
@@ -179,5 +205,46 @@ export class TaskViewerComponent {
   zoomOut() {
     // this.zoom -= 0.1;
     // this.htmlElement.style.scale = this.zoom+"" ;
+  }
+  ngAfterViewInit(){
+   
+    let c = <HTMLCanvasElement>document.getElementById("canvas");
+    c.width = this.htmlElement.clientWidth;
+    c.height = this.htmlElement.clientHeight;
+    var ctx = c.getContext("2d")!;
+
+
+    for(let i = 0; i < this.taskLists.length;i++){
+      if(this.taskLists[i].relatesTo != undefined){
+        ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,  this.taskLists[i].relatesTo!.pos.y);
+        ctx.stroke();
+
+      }
+    }
+
+    
+
+  }
+
+
+  redoCanvas(){
+    let c = <HTMLCanvasElement>document.getElementById("canvas");
+    c.width = this.htmlElement.clientWidth;
+    c.height = this.htmlElement.clientHeight;
+    var ctx = c.getContext("2d")!;
+    ctx.clearRect(0, 0, c.width, c.height);
+
+    for(let i = 0; i < this.taskLists.length;i++){
+      if(this.taskLists[i].relatesTo != undefined){
+        ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,  this.taskLists[i].relatesTo!.pos.y);
+        ctx.stroke();
+      }
+    }
+
+
   }
 }

@@ -15,7 +15,6 @@ export class BoardService {
   addEmptyBoard(){
     this.globalBoards.push(new Board(Board.totalNumber));
     Board.totalNumber++;
-    console.log(this.globalBoards);
   }
 
 

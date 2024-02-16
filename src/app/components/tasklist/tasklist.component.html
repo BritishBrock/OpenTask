@@ -1,6 +1,7 @@
-<div class="taskListBody" >  
-    <div class="taskListHeader">
-            header example
+<div class="taskListBody" (dblclick)="doubleClick()">  
+    
+    <div type="text" class="taskListHeader">
+        {{taskList.title}}    
     </div>
     <div class="tasks">
         @for (task of taskList.tasks; track $index) {
