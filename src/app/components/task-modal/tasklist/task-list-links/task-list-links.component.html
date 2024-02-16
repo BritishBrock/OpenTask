@@ -6,13 +6,21 @@
     <button (click)="deleteLink()">Delete</button>
     <button (click)="goTo(taskList.relatesTo.pos)">goTo</button>
     
-
+    <h1>
+        Tasks
+    </h1>
+    @for (task of taskList.relatesTo.tasks; track $index) {
+        {{task.id}}
+        {{task.name}}
+    }
 
 }@else{
 
     <select name="" id="" [(ngModel)]="bind" (change)="view()">
         @for (tasklistEl of globalTaskList; track $index) {
-            <option [value]="tasklistEl.id">{{tasklistEl.id + " "+ tasklistEl.title}}</option>
+            @if(tasklistEl.id != taskList.id){
+                <option [value]="tasklistEl.id">{{tasklistEl.id + " "+ tasklistEl.title}}</option>
+            }
         }
     </select>
 }

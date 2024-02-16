@@ -157,10 +157,7 @@ export class TaskViewerComponent {
         this.select.style.border = ' 1px dashed blue';
       }
       if (this.mouseDown) {
-        this.dragService.currentBardPos.x = parseInt(this.htmlElement.style.left) +(event.movementX  ) ;
-        this.dragService.currentBardPos.y =  parseInt(this.htmlElement.style.top) +(event.movementY ) ;
-        this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
-        this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
+        this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
       }
     });
 
@@ -184,10 +181,8 @@ export class TaskViewerComponent {
         this.select.style.border = ' 1px dashed blue';
       }
       if (this.mouseDown) {
-        this.dragService.currentBardPos.x = parseInt(this.htmlElement.style.left) +(event.movementX  ) ;
-        this.dragService.currentBardPos.y =  parseInt(this.htmlElement.style.top) +(event.movementY ) ;
-        this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
-        this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
+        this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+      
       }
     });
 
