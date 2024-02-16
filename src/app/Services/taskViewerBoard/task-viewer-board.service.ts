@@ -16,17 +16,17 @@ export class TaskViewerBoardService {
     //   this.addToGlobalTasks(arr[i]);
     // }
     let t1 = new TaskList(0);
-    t1.pos = {x:1000,y:200}
+ 
     let t2 = new TaskList(1);
     let t3 = new TaskList(2);
     t1.relatesTo = t2;
-    t2.relatesTo = t3;
-    t2.pos = {x:0,y:0}
+    t1.pos = {x:0,y:200}
+    t2.pos = {x:1000,y:0}
     t3.pos = {x:500,y:500}
 
     this.addToGlobalTasksList(t1);
     this.addToGlobalTasksList(t2);
-    this.addToGlobalTasksList(t3);
+
   }
   globalTasks:Task[]= [];
   globalTaskLists:TaskList[] = [];

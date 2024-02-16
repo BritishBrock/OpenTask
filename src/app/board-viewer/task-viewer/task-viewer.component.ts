@@ -220,20 +220,11 @@ export class TaskViewerComponent {
 
     for(let i = 0; i < this.taskLists.length;i++){
       if(this.taskLists[i].relatesTo != undefined){
-        console.log("this:  x:" + this.taskLists[i].pos.x + " y: " +this.taskLists[i].pos.y)
-        console.log("that:  x:" + this.taskLists[i].relatesTo!.pos.x + " y: " +this.taskLists[i].relatesTo!.pos.y)
-       
-        if(this.taskLists[i].pos.x > this.taskLists[i].relatesTo!.pos.x){
-          ctx.moveTo(this.taskLists[i].pos.x ,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
-          ctx.lineTo(( this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2) , this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
-          ctx.lineTo((this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2), this.taskLists[i].relatesTo!.pos.y);
-        } 
-        else {
-          ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
-          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
-          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y + this.taskLists[i].relatesTo!.pos.y);
-        }
+        ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,  this.taskLists[i].relatesTo!.pos.y);
         ctx.stroke();
+
       }
     }
 
@@ -251,16 +242,9 @@ export class TaskViewerComponent {
 
     for(let i = 0; i < this.taskLists.length;i++){
       if(this.taskLists[i].relatesTo != undefined){
-        if(this.taskLists[i].pos.x > this.taskLists[i].relatesTo!.pos.x){
-          ctx.moveTo(this.taskLists[i].pos.x ,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
-          ctx.lineTo(( this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2) , this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
-          ctx.lineTo((this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth /2), this.taskLists[i].relatesTo!.pos.y);
-        } 
-        else {
-          ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
-          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
-          ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y + this.taskLists[i].relatesTo!.pos.y);
-        }
+        ctx.moveTo(this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2)
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2, this.taskLists[i].pos.y+ this.taskLists[i].htmlElement.clientHeight/2);
+        ctx.lineTo(this.taskLists[i].relatesTo!.pos.x + this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,  this.taskLists[i].relatesTo!.pos.y);
         ctx.stroke();
       }
     }
