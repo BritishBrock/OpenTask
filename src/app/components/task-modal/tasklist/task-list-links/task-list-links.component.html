@@ -1,0 +1,12 @@
+<h1>tasklist links</h1>
+
+@if(taskList.relatesTo){
+    {{taskList.relatesTo.title }}
+}@else{
+
+    <select name="" id="" [(ngModel)]="bind" (change)="view()">
+        @for (tasklistEl of globalTaskList; track $index) {
+            <option [value]="tasklistEl.id">{{tasklistEl.id + " "+ tasklistEl.title}}</option>
+        }
+    </select>
+}

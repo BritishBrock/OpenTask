@@ -1,6 +1,8 @@
 <div class="taskListBody" (dblclick)="doubleClick()">  
     
-    <input type="text" [(ngModel)]="taskList.title" class="taskListHeader" />
+    <div type="text" class="taskListHeader">
+        {{taskList.title}}    
+    </div>
     <div class="tasks">
         @for (task of taskList.tasks; track $index) {
             <ng-container style="margin: 10px;" *ngComponentOutlet="task.component  inputs: {task:task};"/>

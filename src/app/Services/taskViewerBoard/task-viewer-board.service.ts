@@ -19,6 +19,7 @@ export class TaskViewerBoardService {
  
     let t2 = new TaskList(1);
     let t3 = new TaskList(2);
+    t1.title = "title 1"
     t1.relatesTo = t2;
     t1.pos = {x:0,y:200}
     t2.pos = {x:1000,y:0}

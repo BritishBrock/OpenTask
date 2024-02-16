@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../../Models/Task/Task';
+import { Task } from '../../../../Models/Task/Task';
 
 @Component({
   selector: 'app-task-colors',
