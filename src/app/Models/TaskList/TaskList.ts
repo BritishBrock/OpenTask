@@ -8,11 +8,12 @@ export class TaskList{
     pos:Coord;
     id:number;
     relatesTo?:TaskList;
-    title:string  ="exampel text"
+    title:string
     constructor(id?:number){
         this.id =   TaskList.lastID++;
         this.component = TasklistComponent;
         this.pos = {x:0,y:0}
+        this.title = `Example text (${this.id})`
     }
     component;
     htmlElement!:HTMLElement;
