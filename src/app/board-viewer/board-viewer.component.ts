@@ -3,6 +3,7 @@ import { TaskViewerComponent } from './task-viewer/task-viewer.component';
 import { TaskViewerListComponent } from './task-viewer-list/task-viewer-list.component';
 import { TaskViewerCalendarComponent } from './task-viewer-calendar/task-viewer-calendar.component';
 import { SimpleViewerComponent } from './simple-viewer/simple-viewer.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board-viewer',
@@ -12,7 +13,10 @@ import { SimpleViewerComponent } from './simple-viewer/simple-viewer.component';
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
     component:any = TaskViewerComponent;
-    constructor(private elRef:ElementRef){}
+    constructor(
+      private elRef:ElementRef,
+      private router:Router
+      ){}
 
     boardViews = [
       // {
@@ -47,5 +51,10 @@ export class BoardViewerComponent {
       
     ]
 
+
+
+    returnToBoardSelction(){
+      this.router.navigateByUrl("/");
+    }
 
 }
