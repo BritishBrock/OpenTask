@@ -3,14 +3,14 @@ import { Coord, Size } from "../../interfaces/Coord/Coord";
 import { Task } from "../Task/Task";
 
 export class TaskList{
-    
+    static lastID:number = 0; 
     tasks:Task[] = [];
     pos:Coord;
     id:number;
     relatesTo?:TaskList;
     title:string  ="exampel text"
-    constructor(id:number){
-        this.id = id;
+    constructor(id?:number){
+        this.id =   TaskList.lastID++;
         this.component = TasklistComponent;
         this.pos = {x:0,y:0}
     }
