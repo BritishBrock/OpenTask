@@ -24,6 +24,17 @@
         font-weight: 700;
         color: #7b7b7b;
     }
+    .locked{
+        width: 25px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        color: white;
+        background-color: black;
+        cursor: pointer;
+    }
 }
 
 .description{

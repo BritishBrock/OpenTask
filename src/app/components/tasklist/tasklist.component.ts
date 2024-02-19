@@ -44,7 +44,7 @@ export class TasklistComponent {
       switch (event.which) {
           case 1:
             if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
-            if(!this.DragService.Tasks){
+            if(!this.DragService.Tasks && !this.taskList.isLocked){
               this.DragService.selectHTMLElement(this.taskList)
             };
           break;

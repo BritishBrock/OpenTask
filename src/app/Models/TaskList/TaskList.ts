@@ -9,6 +9,7 @@ export class TaskList{
     id:number;
     relatesTo?:TaskList;
     title:string
+    isLocked:boolean = false;
     constructor(id?:number){
         this.id =   TaskList.lastID++;
         this.component = TasklistComponent;
