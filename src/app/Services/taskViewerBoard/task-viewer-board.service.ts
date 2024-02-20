@@ -3,6 +3,7 @@ import { TaskList } from '../../Models/TaskList/TaskList';
 import { Task } from '../../Models/Task/Task';
 import { Coord } from '../../interfaces/Coord/Coord';
 import { FactoryService } from '../../Factory/factory.service';
+import { StickyNote } from '../../Models/stickyNote/stickyNote';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,7 @@ export class TaskViewerBoardService {
   }
   globalTasks:Task[]= [];
   globalTaskLists:TaskList[] = [];
+  globalStickyNotes:StickyNote[] = [];
 
   addToGlobalTasks(task:Task){
     this.globalTasks.push(task);

@@ -20,6 +20,7 @@ import { BoardPickerComponent } from './board-picker/board-picker.component';
 import { SimpleViewerComponent } from './board-viewer/simple-viewer/simple-viewer.component';
 import { TaskListDetailsComponent } from './components/task-modal/tasklist/task-list-details/task-list-details.component';
 import { TaskListLinksComponent } from './components/task-modal/tasklist/task-list-links/task-list-links.component';
+import { StickyNoteComponent } from './components/sticky-note/sticky-note.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { TaskListLinksComponent } from './components/task-modal/tasklist/task-li
     SimpleViewerComponent,
     TaskListDetailsComponent,
     TaskListLinksComponent,
+    StickyNoteComponent,
 
 
   ],

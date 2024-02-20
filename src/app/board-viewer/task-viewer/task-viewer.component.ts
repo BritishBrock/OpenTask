@@ -5,6 +5,7 @@ import { DragServiceService } from '../../Services/DragService/drag-service.serv
 import { Coord } from '../../interfaces/Coord/Coord';
 import { TaskList } from '../../Models/TaskList/TaskList';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
+import { StickyNote } from '../../Models/stickyNote/stickyNote';
 
 @Component({
   selector: 'app-task-viewer',
@@ -14,6 +15,7 @@ import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-view
 export class TaskViewerComponent {
   tasks: Task[] = [];
   taskLists: TaskList[] = [];
+  stickyNotes: StickyNote[] = [];
   select: HTMLElement = document.createElement('div');
   htmlElement!: HTMLElement;
   isselect = false;
@@ -46,9 +48,10 @@ export class TaskViewerComponent {
       }
     },
     {
-      title:"Task",
+      title:"Sticky Note",
       click: ()=>{
-        this.isCreating = "task"; 
+        this.isCreating = "stickyNote"; 
+        this.htmlElement.style.backgroundColor = "grey"
       }
     }
   ]
@@ -82,12 +85,20 @@ export class TaskViewerComponent {
     this.isCreating = ""; 
     this.htmlElement.style.backgroundColor = "white"
   }
+  createStickyNote(x:number,y:number){
+    let t  =new StickyNote()
+    t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
+    this.taskviewerService.globalStickyNotes.push(t);
+    this.isCreating = ""; 
+    this.htmlElement.style.backgroundColor = "white"
+  }
   ngOnInit() {
     
 
 
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
+    this.stickyNotes = this.taskviewerService.globalStickyNotes;
 
     this.htmlElement = this.elRef.nativeElement;
     this.dragService.viewBoard = this.htmlElement;
@@ -131,6 +142,7 @@ export class TaskViewerComponent {
       if( this.isCreating){
         if(this.isCreating == "task") this.createTask(event.x,event.y)
         if(this.isCreating == "taskList") this.createTaskList(event.x,event.y)
+        if(this.isCreating == "stickyNote") this.createStickyNote(event.x,event.y)
       }
 
 
@@ -248,3 +260,7 @@ export class TaskViewerComponent {
 
   }
 }
+
+
+
+
