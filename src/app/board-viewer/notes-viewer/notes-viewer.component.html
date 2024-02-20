@@ -1,0 +1,8 @@
+<div class="noteBody">
+    <h1>NOTES</h1>
+    @for (note of notes; track $index) {
+        <div> {{note}} <button (click)="removeNote($index)">Remove</button></div>
+    }
+    <input type="text" name="" id="" [(ngModel)]="noteToAdd">
+    <button (click)="addNote()">Add</button>
+</div>

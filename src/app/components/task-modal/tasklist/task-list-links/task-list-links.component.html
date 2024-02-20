@@ -19,7 +19,7 @@
     <select name="" id="" [(ngModel)]="bind" (change)="view()">
         @for (tasklistEl of globalTaskList; track $index) {
             @if(tasklistEl.id != taskList.id){
-                <option [value]="tasklistEl.id">{{tasklistEl.id + " "+ tasklistEl.title}}</option>
+                <option [value]="tasklistEl.id">{{ tasklistEl.title}}</option>
             }
         }
     </select>

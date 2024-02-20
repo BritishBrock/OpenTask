@@ -32,6 +32,17 @@ export class TasklistComponent {
         this.DragService.clearSelectedHTMLElement();
         
       })
+      this.nativeElement!.addEventListener("touchend",(event:any)=>{
+        this.nativeElement!.style.position = "absolute"
+        this.nativeElement!.style.left = this.taskList.pos.x  +"px";
+        this.nativeElement!.style.top =  this.taskList.pos.y +"px";
+      
+   
+        if(this.DragService.Tasks)
+        this.DragService.clearSelectedHTMLElement();
+  
+  
+      })
     }
   }
 
@@ -44,7 +55,7 @@ export class TasklistComponent {
       switch (event.which) {
           case 1:
             if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
-            if(!this.DragService.Tasks){
+            if(!this.DragService.Tasks && !this.taskList.isLocked){
               this.DragService.selectHTMLElement(this.taskList)
             };
           break;
@@ -52,6 +63,13 @@ export class TasklistComponent {
           case 3:
              this.openContectMenu({x:event.x,y:event.y});
           break;
+      }
+    })
+    this.nativeElement.addEventListener("touchstart",(event:any)=>{
+      event.preventDefault();
+    
+            if(!this.DragService.Tasks){
+       this.DragService.selectHTMLElement(this.taskList)
       }
     })
   }

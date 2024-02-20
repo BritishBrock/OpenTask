@@ -5,6 +5,8 @@ import { DragServiceService } from '../../Services/DragService/drag-service.serv
 import { Coord } from '../../interfaces/Coord/Coord';
 import { TaskList } from '../../Models/TaskList/TaskList';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
+import { StickyNote } from '../../Models/stickyNote/stickyNote';
+import { TaskModalService } from '../../Services/task-modal.service';
 
 @Component({
   selector: 'app-task-viewer',
@@ -14,6 +16,7 @@ import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-view
 export class TaskViewerComponent {
   tasks: Task[] = [];
   taskLists: TaskList[] = [];
+  stickyNotes: StickyNote[] = [];
   select: HTMLElement = document.createElement('div');
   htmlElement!: HTMLElement;
   isselect = false;
@@ -46,9 +49,10 @@ export class TaskViewerComponent {
       }
     },
     {
-      title:"Task",
+      title:"Sticky Note",
       click: ()=>{
-        this.isCreating = "task"; 
+        this.isCreating = "stickyNote"; 
+        this.htmlElement.style.backgroundColor = "grey"
       }
     }
   ]
@@ -60,7 +64,8 @@ export class TaskViewerComponent {
     private FactoryService: FactoryService,
     private elRef: ElementRef,
     private dragService: DragServiceService,
-    private taskviewerService: TaskViewerBoardService
+    private taskviewerService: TaskViewerBoardService,
+    private taskModalService:TaskModalService,
   ) {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
@@ -69,25 +74,35 @@ export class TaskViewerComponent {
 
 
   createTask(x:number,y:number){
-    let t  =new Task(Math.floor(Math.random()*1000000000000),"new task","#FFAA97")
+    let t  =new Task("new task","#FFAA97")
     t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
     this.taskviewerService.globalTasks.push(t);
     this.isCreating = ""; 
     this.htmlElement.style.backgroundColor = "white"
   }
   createTaskList(x:number,y:number){
-    let t  =new TaskList(Math.floor(Math.random()*1000000000000))
+    let t  =new TaskList()
     t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
     this.taskviewerService.globalTaskLists.push(t);
     this.isCreating = ""; 
     this.htmlElement.style.backgroundColor = "white"
   }
+  createStickyNote(x:number,y:number){
+    let t  =new StickyNote()
+    t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
+    this.taskviewerService.globalStickyNotes.push(t);
+    this.isCreating = ""; 
+    this.htmlElement.style.backgroundColor = "white"
+  }
+  previousTouch:any;
+  isModalOpen = false;
   ngOnInit() {
     
 
-
+    
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
+    this.stickyNotes = this.taskviewerService.globalStickyNotes;
 
     this.htmlElement = this.elRef.nativeElement;
     this.dragService.viewBoard = this.htmlElement;
@@ -95,6 +110,13 @@ export class TaskViewerComponent {
 
     this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
     this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
+
+
+    this.taskModalService.TaskModalOpen.subscribe(isOpen=>{
+      console.log(isOpen)
+      this.isModalOpen = isOpen;
+      
+    })
 
     window.addEventListener('keydown', (event) => {
       if (event.key == 'Shift') this.isselect= true;
@@ -131,6 +153,7 @@ export class TaskViewerComponent {
       if( this.isCreating){
         if(this.isCreating == "task") this.createTask(event.x,event.y)
         if(this.isCreating == "taskList") this.createTaskList(event.x,event.y)
+        if(this.isCreating == "stickyNote") this.createStickyNote(event.x,event.y)
       }
 
 
@@ -138,9 +161,10 @@ export class TaskViewerComponent {
     });
     this.elRef.nativeElement.addEventListener("touchmove", (event: any) => {
       event.preventDefault();
+      if(this.isModalOpen)return;
       var touch = event.targetTouches[0];
       if (this.dragService.Tasks){
-        
+        this.redoCanvas()
         this.dragService.moveSelectedHTMLElement({
           x: touch.clientX,
           y: touch.clientY,
@@ -156,13 +180,24 @@ export class TaskViewerComponent {
         this.select.style.position = 'absolute';
         this.select.style.border = ' 1px dashed blue';
       }
-      if (this.mouseDown) {
-        this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+      
+      if (!this.dragService.Tasks) {
+        const touch = event.touches[0];
+
+        if (this.previousTouch) {
+          let velocidad = 5;
+            event.movementX = touch.pageX < this.previousTouch.pageX ? -velocidad : velocidad;
+            event.movementY = touch.pageY < this.previousTouch.pageY ? -velocidad : velocidad;
+            this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+        };
+    
+        this.previousTouch = touch;
       }
     });
 
 
     this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
+      if(this.isModalOpen)return;
       if (this.dragService.Tasks){
         this.redoCanvas()
           this.dragService.moveSelectedHTMLElement({

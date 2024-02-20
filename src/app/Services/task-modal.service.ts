@@ -12,5 +12,5 @@ export class TaskModalService {
   
   taskModal:Subject<Task> = new Subject<Task>();
   taskListModal:Subject<TaskList> = new Subject<TaskList>();
-
+  TaskModalOpen:Subject<boolean> = new Subject<boolean>()
 }

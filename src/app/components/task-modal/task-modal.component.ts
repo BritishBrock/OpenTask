@@ -19,6 +19,7 @@ import { Subject } from 'rxjs';
 
 export class TaskModalComponent {
   isTaskModalOpen:boolean = false;
+
   task?:Task;
   taskList?:TaskList;
   constructor(private taskModalService:TaskModalService){}
@@ -54,6 +55,11 @@ export class TaskModalComponent {
     },
   ]
 
+  closeModal(){
+    this.isTaskModalOpen = false
+    this.taskModalService.TaskModalOpen.next(false)
+  }
+
   taskListOpcions = [
     {
       title:"Tasklist Details",
@@ -76,7 +82,7 @@ export class TaskModalComponent {
 
     this.event.subscribe((event:any)=>{
         if(event.function == "goTo"){
-        
+          this.taskModalService.TaskModalOpen.next(false)
         }
     })
 
@@ -88,6 +94,7 @@ export class TaskModalComponent {
       this.input = {task:this.task};
       this.component = TaskDetailsComponent;
       this.isTaskModalOpen=true;
+      this.taskModalService.TaskModalOpen.next(true)
     })
 
     this.taskModalService.taskListModal.subscribe((taskList:TaskList)=>{
@@ -97,6 +104,7 @@ export class TaskModalComponent {
       this.taklistcomponent = TaskListDetailsComponent;
       this.input = {taskList:this.taskList};
       this.isTaskModalOpen=true;
+      this.taskModalService.TaskModalOpen.next(true)
     })
   }
 

@@ -1,7 +1,7 @@
 
 <div class="taskDetailsBody">
     <div class="nameWrapper">
-        <input type="text" class="name" [(ngModel)]="taskList.title" />
+        <input type="text" class="name" [(ngModel)]="taskList.title" /> <div class="locked" (click)="this.taskList.isLocked = !this.taskList.isLocked">L</div>
     </div>
     <div class="divider"></div>
 </div>
