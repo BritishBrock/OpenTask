@@ -21,6 +21,7 @@ import { SimpleViewerComponent } from './board-viewer/simple-viewer/simple-viewe
 import { TaskListDetailsComponent } from './components/task-modal/tasklist/task-list-details/task-list-details.component';
 import { TaskListLinksComponent } from './components/task-modal/tasklist/task-list-links/task-list-links.component';
 import { StickyNoteComponent } from './components/sticky-note/sticky-note.component';
+import { NotesViewerComponent } from './board-viewer/notes-viewer/notes-viewer.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { StickyNoteComponent } from './components/sticky-note/sticky-note.compon
     TaskListDetailsComponent,
     TaskListLinksComponent,
     StickyNoteComponent,
+    NotesViewerComponent,
 
 
   ],

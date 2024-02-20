@@ -4,6 +4,7 @@ import { TaskViewerListComponent } from './task-viewer-list/task-viewer-list.com
 import { TaskViewerCalendarComponent } from './task-viewer-calendar/task-viewer-calendar.component';
 import { SimpleViewerComponent } from './simple-viewer/simple-viewer.component';
 import { Router } from '@angular/router';
+import { NotesViewerComponent } from './notes-viewer/notes-viewer.component';
 
 @Component({
   selector: 'app-board-viewer',
@@ -45,6 +46,13 @@ export class BoardViewerComponent {
         title:"List Calender",
         onclick:()=>{
           this.component = TaskViewerCalendarComponent;
+          this.isNavClosed=false;
+        }
+      },
+      {
+        title:"Notes ",
+        onclick:()=>{
+          this.component = NotesViewerComponent;
           this.isNavClosed=false;
         }
       },
