@@ -6,6 +6,7 @@ import { Coord } from '../../interfaces/Coord/Coord';
 import { TaskList } from '../../Models/TaskList/TaskList';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 import { StickyNote } from '../../Models/stickyNote/stickyNote';
+import { TaskModalService } from '../../Services/task-modal.service';
 
 @Component({
   selector: 'app-task-viewer',
@@ -63,7 +64,8 @@ export class TaskViewerComponent {
     private FactoryService: FactoryService,
     private elRef: ElementRef,
     private dragService: DragServiceService,
-    private taskviewerService: TaskViewerBoardService
+    private taskviewerService: TaskViewerBoardService,
+    private taskModalService:TaskModalService,
   ) {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
@@ -93,10 +95,11 @@ export class TaskViewerComponent {
     this.htmlElement.style.backgroundColor = "white"
   }
   previousTouch:any;
+  isModalOpen = false;
   ngOnInit() {
     
 
-
+    
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
@@ -107,6 +110,13 @@ export class TaskViewerComponent {
 
     this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
     this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
+
+
+    this.taskModalService.TaskModalOpen.subscribe(isOpen=>{
+      console.log(isOpen)
+      this.isModalOpen = isOpen;
+      
+    })
 
     window.addEventListener('keydown', (event) => {
       if (event.key == 'Shift') this.isselect= true;
@@ -151,6 +161,7 @@ export class TaskViewerComponent {
     });
     this.elRef.nativeElement.addEventListener("touchmove", (event: any) => {
       event.preventDefault();
+      if(this.isModalOpen)return;
       var touch = event.targetTouches[0];
       if (this.dragService.Tasks){
         this.redoCanvas()
@@ -186,6 +197,7 @@ export class TaskViewerComponent {
 
 
     this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
+      if(this.isModalOpen)return;
       if (this.dragService.Tasks){
         this.redoCanvas()
           this.dragService.moveSelectedHTMLElement({
