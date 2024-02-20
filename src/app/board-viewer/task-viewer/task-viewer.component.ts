@@ -92,6 +92,7 @@ export class TaskViewerComponent {
     this.isCreating = ""; 
     this.htmlElement.style.backgroundColor = "white"
   }
+  previousTouch:any;
   ngOnInit() {
     
 
@@ -152,7 +153,7 @@ export class TaskViewerComponent {
       event.preventDefault();
       var touch = event.targetTouches[0];
       if (this.dragService.Tasks){
-        
+        this.redoCanvas()
         this.dragService.moveSelectedHTMLElement({
           x: touch.clientX,
           y: touch.clientY,
@@ -168,8 +169,18 @@ export class TaskViewerComponent {
         this.select.style.position = 'absolute';
         this.select.style.border = ' 1px dashed blue';
       }
-      if (this.mouseDown) {
-        this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+      
+      if (!this.dragService.Tasks) {
+        const touch = event.touches[0];
+
+        if (this.previousTouch) {
+          let velocidad = 5;
+            event.movementX = touch.pageX < this.previousTouch.pageX ? -velocidad : velocidad;
+            event.movementY = touch.pageY < this.previousTouch.pageY ? -velocidad : velocidad;
+            this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+        };
+    
+        this.previousTouch = touch;
       }
     });
 
@@ -260,7 +271,3 @@ export class TaskViewerComponent {
 
   }
 }
-
-
-
-
