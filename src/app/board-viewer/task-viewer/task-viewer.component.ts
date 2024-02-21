@@ -60,6 +60,9 @@ export class TaskViewerComponent {
 
 
 
+
+
+
   constructor(
     private FactoryService: FactoryService,
     private elRef: ElementRef,
@@ -70,6 +73,11 @@ export class TaskViewerComponent {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
     // });
+  }
+
+  isCreateMenuOpen:boolean = false;
+  toggleCreateMenu(){
+    this.isCreateMenuOpen = !this.isCreateMenuOpen;
   }
 
 
