@@ -1,10 +1,45 @@
 
+
+.taskviewerlistbody{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .header{
+    margin-top: 50px;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .headerOption{
+      cursor: pointer;
+      margin: 0 25px;
+    }
+  }
+  .body{
+    width: 100%;
+
+    overflow-y: auto;
+  }
+}
+
+
+
+
+
+
+
+
+
 .main-table-containter{
     margin-top: 50px;
     border-radius:3vmin;
     background-color:#F6F6F4;
     //max-width:900px;
     width:100%;
+    overflow-x: auto;
     
       padding: 1rem 1rem;
     box-shadow: 0px 2px 5px 0px #00000033;
@@ -57,14 +92,14 @@
   table{
     width:100%;
     font-weight:600;
-    FONT-SIZE:11PX;
+    font-size:1em;
     BORDER-COLLAPSE:COLLAPSE;
     color:#474747;
   }
   
   tr{
     transition:background-color 0.2s;
-  
+
   }
   tr:hover{
     background-color:#FFFFFD;
@@ -72,6 +107,7 @@
   }
   td{
     padding:1rem;
+    text-transform: capitalize;
     border:none;
   }
   
@@ -117,7 +153,11 @@
     PADDING:0.5REM;
     BORDER-RADIUS:0.5REM;
   }
-  
+  th{
+    text-transform: capitalize;
+    padding: 0 10px;
+    font-weight: 600;
+  }
   .cancelado{
       background-color:#F3DEDC;
     COLOR:#CF5858;

@@ -1,31 +1,66 @@
-
-<!-- 
-
-<table>
-    <tr>
-        <th>id</th>
-        <th>Name</th>
-        <th>descripcion</th>
-        <th>colorTag</th>
-        <th>cardColorTagType</th>
-        <th>taskListId</th>
-        <th>pos</th>
-    </tr>
-    @for (task of tasks; track $index) {
-    <tr>
-        <td>{{task.id}}</td>
-        <td>{{task.name}}</td>
-        <td>{{task.descripcion}}</td>
-       <td> <input type="color" [(ngModel)]="task.colorTag" name="" id=""></td>
-        <td>{{task.cardColorTagType}}</td>
-        <td>{{task.taskListId ?? "-"}}</td>
-        <td>{{task.pos |json}}</td>
-    </tr>
+<div class="taskviewerlistbody">
+  <div class="header">
+    <div class="headerOption"(click)="menuSelected = 'task'">
+      Tasks
+    </div>
+    <div class="headerOption" (click)="menuSelected = 'taskList'">
+      Task Lists
+    </div>
+  </div>
+  <div class="body">
+    @if (menuSelected == "task") {
+      <div class="listTasks">
+        <div class='main-table-containter' >
+          <div class='title-table-container'>
+            <div class='subtitle'>Tasks</div>
+            <button class='select-button'> Reciente </button>
+          </div>
+          <div>
+            <table>
+              <thead>
+                  <th>id</th>
+                  <th>Name</th>
+                  <th>descripcion</th>
+                  <th>colorTag</th>
+                  <th>cardColorTagType</th>
+                  <th>taskListId</th>
+                  <th>pos</th>
+                  <th>opcions</th>
+              </thead>
+              <tbody>
+      
+                  @for (task of tasks; track $index) {
+      
+                <tr>
+                  <td>{{task.id}}</td>
+                  <td><input type="text" [(ngModel)]="task.name"  name="" id=""></td>
+                  <td><input type="text" [(ngModel)]="task.descripcion"  name="" id=""></td>
+                  <td> <input type="color" [(ngModel)]="task.colorTag" name="" id=""></td>
+                  <td><select [(ngModel)]="task.cardColorTagType">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                  </select></td>
+                  <td>{{task.taskListId ?? "-"}}</td>
+                  <td>{{task.pos |json}}</td>
+                  <td><svg class='dot' viewBox="0 0 512 512" width="100" title="ellipsis-h">
+          <path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z" />
+        </svg></td>
+                </tr>
+      
+      
+              }
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        
+      </div>
     }
-</table> -->
-
-
- <div class='main-table-containter'>
+    @if (menuSelected == "taskList") {
+    <div class="listTaskLists">
+      
+   <div class='main-table-containter'>
     <div class='title-table-container'>
       <div class='subtitle'>Tasks</div>
       <button class='select-button'> Reciente </button>
@@ -34,35 +69,25 @@
       <table>
         <thead>
             <th>id</th>
-            <th>Name</th>
-            <th>descripcion</th>
-            <th>colorTag</th>
-            <th>cardColorTagType</th>
-            <th>taskListId</th>
-            <th>pos</th>
-            <th>opcions</th>
+            <th>title</th>
+            <th>Relates To</th>
+            <th>Locked</th>
         </thead>
         <tbody>
-
-            @for (task of tasks; track $index) {
-
+  
+            @for (taskList of taskLists; track $index) {
+  
           <tr>
-            <td>{{task.id}}</td>
-            <td><input type="text" [(ngModel)]="task.name"  name="" id=""></td>
-            <td><input type="text" [(ngModel)]="task.descripcion"  name="" id=""></td>
-            <td> <input type="color" [(ngModel)]="task.colorTag" name="" id=""></td>
-            <td><select [(ngModel)]="task.cardColorTagType">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select></td>
-            <td>{{task.taskListId ?? "-"}}</td>
-            <td>{{task.pos |json}}</td>
+            <td>{{taskList.id}}</td>
+            <td><input type="text" [(ngModel)]="taskList.title"  name="" id=""></td>
+              <td> {{taskList.relatesTo?.title ?? ""}}</td>
+            <td>{{taskList.isLocked ? "Yes":"No"}}</td>
             <td><svg class='dot' viewBox="0 0 512 512" width="100" title="ellipsis-h">
     <path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z" />
   </svg></td>
           </tr>
-
-
+  
+  
         }
         </tbody>
       </table>
@@ -70,3 +95,12 @@
     
   </div>
   
+    </div>
+    }
+  
+  </div>
+  
+
+
+</div>
+
