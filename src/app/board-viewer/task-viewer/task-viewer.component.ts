@@ -203,7 +203,14 @@ export class TaskViewerComponent {
       }
     });
 
-
+    this.elRef.nativeElement.addEventListener('mouseleave', (event: any) => {
+      if(!this.dragService.Tasks)return;
+      this.dragService.Tasks.htmlElement!.style.position = "absolute"
+      this.dragService.Tasks.htmlElement!.style.left = event.x  +"px";
+      this.dragService.Tasks.htmlElement!.style.top =  event.y +"px";
+      //this.dragService.getPlaceOfDropped();
+       this.dragService.clearSelectedHTMLElement();
+    })
     this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
     if(this.isModalOpen)return;
       if (this.dragService.Tasks){
