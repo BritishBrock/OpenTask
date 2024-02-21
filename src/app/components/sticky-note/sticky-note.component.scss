@@ -1,4 +1,7 @@
 /* Some positioning and ratios */
+:host{
+  z-index: 1000000000;
+}
 .sticky-container {
   position: relative;
 }
