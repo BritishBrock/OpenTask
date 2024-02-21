@@ -205,8 +205,9 @@ export class TaskViewerComponent {
 
 
     this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
-      if(this.isModalOpen)return;
+    if(this.isModalOpen)return;
       if (this.dragService.Tasks){
+        
         this.redoCanvas()
           this.dragService.moveSelectedHTMLElement({
             x: event.x,

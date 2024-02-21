@@ -12,6 +12,7 @@ import { TaskModalService } from '../../Services/task-modal.service';
 })
 export class TaskComponent {
   @Input() task!:Task;
+  @Input() isInModal?:boolean;
   nativeElement?:HTMLElement;
 
   isTaskModalOpen:boolean = false;
@@ -25,6 +26,15 @@ export class TaskComponent {
     this.nativeElement = this.elRef.nativeElement;
   }
   ngOnInit(){
+
+
+
+    
+
+
+
+
+    if(this.isInModal) return;
     this.nativeElement!.addEventListener("mouseup",(event:any)=>{
       this.nativeElement!.style.position = "absolute"
       this.nativeElement!.style.left =+ this.task.pos.x+"px";
@@ -34,8 +44,8 @@ export class TaskComponent {
         this.nativeElement!.style.left = "0";
         this.nativeElement!.style.top = "0";
       }
-     
-      if(this.DragService.Tasks)
+      
+      if(this.DragService.Tasks )
       this.DragService.getPlaceOfDropped();
       this.DragService.clearSelectedHTMLElement();
 
@@ -62,8 +72,7 @@ export class TaskComponent {
 
 
   mousedown(){
-    if(!this.nativeElement) return;
-    this.nativeElement.addEventListener("mousedown",(event:any)=>{
+    this.nativeElement!.addEventListener("mousedown",(event:any)=>{
       switch (event.which) {
           case 1:
             if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
@@ -77,9 +86,8 @@ export class TaskComponent {
           break;
       }
     })
-    this.nativeElement.addEventListener("touchstart",(event:any)=>{
+    this.nativeElement!.addEventListener("touchstart",(event:any)=>{
       event.preventDefault();
-    
             if(!this.DragService.Tasks){
        this.DragService.selectHTMLElement(this.task)
       }
@@ -113,19 +121,19 @@ export class TaskComponent {
     this.nativeElement!.style.left =  this.task.pos.x +"px";
     this.nativeElement!.style.top = this.task.pos.y +"px";
   
-    if(this.task.isInTaskList){
+    if(this.task.isInTaskList ||this.isInModal){
       this.nativeElement!.style.position = "relative"
       this.nativeElement!.style.left = "0";
       this.nativeElement!.style.top = "0";
     }
     
+    if(this.nativeElement && !this.isInModal) {
 
-    if(this.nativeElement) {
       this.task.setHtmlElement(this.nativeElement);
+
       this.mousedown();
-     
-      
     }
+
   }
 
 }
