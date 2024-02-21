@@ -43,6 +43,7 @@ export class TaskComponent {
         this.nativeElement!.style.position = "relative"
         this.nativeElement!.style.left = "0";
         this.nativeElement!.style.top = "0";
+        this.nativeElement!.style.zIndex = "0";
       }
       
       if(this.DragService.Tasks )
@@ -59,6 +60,7 @@ export class TaskComponent {
         this.nativeElement!.style.position = "relative"
         this.nativeElement!.style.left = "0";
         this.nativeElement!.style.top = "0";
+        this.nativeElement!.style.zIndex = "0";
       }
      
       if(this.DragService.Tasks)
@@ -125,6 +127,7 @@ export class TaskComponent {
       this.nativeElement!.style.position = "relative"
       this.nativeElement!.style.left = "0";
       this.nativeElement!.style.top = "0";
+      this.nativeElement!.style.zIndex = "0";
     }
     
     if(this.nativeElement && !this.isInModal) {
