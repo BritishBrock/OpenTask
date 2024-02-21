@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Task } from '../../Models/Task/Task';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
+import { TaskModalService } from '../../Services/task-modal.service';
 
 @Component({
   selector: 'app-task-viewer-calendar',
@@ -10,7 +11,10 @@ import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-view
 export class TaskViewerCalendarComponent {
 
 
-  constructor(private TaskViewerBoardService:TaskViewerBoardService){}
+  constructor(
+    private TaskViewerBoardService:TaskViewerBoardService,
+    private modalService:TaskModalService,
+    ){}
 
   currentYear:any;
   selectYear:any;
@@ -162,6 +166,8 @@ export class TaskViewerCalendarComponent {
 
 
 cellCliked(date?:any){
+  //only works with the first task that exists on that date, needs to change to work with multiple.
+  this.modalService.taskModal.next(this.taskEndDates[""+ this.currentYear +"-"+ (this.currentMonth+1) +"-"+date][0])
   console.log( this.taskEndDates[""+ this.currentYear +"-"+ (this.currentMonth+1) +"-"+date])
 }
 
