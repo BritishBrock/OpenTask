@@ -121,9 +121,7 @@ export class TaskViewerComponent {
 
 
     this.taskModalService.TaskModalOpen.subscribe(isOpen=>{
-      console.log(isOpen)
       this.isModalOpen = isOpen;
-      
     })
 
     window.addEventListener('keydown', (event) => {
