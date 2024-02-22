@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { Board } from '../../Models/Board/Board';
+import { BoardService } from '../board/board.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DBService {
-  constructor() {}
+  constructor( private boardService: BoardService,) {}
   dbCompelte:Subject<any>= new Subject<any>();
   db: any;
   loadBoards() {
@@ -49,9 +50,10 @@ export class DBService {
 
 
 
-
+  openRequest:any;
    openDB() {
-    let openRequest = indexedDB.open('OpenTask',1);
+    if(this.db)return;
+     let openRequest = indexedDB.open('OpenTask',1);
 
     openRequest.onupgradeneeded =  ()=> {
       let db = openRequest.result;
@@ -67,7 +69,11 @@ export class DBService {
     openRequest.onsuccess =  ()=> {
        this.db = openRequest.result;
        this.dbCompelte.next(true)
+       const int = setInterval(() => {
+        this.storeBoards(this.boardService.globalBoards); 
+      }, 10000);
     };
+
 
   }
 }

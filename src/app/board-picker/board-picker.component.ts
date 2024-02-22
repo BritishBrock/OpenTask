@@ -11,83 +11,72 @@ import { DBService } from '../Services/DB/db.service';
 @Component({
   selector: 'app-board-picker',
   templateUrl: './board-picker.component.html',
-  styleUrl: './board-picker.component.scss'
+  styleUrl: './board-picker.component.scss',
 })
 export class BoardPickerComponent {
+  boards: Board[] = [];
+  file?: File;
+   
+  constructor(
+    private boardService: BoardService,
+    private Router: Router,
+    private sanitizer: DomSanitizer,
+    private DBService: DBService
+  ) {
 
-  boards:Board[] = [];
-  file?:File;
-  constructor(private boardService:BoardService,private Router:Router,private sanitizer: DomSanitizer,private DBService:DBService){}
-  dbLoaded =false;
-ngOnInit(){
-  this.boards = this.boardService.globalBoards;
-  // this.save();
-  this.DBService.openDB();
-  this.DBService.dbCompelte.subscribe((data)=>{
-    
-    this.dbLoaded = data;
-    this.DBService.loadBoards().onsuccess= (event:any) => {
-      let boards = event.target.result;
-      
-        for(let i = 0;i < boards.length;i++){
-          if(this.boards.length == 0) this.boards = [...boards]
-          for(let y = 0; y < this.boards.length;y++){
-            if(this.boards[y].id != boards[i].id)this.boards.push(boards[i]);
-          }
-      }
-  };
-  })
-
-
-
-  setInterval(()=>{
-    this.DBService.storeBoards(this.boards);
-  },60000)
-
-
-}
-  selectBoard(boardId:number){
-    if(this.boardService.setActiveBoard(boardId))this.Router.navigateByUrl(boardId+"");
-    
   }
-  addBoard(){
+  dbLoaded = false;
+  ngOnInit() {
+    this.boards = this.boardService.globalBoards;
+    // this.save();
+    this.DBService.openDB();
+    this.DBService.dbCompelte.subscribe((data) => {
+      this.dbLoaded = data;
+      this.DBService.loadBoards().onsuccess = (event: any) => {
+        let boards = event.target.result;
+        if (this.boardService.globalBoards.length == 0) this.boardService.globalBoards.push(...BoardSerializer.DeSerialize(boards))
+        this.boards = this.boardService.globalBoards;
+      };
+    });
+
+   
+  }
+  selectBoard(boardId: number) {
+    if (this.boardService.setActiveBoard(boardId))
+      this.Router.navigateByUrl(boardId + '');
+  }
+  addBoard() {
     this.boardService.addEmptyBoard();
   }
 
-
-  saveBoards(){
+  saveBoards() {
     this.DBService.storeBoards(this.boards);
   }
-  deleteBoards(){
+  deleteBoards() {
     this.DBService.deleteBoards();
   }
 
-// checking:any;
+  // checking:any;
 
-//   check(event:any){
-//     let file = event.target.files[0]
-//     let fileReader = new FileReader();
-//     fileReader.onload = (e:any) => {
-//       this.checking = fileReader.result;
+  //   check(event:any){
+  //     let file = event.target.files[0]
+  //     let fileReader = new FileReader();
+  //     fileReader.onload = (e:any) => {
+  //       this.checking = fileReader.result;
 
-//       this.boards.push(...BoardSerializer.DeSerialize(JSON.parse(this.checking)))
+  //       this.boards.push(...BoardSerializer.DeSerialize(JSON.parse(this.checking)))
 
+  //       this.save()
+  //     }
+  //     fileReader.readAsText(file);
 
-//       this.save()
-//     }
-//     fileReader.readAsText(file);
-
-//   }
-//   fileUrl:any
-//   save(){
-//     const data = this.checking;
-//     const blob = new Blob([JSON.stringify(this.boards)], {
-//       type: 'json'
-//   });
-//   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-//   }
-
-
-
-
+  //   }
+  //   fileUrl:any
+  //   save(){
+  //     const data = this.checking;
+  //     const blob = new Blob([JSON.stringify(this.boards)], {
+  //       type: 'json'
+  //   });
+  //   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  //   }
 }
