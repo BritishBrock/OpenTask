@@ -19,9 +19,9 @@
     <app-task-modal></app-task-modal>
     
 </div>
-<div class="create">
+<div class="create" (click)="toggleCreateMenu()">
         <div class="icon">+</div>
-        <div class="createMenu">
+        <div class="createMenu" [ngClass]="this.isCreateMenuOpen ? 'createMenuIsOpen': ''">
             @for (listItem of createList; track $index) {
                 <div class="menuItem" (click)="listItem.click()">
                     {{listItem.title}}

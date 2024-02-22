@@ -13,7 +13,7 @@ import { NotesViewerComponent } from './notes-viewer/notes-viewer.component';
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerCalendarComponent;
+    component:any = TaskViewerComponent;
     constructor(
       private elRef:ElementRef,
       private router:Router

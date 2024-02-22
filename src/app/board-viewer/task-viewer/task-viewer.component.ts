@@ -60,6 +60,9 @@ export class TaskViewerComponent {
 
 
 
+
+
+
   constructor(
     private FactoryService: FactoryService,
     private elRef: ElementRef,
@@ -70,6 +73,11 @@ export class TaskViewerComponent {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
     // });
+  }
+
+  isCreateMenuOpen:boolean = false;
+  toggleCreateMenu(){
+    this.isCreateMenuOpen = !this.isCreateMenuOpen;
   }
 
 
@@ -113,9 +121,7 @@ export class TaskViewerComponent {
 
 
     this.taskModalService.TaskModalOpen.subscribe(isOpen=>{
-      console.log(isOpen)
       this.isModalOpen = isOpen;
-      
     })
 
     window.addEventListener('keydown', (event) => {
@@ -195,10 +201,18 @@ export class TaskViewerComponent {
       }
     });
 
-
+    this.elRef.nativeElement.addEventListener('mouseleave', (event: any) => {
+      if(!this.dragService.Tasks)return;
+      this.dragService.Tasks.htmlElement!.style.position = "absolute"
+      this.dragService.Tasks.htmlElement!.style.left = event.x  +"px";
+      this.dragService.Tasks.htmlElement!.style.top =  event.y +"px";
+      //this.dragService.getPlaceOfDropped();
+       this.dragService.clearSelectedHTMLElement();
+    })
     this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
-      if(this.isModalOpen)return;
+    if(this.isModalOpen)return;
       if (this.dragService.Tasks){
+        
         this.redoCanvas()
           this.dragService.moveSelectedHTMLElement({
             x: event.x,

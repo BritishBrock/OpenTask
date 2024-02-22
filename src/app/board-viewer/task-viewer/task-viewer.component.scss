@@ -95,7 +95,7 @@
   }
 
 }
-.create:hover .createMenu{
-   max-height: 500px;
-   overflow:visible;
+.createMenuIsOpen{
+   max-height: 500px !important;
+   overflow:visible !important;
 }

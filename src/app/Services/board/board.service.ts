@@ -13,6 +13,7 @@ export class BoardService {
   activeBoard?:Board;
 
   addEmptyBoard(){
+    
     this.globalBoards.push(new Board(Board.totalNumber));
     Board.totalNumber++;
   }

@@ -11,6 +11,7 @@ export class BoardSerializer{
 
     }
     static DeSerialize(boardJson:JSON){
+        console.log(boardJson)
         let boardJsonArray = Object.values(boardJson);
         let boardArray:Board[] = []
         for(let i = 0; i < boardJsonArray.length;i++){
@@ -18,6 +19,7 @@ export class BoardSerializer{
             newBoard.boardTaskLists =   TaskListSerializer.DeSerialize(boardJsonArray[i].boardTaskLists);
             newBoard.boardTasks =    TaskSerializer.DeSerialize(boardJsonArray[i].boardTasks);
             boardArray.push(newBoard)
+            Board.totalNumber++;
         }
         return boardArray;
     }

@@ -14,11 +14,21 @@
                 </clipPath>
               </defs>
             </svg>
-            <div class="sticky-content" contenteditable>
-              f
+            <div class="sticky-content">
+              
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    @if (isHoveringOver) {
+      <div class="resize left" (mousedown)="resizingMouseDown($event)" (mousemove)="resize('left',$event)" (mouseup)="resizingMouseUp($event)"></div>
+      <div class="resize right" (mousedown)="resizingMouseDown($event)" (mousemove)="resize('right',$event)" (mouseup)="resizingMouseUp($event)"></div>
+      <div class="resize top" (mousedown)="resizingMouseDown($event)" (mousemove)="resize('top',$event)" (mouseup)="resizingMouseUp($event)"></div>
+      <div class="resize bottom" (mousedown)="resizingMouseDown($event)"(mousemove)="resize('bottom',$event)" (mouseup)="resizingMouseUp($event)"></div>
+    }
+
+
+
   </div>

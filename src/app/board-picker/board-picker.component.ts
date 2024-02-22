@@ -6,53 +6,77 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { BoardSerializer } from '../Models/Board/BoardSerializer';
 import { Task } from '../Models/Task/Task';
 import { TaskList } from '../Models/TaskList/TaskList';
+import { DBService } from '../Services/DB/db.service';
 
 @Component({
   selector: 'app-board-picker',
   templateUrl: './board-picker.component.html',
-  styleUrl: './board-picker.component.scss'
+  styleUrl: './board-picker.component.scss',
 })
 export class BoardPickerComponent {
+  boards: Board[] = [];
+  file?: File;
+   
+  constructor(
+    private boardService: BoardService,
+    private Router: Router,
+    private sanitizer: DomSanitizer,
+    private DBService: DBService
+  ) {
 
-  boards:Board[] = [];
-  file?:File;
-  constructor(private boardService:BoardService,private Router:Router,private sanitizer: DomSanitizer){}
-
-ngOnInit(){
-  this.boards = this.boardService.globalBoards;
-  this.save();
-}
-  selectBoard(boardId:number){
-    if(this.boardService.setActiveBoard(boardId))this.Router.navigateByUrl(boardId+"");
-    
   }
-  addBoard(){
+  dbLoaded = false;
+  ngOnInit() {
+    this.boards = this.boardService.globalBoards;
+    // this.save();
+    this.DBService.openDB();
+    this.DBService.dbCompelte.subscribe((data) => {
+      this.dbLoaded = data;
+      this.DBService.loadBoards().onsuccess = (event: any) => {
+        let boards = event.target.result;
+        if (this.boardService.globalBoards.length == 0) this.boardService.globalBoards.push(...BoardSerializer.DeSerialize(boards))
+        this.boards = this.boardService.globalBoards;
+      };
+    });
+
+   
+  }
+  selectBoard(boardId: number) {
+    if (this.boardService.setActiveBoard(boardId))
+      this.Router.navigateByUrl(boardId + '');
+  }
+  addBoard() {
     this.boardService.addEmptyBoard();
   }
 
-checking:any;
-
-  check(event:any){
-    let file = event.target.files[0]
-    let fileReader = new FileReader();
-    fileReader.onload = (e:any) => {
-      this.checking = fileReader.result;
-
-      this.boards.push(...BoardSerializer.DeSerialize(JSON.parse(this.checking)))
-
-
-      this.save()
-    }
-    fileReader.readAsText(file);
-
+  saveBoards() {
+    this.DBService.storeBoards(this.boards);
   }
-  fileUrl:any
-  save(){
-    const data = this.checking;
-    const blob = new Blob([JSON.stringify(this.boards)], {
-      type: 'json'
-  });
-  this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  deleteBoards() {
+    this.DBService.deleteBoards();
   }
 
+  // checking:any;
+
+  //   check(event:any){
+  //     let file = event.target.files[0]
+  //     let fileReader = new FileReader();
+  //     fileReader.onload = (e:any) => {
+  //       this.checking = fileReader.result;
+
+  //       this.boards.push(...BoardSerializer.DeSerialize(JSON.parse(this.checking)))
+
+  //       this.save()
+  //     }
+  //     fileReader.readAsText(file);
+
+  //   }
+  //   fileUrl:any
+  //   save(){
+  //     const data = this.checking;
+  //     const blob = new Blob([JSON.stringify(this.boards)], {
+  //       type: 'json'
+  //   });
+  //   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  //   }
 }
