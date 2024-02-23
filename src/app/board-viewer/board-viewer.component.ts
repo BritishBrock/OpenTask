@@ -40,7 +40,7 @@ export class BoardViewerComponent {
                 if(this.boardService.globalBoards[i].id == query["id"]){
                   doesntExists = false;
                   this.boardService.setActiveBoard(query["id"])
-                  this.router.navigateByUrl("/"+query["id"])
+                  this.router.navigateByUrl("b/"+query["id"])
                   break;
                 };
               }
@@ -49,7 +49,7 @@ export class BoardViewerComponent {
           })
           }else{
             for(let i = 0; i < this.boardService.globalBoards.length;i++){
-              if(this.boardService.globalBoards[i].id == query["id"])this.router.navigateByUrl("/"+query["id"]);
+              if(this.boardService.globalBoards[i].id == query["id"])this.router.navigateByUrl("b/"+query["id"]);
             }
           }
           
@@ -58,7 +58,9 @@ export class BoardViewerComponent {
           query["id"]
         })
       }
-
+      goToSettings(){
+        this.router.navigateByUrl("/settings");
+      }
 
     boardViews = [
       {
@@ -97,5 +99,6 @@ export class BoardViewerComponent {
     returnToBoardSelction(){
       this.router.navigateByUrl("/");
     }
+ 
 
 }

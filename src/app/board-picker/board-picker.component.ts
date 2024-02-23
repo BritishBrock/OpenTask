@@ -19,7 +19,7 @@ export class BoardPickerComponent {
    
   constructor(
     private boardService: BoardService,
-    private Router: Router,
+    private router: Router,
     private sanitizer: DomSanitizer,
     private DBService: DBService
   ) {
@@ -41,9 +41,12 @@ export class BoardPickerComponent {
 
    
   }
+  goToSettings(){
+    this.router.navigateByUrl("/settings");
+  }
   selectBoard(boardId: number) {
     if (this.boardService.setActiveBoard(boardId))
-      this.Router.navigateByUrl(boardId + '');
+      this.router.navigateByUrl("b/"+boardId + '');
   }
   addBoard() {
     this.boardService.addEmptyBoard();
