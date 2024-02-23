@@ -11,7 +11,6 @@ export class DBService {
   dbCompelte:Subject<any>= new Subject<any>();
   db: any;
   loadBoards() {
-
     const request =this.db
   .transaction("boards")
   .objectStore("boards")

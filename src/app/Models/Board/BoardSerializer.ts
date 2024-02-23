@@ -11,7 +11,6 @@ export class BoardSerializer{
 
     }
     static DeSerialize(boardJson:JSON){
-        console.log(boardJson)
         let boardJsonArray = Object.values(boardJson);
         let boardArray:Board[] = []
         for(let i = 0; i < boardJsonArray.length;i++){

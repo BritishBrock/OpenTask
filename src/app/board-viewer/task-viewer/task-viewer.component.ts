@@ -7,6 +7,7 @@ import { TaskList } from '../../Models/TaskList/TaskList';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 import { StickyNote } from '../../Models/stickyNote/stickyNote';
 import { TaskModalService } from '../../Services/task-modal.service';
+import { BoardService } from '../../Services/board/board.service';
 
 @Component({
   selector: 'app-task-viewer',
@@ -69,6 +70,7 @@ export class TaskViewerComponent {
     private dragService: DragServiceService,
     private taskviewerService: TaskViewerBoardService,
     private taskModalService:TaskModalService,
+    private boardService:BoardService,
   ) {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
@@ -104,14 +106,19 @@ export class TaskViewerComponent {
   }
   previousTouch:any;
   isModalOpen = false;
-  ngOnInit() {
-    
 
+
+
+  ngOnInit() {
     
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
-
+    this.boardService.boardUpdates.subscribe(()=>{
+      this.tasks = this.taskviewerService.globalTasks;
+      this.taskLists = this.taskviewerService.globalTaskLists;
+      this.stickyNotes = this.taskviewerService.globalStickyNotes;
+    })
     this.htmlElement = this.elRef.nativeElement;
     this.dragService.viewBoard = this.htmlElement;
     //set view in the center
