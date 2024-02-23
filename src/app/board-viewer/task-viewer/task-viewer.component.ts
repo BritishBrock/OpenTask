@@ -31,29 +31,50 @@ export class TaskViewerComponent {
   isMoving: boolean = false;
 
   isCreating:string = "";
-
-
+  //add to settings menu.
+  isCreatingOnMouse:boolean = false;
 
   createList = [
     {
       title:"Task",
       click: ()=>{
-        this.isCreating = "task"; 
-        this.htmlElement.style.backgroundColor = "grey"
+
+        if(!this.isCreatingOnMouse){
+          let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+          this.createTask(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+        }else{
+          this.isCreating = "task"; 
+          this.htmlElement.style.backgroundColor = "grey"
+        }
+
       }
     },
     {
       title:"Task List",
       click: ()=>{
-        this.isCreating = "taskList"; 
-        this.htmlElement.style.backgroundColor = "grey"
+        if(!this.isCreatingOnMouse){
+          let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+          this.createTaskList(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+        }else{
+          this.isCreating = "taskList"; 
+          this.htmlElement.style.backgroundColor = "grey"
+        }
       }
     },
     {
       title:"Sticky Note",
       click: ()=>{
-        this.isCreating = "stickyNote"; 
-        this.htmlElement.style.backgroundColor = "grey"
+        if(!this.isCreatingOnMouse){
+          let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+          this.createStickyNote(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+        }else{
+          this.isCreating = "stickyNote"; 
+          this.htmlElement.style.backgroundColor = "grey"
+        }
+
       }
     }
   ]
@@ -91,6 +112,10 @@ export class TaskViewerComponent {
     this.htmlElement.style.backgroundColor = "white"
   }
   createTaskList(x:number,y:number){
+
+
+
+
     let t  =new TaskList()
     t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
     this.taskviewerService.globalTaskLists.push(t);
@@ -162,6 +187,7 @@ export class TaskViewerComponent {
          this.mouseDown = true;
        }
       
+
 
       if( this.isCreating){
         if(this.isCreating == "task") this.createTask(event.x,event.y)

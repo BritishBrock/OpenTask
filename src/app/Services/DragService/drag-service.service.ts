@@ -41,7 +41,6 @@ export class DragServiceService {
     this.currentBardPos.x = (pos.x - vw/2) *-1;
     this.viewBoard.style.left = this.currentBardPos.x  + 'px';
     this.viewBoard.style.top = this.currentBardPos.y + 'px';
-
   }
 
   setBoardPos(pos:Coord){
