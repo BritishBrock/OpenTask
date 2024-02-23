@@ -202,6 +202,7 @@ export class TaskViewerComponent {
     });
 
     this.elRef.nativeElement.addEventListener('mouseleave', (event: any) => {
+      if(this.mouseDown)this.mouseDown = false;
       if(!this.dragService.Tasks)return;
       this.dragService.Tasks.htmlElement!.style.position = "absolute"
       this.dragService.Tasks.htmlElement!.style.left = event.x  +"px";
