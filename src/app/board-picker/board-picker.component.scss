@@ -69,3 +69,34 @@
     }
 }
 
+
+
+@media only screen and (max-width: 1200px) {
+    
+.mainBoardPicker{ 
+    grid-template-columns: repeat(2,auto);
+    }
+  }
+
+  @media only screen and (max-width:800px) {
+      
+  .mainBoardPicker{ 
+      grid-template-columns: repeat(1,auto);
+      justify-items: center;
+    }
+}
+@media only screen and (max-width:500px) {
+      
+    .mainBoardPicker{ 
+        grid-template-columns: repeat(1,auto);
+        justify-items: center;
+        .board{
+          width:250px;
+          height: 250px;
+      }
+      .createBoard{
+        width:250px;
+          height: 250px;
+      }
+      }
+  }
