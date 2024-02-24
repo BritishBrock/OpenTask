@@ -1,4 +1,4 @@
-<div class="TaskViewerBoard">
+<div #TaskViewerBoard class="TaskViewerBoard">
 
     <canvas id="canvas"></canvas>
 
@@ -28,4 +28,15 @@
                 </div>
             }
         </div>
+</div>
+
+
+<div class="zoom" >
+    <div class="zoomB1" (click)="zoomOut()">
+        -
+    </div>
+    <input type="range" min="1" max="200" (input)="changeZoom()" [(ngModel)]="zoom2" class="slider" id="myRange">
+    <div class="zoomB2" (click)="zoomIn()">
+        +
+    </div>
 </div>

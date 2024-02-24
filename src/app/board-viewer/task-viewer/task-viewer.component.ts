@@ -278,16 +278,24 @@ export class TaskViewerComponent {
       if (this.dragService.Tasks) return;
     });
   }
-
+  @ViewChild("TaskViewerBoard")TaskViewerBoard?:ElementRef;
   zoom: number = 1;
+  zoom2: number = 100;
   zoomIn() {
-    // this.zoom += 0.1;
-    // this.htmlElement.style.scale = this.zoom+"";
+    if(!this.TaskViewerBoard)return;
+    this.zoom += 0.01;
+    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"";
   }
 
   zoomOut() {
-    // this.zoom -= 0.1;
-    // this.htmlElement.style.scale = this.zoom+"" ;
+    if(!this.TaskViewerBoard)return;
+    this.zoom -= 0.01;
+    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"" ;
+  }
+  changeZoom(){
+    if(!this.TaskViewerBoard)return;
+    this.zoom = this.zoom2/100; 
+    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"" ;
   }
   ngAfterViewInit(){
    
