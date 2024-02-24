@@ -12,4 +12,5 @@ export class TaskStylingComponent {
   cardType(opcion:number){
     this.task.cardColorTagType = opcion;
   }
+  
 }

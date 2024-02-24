@@ -22,6 +22,8 @@ import { TaskListLinksComponent } from './components/task-modal/tasklist/task-li
 import { StickyNoteComponent } from './components/sticky-note/sticky-note.component';
 import { NotesViewerComponent } from './board-viewer/notes-viewer/notes-viewer.component';
 import { SettingsComponent } from './settings/settings.component';
+import { GeneralComponent } from './settings/general/general.component';
+import { KeybindsComponent } from './settings/keybinds/keybinds.component';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { SettingsComponent } from './settings/settings.component';
     StickyNoteComponent,
     NotesViewerComponent,
     SettingsComponent,
+    GeneralComponent,
+    KeybindsComponent,
 
 
   ],
