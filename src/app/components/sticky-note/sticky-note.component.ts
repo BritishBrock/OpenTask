@@ -22,24 +22,35 @@ export class StickyNoteComponent {
 
   isHoveringOver:boolean = false;
   isResizing:boolean = false;
-  resizingInitalPosition:Coord = {x:0,y:0}
-
-  resizingMouseDown(event:any){
+  direction:string = "";
+  resizingMouseDown(event:any,direction:string){
     event.preventDefault()
+    this.direction = direction;
     this.isResizing = true
-    this.resizingInitalPosition = {x:event.x,y:event.y}
     this.taskModalService.TaskModalOpen.next(true)
+    let main = document.getElementById("resizeMain");
+    
+    main!.style.display = "block";
+    main!.style.width = "100%";
+    main!.style.height= "100%";
+    main!.style.position= "fixed";
+    main!.style.left = "0px";
+    main!.style.top = "0px";
+    
   }
   resizingMouseUp(event:any){
     event.preventDefault()
-    this.isResizing = false
+    this.isResizing = false;
+    this.direction ="";
     this.taskModalService.TaskModalOpen.next(false)
+    let main = document.getElementById("resizeMain");
+    main!.style.display ="none"
   }
 
-  resize(direction:string,event:any){
+  resize(event:any){
     event.preventDefault()
     if(  !this.isResizing ) return;
-    switch(direction){
+    switch(this.direction){
       case "left":
         this.nativeElement!.style.width = this.nativeElement!.clientWidth + event.movementX*-1  +"px"
         this.stickyNote.pos.x += event.movementX
@@ -58,11 +69,13 @@ export class StickyNoteComponent {
     this.nativeElement!.style.left = this.stickyNote.pos.x  +"px";
         this.nativeElement!.style.top =  this.stickyNote.pos.y +"px";
   }
+  resizeMouseLeave(event:any){
+    //this.isResizing =false;
+  }
+
   ngOnInit(){
     if(this.nativeElement) {
 
-      this.nativeElement.addEventListener("mousedown",(event:any)=>{
-      })
       this.nativeElement.addEventListener("mouseenter",(event:any)=>{
         this.isHoveringOver = true;
       })
