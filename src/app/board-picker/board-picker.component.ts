@@ -59,6 +59,13 @@ export class BoardPickerComponent {
     this.DBService.deleteBoards();
   }
 
+
+  deleteBoard(boardId:number){
+    for(let i = 0; i <  this.boards.length;i++){
+      if(this.boards[i].id == boardId)this.boards.splice(i,1)
+    }
+  }
+
   // checking:any;
 
   //   check(event:any){
