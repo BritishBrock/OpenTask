@@ -8,6 +8,7 @@ import { TaskList } from '../../Models/TaskList/TaskList';
 import { TaskListDetailsComponent } from './tasklist/task-list-details/task-list-details.component';
 import { TaskListLinksComponent } from './tasklist/task-list-links/task-list-links.component';
 import { Subject } from 'rxjs';
+import { TaskListStylingComponent } from './tasklist/task-list-styling/task-list-styling.component';
 
 @Component({
   selector: 'app-task-modal',
@@ -65,6 +66,13 @@ export class TaskModalComponent {
       onclick:()=>{
         this.input = {taskList:this.taskList, event:this.event};
         this.taklistcomponent = TaskListLinksComponent;
+      }
+    },
+    {
+      title:"Tasklist Styling",
+      onclick:()=>{
+        this.input;
+        this.taklistcomponent = TaskListStylingComponent;
       }
     },
   ]

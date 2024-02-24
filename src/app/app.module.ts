@@ -24,6 +24,7 @@ import { NotesViewerComponent } from './board-viewer/notes-viewer/notes-viewer.c
 import { SettingsComponent } from './settings/settings.component';
 import { GeneralComponent } from './settings/general/general.component';
 import { KeybindsComponent } from './settings/keybinds/keybinds.component';
+import { TaskListStylingComponent } from './components/task-modal/tasklist/task-list-styling/task-list-styling.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { KeybindsComponent } from './settings/keybinds/keybinds.component';
     SettingsComponent,
     GeneralComponent,
     KeybindsComponent,
+    TaskListStylingComponent,
 
 
   ],
