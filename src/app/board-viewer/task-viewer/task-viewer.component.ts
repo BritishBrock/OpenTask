@@ -105,7 +105,7 @@ export class TaskViewerComponent {
 
 
   createTask(x:number,y:number){
-    let t  =new Task("new task","#FFAA97")
+    let t  =new Task("new task",this.generateColor())
     t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
     this.taskviewerService.globalTasks.push(t);
     this.isCreating = ""; 
@@ -319,6 +319,15 @@ export class TaskViewerComponent {
 
   }
 
+
+  generateColor():string{
+    let char = "123456789ABCDEF";
+    let hexCol = "#";
+    for(let i = 0; i < 6; i++){
+      hexCol += char.charAt(Math.floor(Math.random() * char.length));
+    }
+    return hexCol;
+  }
 
   redoCanvas(){
     let c = <HTMLCanvasElement>document.getElementById("canvas");
