@@ -11,7 +11,6 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
 import { TaskStylingComponent } from './components/task-modal/task/task-styling/task-styling.component';
 import { TaskDetailsComponent } from './components/task-modal/task/task-details/task-details.component';
 import { FormsModule } from '@angular/forms';
-import { TaskColorsComponent } from './components/task-modal/task/task-colors/task-colors.component';
 import { BoardViewerComponent } from './board-viewer/board-viewer.component';
 import { TaskViewerListComponent } from './board-viewer/task-viewer-list/task-viewer-list.component';
 import { TaskDateComponent } from './components/task-modal/task/task-date/task-date.component';
@@ -35,7 +34,6 @@ import { SettingsComponent } from './settings/settings.component';
     TaskModalComponent,
     TaskStylingComponent,
     TaskDetailsComponent,
-    TaskColorsComponent,
     BoardViewerComponent,
     TaskViewerListComponent,
     TaskDateComponent,
