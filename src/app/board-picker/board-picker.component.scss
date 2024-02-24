@@ -9,6 +9,7 @@
         width: 300px;
         height: 300px;
         border-radius: 60px;
+        cursor: pointer;
         flex-direction: column;
         position: relative;
         background: #e0e0e0;
@@ -18,9 +19,62 @@
         justify-content: center;
         align-items: center;
         font-size: 40px;
+        .clicker{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        .boardOption{
+            width: 40px;
+            height: 40px;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            background-color: rgb(37, 37, 37);
+            color: white;
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            z-index: 1;
+            svg{
+                z-index: 1;
+            }
+        }
+        .boardOption::after{
+            content: "";
+            width: 0%; 
+            border-radius: 100%;
+            position: absolute;
+            height: 0%;
+            background-color: rgb(0, 0, 0);
+            transition: all 0.2s ease-in-out;
+        }
+        .boardOption:hover::after{
+            width: 100%; 
+            height: 100%;
+        }
+        .boardDelete{
+            top: 10px;
+            right:25px;
+        }
+        .boardDuplicate{
+            top: 10px;
+            right:75px;
+        }
 
     }
-    .board::after{
+    .board:hover{
+        .boardDuplicate{
+            display: flex;
+        }
+        .boardDelete{
+            display: flex;
+        }
+    }
+    .board::before{
         content: "";
         position: absolute;
         width:100%;
@@ -30,7 +84,7 @@
         border-radius: 60px;
         transition: all 0.2s ease-in-out;
     }
-    .board:hover::after{
+    .board:hover::before{
         border: 5px solid rgb(94, 118, 255);
     }
     .createBoard{
