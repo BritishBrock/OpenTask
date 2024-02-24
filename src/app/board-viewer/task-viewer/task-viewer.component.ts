@@ -7,6 +7,7 @@ import { TaskList } from '../../Models/TaskList/TaskList';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 import { StickyNote } from '../../Models/stickyNote/stickyNote';
 import { TaskModalService } from '../../Services/task-modal.service';
+import { BoardService } from '../../Services/board/board.service';
 
 @Component({
   selector: 'app-task-viewer',
@@ -30,29 +31,50 @@ export class TaskViewerComponent {
   isMoving: boolean = false;
 
   isCreating:string = "";
-
-
+  //add to settings menu.
+  isCreatingOnMouse:boolean = false;
 
   createList = [
     {
       title:"Task",
       click: ()=>{
-        this.isCreating = "task"; 
-        this.htmlElement.style.backgroundColor = "grey"
+
+        if(!this.isCreatingOnMouse){
+          let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+          this.createTask(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+        }else{
+          this.isCreating = "task"; 
+          this.htmlElement.style.backgroundColor = "grey"
+        }
+
       }
     },
     {
       title:"Task List",
       click: ()=>{
-        this.isCreating = "taskList"; 
-        this.htmlElement.style.backgroundColor = "grey"
+        if(!this.isCreatingOnMouse){
+          let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+          this.createTaskList(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+        }else{
+          this.isCreating = "taskList"; 
+          this.htmlElement.style.backgroundColor = "grey"
+        }
       }
     },
     {
       title:"Sticky Note",
       click: ()=>{
-        this.isCreating = "stickyNote"; 
-        this.htmlElement.style.backgroundColor = "grey"
+        if(!this.isCreatingOnMouse){
+          let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+          this.createStickyNote(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+        }else{
+          this.isCreating = "stickyNote"; 
+          this.htmlElement.style.backgroundColor = "grey"
+        }
+
       }
     }
   ]
@@ -69,6 +91,7 @@ export class TaskViewerComponent {
     private dragService: DragServiceService,
     private taskviewerService: TaskViewerBoardService,
     private taskModalService:TaskModalService,
+    private boardService:BoardService,
   ) {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
@@ -89,6 +112,10 @@ export class TaskViewerComponent {
     this.htmlElement.style.backgroundColor = "white"
   }
   createTaskList(x:number,y:number){
+
+
+
+
     let t  =new TaskList()
     t.pos = {x:(this.dragService.currentBardPos.x*-1) +x,y:(this.dragService.currentBardPos.y*-1) +y};
     this.taskviewerService.globalTaskLists.push(t);
@@ -104,14 +131,19 @@ export class TaskViewerComponent {
   }
   previousTouch:any;
   isModalOpen = false;
-  ngOnInit() {
-    
 
+
+
+  ngOnInit() {
     
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
-
+    this.boardService.boardUpdates.subscribe(()=>{
+      this.tasks = this.taskviewerService.globalTasks;
+      this.taskLists = this.taskviewerService.globalTaskLists;
+      this.stickyNotes = this.taskviewerService.globalStickyNotes;
+    })
     this.htmlElement = this.elRef.nativeElement;
     this.dragService.viewBoard = this.htmlElement;
     //set view in the center
@@ -155,6 +187,7 @@ export class TaskViewerComponent {
          this.mouseDown = true;
        }
       
+
 
       if( this.isCreating){
         if(this.isCreating == "task") this.createTask(event.x,event.y)
@@ -245,16 +278,24 @@ export class TaskViewerComponent {
       if (this.dragService.Tasks) return;
     });
   }
-
+  @ViewChild("TaskViewerBoard")TaskViewerBoard?:ElementRef;
   zoom: number = 1;
+  zoom2: number = 100;
   zoomIn() {
-    // this.zoom += 0.1;
-    // this.htmlElement.style.scale = this.zoom+"";
+    if(!this.TaskViewerBoard)return;
+    this.zoom += 0.01;
+    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"";
   }
 
   zoomOut() {
-    // this.zoom -= 0.1;
-    // this.htmlElement.style.scale = this.zoom+"" ;
+    if(!this.TaskViewerBoard)return;
+    this.zoom -= 0.01;
+    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"" ;
+  }
+  changeZoom(){
+    if(!this.TaskViewerBoard)return;
+    this.zoom = this.zoom2/100; 
+    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"" ;
   }
   ngAfterViewInit(){
    

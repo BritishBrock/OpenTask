@@ -3,7 +3,6 @@ import { TaskModalService } from '../../Services/task-modal.service';
 import { Task } from '../../Models/Task/Task';
 import { TaskStylingComponent } from './task/task-styling/task-styling.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
-import { TaskColorsComponent } from './task/task-colors/task-colors.component';
 import { TaskDateComponent } from './task/task-date/task-date.component';
 import { TaskList } from '../../Models/TaskList/TaskList';
 import { TaskListDetailsComponent } from './tasklist/task-list-details/task-list-details.component';
@@ -39,12 +38,6 @@ export class TaskModalComponent {
       title:"Task Styling",
       onclick:()=>{
         this.component = TaskStylingComponent;
-      }
-    },
-    {
-      title:"Task Colors",
-      onclick:()=>{
-        this.component = TaskColorsComponent;
       }
     },
     {

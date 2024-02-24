@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskColorsComponent } from './task-colors.component';
+import { KeybindsComponent } from './keybinds.component';
 
-describe('TaskColorsComponent', () => {
-  let component: TaskColorsComponent;
-  let fixture: ComponentFixture<TaskColorsComponent>;
+describe('KeybindsComponent', () => {
+  let component: KeybindsComponent;
+  let fixture: ComponentFixture<KeybindsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TaskColorsComponent]
+      declarations: [KeybindsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TaskColorsComponent);
+    fixture = TestBed.createComponent(KeybindsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

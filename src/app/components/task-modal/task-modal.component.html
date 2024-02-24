@@ -1,4 +1,7 @@
-<div class="taskModal" *ngIf="isTaskModalOpen">
+<div class="taskModal" *ngIf="isTaskModalOpen" >
+    <div class="closeModal" (click)="closeModal()">
+
+    </div>
     @if(taskList) {
        
         <div class="contentEditor card">

@@ -1,9 +1,14 @@
 
 <h1>Boards</h1>
+<div class="boardViewsOpcion" (click)="goToSettings()">
+    Settings
+</div>
 <div class="mainBoardPicker">
     @for (board of boards; track $index) {
         <div class="board" (click)="selectBoard(board.id)">
+            <button (click)="deleteBoard(board.id)">Delete</button>
                 Board {{board.id}}
+                
         </div>
     }
     <div class="createBoard" (click)="addBoard()">

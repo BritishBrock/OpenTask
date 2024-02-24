@@ -1,0 +1,16 @@
+<h1>Keybindings</h1>
+<div class="keys">
+
+    @for (keybind of keybindings |keyvalue; track $index) {
+        <div class="key">
+            <div class="keyName">
+                {{keybind.key}}
+            </div>
+            <div class="value">
+                {{keybind.value}}
+            </div>
+            <button (click)="changeKey(keybind.key)">Edit</button>
+        </div>
+    
+    }
+</div>

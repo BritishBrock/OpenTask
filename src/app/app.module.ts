@@ -11,7 +11,6 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
 import { TaskStylingComponent } from './components/task-modal/task/task-styling/task-styling.component';
 import { TaskDetailsComponent } from './components/task-modal/task/task-details/task-details.component';
 import { FormsModule } from '@angular/forms';
-import { TaskColorsComponent } from './components/task-modal/task/task-colors/task-colors.component';
 import { BoardViewerComponent } from './board-viewer/board-viewer.component';
 import { TaskViewerListComponent } from './board-viewer/task-viewer-list/task-viewer-list.component';
 import { TaskDateComponent } from './components/task-modal/task/task-date/task-date.component';
@@ -22,6 +21,9 @@ import { TaskListDetailsComponent } from './components/task-modal/tasklist/task-
 import { TaskListLinksComponent } from './components/task-modal/tasklist/task-list-links/task-list-links.component';
 import { StickyNoteComponent } from './components/sticky-note/sticky-note.component';
 import { NotesViewerComponent } from './board-viewer/notes-viewer/notes-viewer.component';
+import { SettingsComponent } from './settings/settings.component';
+import { GeneralComponent } from './settings/general/general.component';
+import { KeybindsComponent } from './settings/keybinds/keybinds.component';
 
 
 @NgModule({
@@ -34,7 +36,6 @@ import { NotesViewerComponent } from './board-viewer/notes-viewer/notes-viewer.c
     TaskModalComponent,
     TaskStylingComponent,
     TaskDetailsComponent,
-    TaskColorsComponent,
     BoardViewerComponent,
     TaskViewerListComponent,
     TaskDateComponent,
@@ -45,6 +46,9 @@ import { NotesViewerComponent } from './board-viewer/notes-viewer/notes-viewer.c
     TaskListLinksComponent,
     StickyNoteComponent,
     NotesViewerComponent,
+    SettingsComponent,
+    GeneralComponent,
+    KeybindsComponent,
 
 
   ],

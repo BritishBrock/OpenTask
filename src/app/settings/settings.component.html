@@ -1,0 +1,15 @@
+<div class="mainSettings">
+    <div #sidebar class="sidebar">
+        <div class="closeMenu" *ngIf="isSettingsNavOpen" (click)="togleNav()">&LeftArrow;</div>
+        <div class="closeMenu" *ngIf="!isSettingsNavOpen" (click)="togleNav()">&RightArrow;</div>
+        @for (setting of settingsMenu; track $index) {
+            <div class="settingsOption" (click)="setting?.onclick()">
+                {{setting.title}}
+            </div>
+        }
+    </div>
+    <div class="mainSettingsContent">
+        <ng-container *ngComponentOutlet="currentlyActiveSettingsMenu "/>
+    </div>
+</div>
+

@@ -21,12 +21,16 @@
         </div>
       </div>
     </div>
+    <div id="resizeMain" (mousemove)="resize($event)" (mouseup)="resizingMouseUp($event)">
 
+    </div>
     @if (isHoveringOver) {
-      <div class="resize left" (mousedown)="resizingMouseDown($event)" (mousemove)="resize('left',$event)" (mouseup)="resizingMouseUp($event)"></div>
-      <div class="resize right" (mousedown)="resizingMouseDown($event)" (mousemove)="resize('right',$event)" (mouseup)="resizingMouseUp($event)"></div>
-      <div class="resize top" (mousedown)="resizingMouseDown($event)" (mousemove)="resize('top',$event)" (mouseup)="resizingMouseUp($event)"></div>
-      <div class="resize bottom" (mousedown)="resizingMouseDown($event)"(mousemove)="resize('bottom',$event)" (mouseup)="resizingMouseUp($event)"></div>
+      
+      <div class="resize left"(mouseleave)="resizeMouseLeave($event)"  (mousedown)="resizingMouseDown($event,'left')"  (mouseup)="resizingMouseUp($event)"></div>
+      <div class="resize right" (mouseleave)="resizeMouseLeave($event)" (mousedown)="resizingMouseDown($event,'right')" (mouseup)="resizingMouseUp($event)"></div>
+      <div class="resize top" (mouseleave)="resizeMouseLeave($event)" (mousedown)="resizingMouseDown($event,'top')"  (mouseup)="resizingMouseUp($event)"></div>
+      <div class="resize bottom" (mouseleave)="resizeMouseLeave($event)" (mousedown)="resizingMouseDown($event,'bottom')" (mouseup)="resizingMouseUp($event)"></div>
+
     }
 
 

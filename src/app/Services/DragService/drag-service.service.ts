@@ -41,7 +41,6 @@ export class DragServiceService {
     this.currentBardPos.x = (pos.x - vw/2) *-1;
     this.viewBoard.style.left = this.currentBardPos.x  + 'px';
     this.viewBoard.style.top = this.currentBardPos.y + 'px';
-
   }
 
   setBoardPos(pos:Coord){
@@ -49,7 +48,6 @@ export class DragServiceService {
 
     this.currentBardPos.y =  pos.y ;
     this.currentBardPos.x = pos.x;
-    console.log(this.currentBardPos.x)
     let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
     let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
     if(this.currentBardPos.y >0)this.currentBardPos.y = 0

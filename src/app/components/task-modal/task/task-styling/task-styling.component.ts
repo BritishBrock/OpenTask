@@ -8,4 +8,9 @@ import { Task } from '../../../../Models/Task/Task';
 })
 export class TaskStylingComponent {
   @Input() task!:Task;
+
+  cardType(opcion:number){
+    this.task.cardColorTagType = opcion;
+  }
+  
 }

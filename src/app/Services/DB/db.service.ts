@@ -11,7 +11,6 @@ export class DBService {
   dbCompelte:Subject<any>= new Subject<any>();
   db: any;
   loadBoards() {
-
     const request =this.db
   .transaction("boards")
   .objectStore("boards")
@@ -30,7 +29,7 @@ export class DBService {
       for(let i = 0; i < boards.length;i++){
         let request = Boards.add(JSON.parse(JSON.stringify(boards[i]))); 
         request.onsuccess = function() { 
-          console.log("Se guardo el board", request.result);
+          
         };
         
         request.onerror = function() {
