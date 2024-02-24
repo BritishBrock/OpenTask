@@ -1,4 +1,4 @@
-<div class="taskListBody" (dblclick)="doubleClick()">  
+<div class="taskListBody" [style]="{'backgroundColor':taskList.color}" (dblclick)="doubleClick()">  
     
     <div type="text" class="taskListHeader">
         {{taskList.title}}    
