@@ -25,16 +25,16 @@ export class TaskViewerCalendarComponent {
   today:any;
 
   taskEndDates:any = {};
+  taskStartDates:any = {};
+  allDates:any = [];
 
   addToDateMap(task:Task){
+    
     let key = new Date(task.endDate!).getFullYear() + "-" +  (new Date(task.endDate!+"").getMonth()+1  ) +"-"+new Date(task.endDate!).getDate()
-    if(Object.hasOwn(this.taskEndDates,key)){
-      this.taskEndDates[key].push(task)
-    }else{
-      this.taskEndDates[key] = [];
-      this.taskEndDates[key].push(task)
-    }
-    console.log(this.taskEndDates)
+    let keyStart = new Date(task.startDate!).getFullYear() + "-" +  (new Date(task.startDate!+"").getMonth()+1  ) +"-"+new Date(task.startDate!).getDate()
+
+    this.allDates.push([ key, keyStart,task]);
+
   }
 
 
@@ -43,17 +43,13 @@ export class TaskViewerCalendarComponent {
  
 
     for(let i = 0;i <this.TaskViewerBoardService.globalTasks.length;i++){
-       if(this.TaskViewerBoardService.globalTasks[i].endDate) this.addToDateMap(this.TaskViewerBoardService.globalTasks[i])
+       if(this.TaskViewerBoardService.globalTasks[i].endDate || this.TaskViewerBoardService.globalTasks[i].startDate ) this.addToDateMap(this.TaskViewerBoardService.globalTasks[i])
     }  
     for(let i = 0;i < this.TaskViewerBoardService.globalTaskLists.length;i++){
       for(let y = 0; y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;y++){
-        if(this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate) this.addToDateMap(this.TaskViewerBoardService.globalTaskLists[i].tasks[y])
+        if(this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate || this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate) this.addToDateMap(this.TaskViewerBoardService.globalTaskLists[i].tasks[y])
       }
     }  
-
-  
-
-
 
     this.today = new Date();
     this.currentMonth = this.today.getMonth();
@@ -73,16 +69,42 @@ export class TaskViewerCalendarComponent {
   }
 
 
+  createTaskInCalender(task:Task){
+    let taskDiv = document.createElement("div");
+    taskDiv.style.width = "100%";
+    taskDiv.style.height = "20px";
+    taskDiv.style.background = task.colorTag;
+    taskDiv.textContent = task.name;
+    taskDiv.onclick = ()=>{
+      this.modalService.taskModal.next(task)
+    }
+    return taskDiv;
+  }
+
   addTasksToCalender(){
-    Object.entries(this.taskEndDates).every(([key,values])=>{
-      if(this.currentMonth == new Date(key).getMonth() && this.currentYear == new Date(key).getFullYear()){
-        let value:any = values;
-        if(value.length == 1){
-          document.getElementById("C-"+new Date(key).getDate())!.textContent += value[0].name;
+    console.log(this.allDates)
+    for(let i = 0; i < this.allDates.length;i++){
+      
+      if(this.allDates[i][0] === "NaN-NaN-NaN"){
+        if(this.currentMonth == new Date(this.allDates[i][1]).getMonth() && this.currentYear == new Date(this.allDates[i][1]).getFullYear()){
+          document.getElementById("C-"+new Date(this.allDates[i][1]).getDate())!.append(this.createTaskInCalender(this.allDates[i][2]));
         }
       }
-      return true;
-    })
+      else if(this.allDates[i][1] === "NaN-NaN-NaN"){
+        if(this.currentMonth == new Date(this.allDates[i][0]).getMonth() && this.currentYear == new Date(this.allDates[i][0]).getFullYear()){
+          document.getElementById("C-"+new Date(this.allDates[i][0]).getDate())!.append(this.createTaskInCalender(this.allDates[i][2]));
+        }
+      }else{
+        if(this.currentMonth == new Date(this.allDates[i][0]).getMonth() && this.currentYear == new Date(this.allDates[i][0]).getFullYear() && this.currentMonth == new Date(this.allDates[i][1]).getMonth() && this.currentYear == new Date(this.allDates[i][1]).getFullYear()){
+          
+          console.log(new Date(this.allDates[i][0]).getDate())
+          for(let j = 0;j<= new Date(this.allDates[i][0]).getDate() - new Date(this.allDates[i][1]).getDate();j++){
+            document.getElementById("C-"+(new Date(this.allDates[i][1]).getDate()+j))!.append(this.createTaskInCalender(this.allDates[i][2]));
+          }
+          
+        }
+      }
+    }
   }
 
    next() {
@@ -143,7 +165,7 @@ export class TaskViewerCalendarComponent {
               let cell = document.createElement("div");
               let cellText = document.createTextNode(date +"");
               let c = date+"";
-              cell.onclick =()=>{this.cellCliked(c)}
+              cell.onclick =()=>{}
               if (date === this.today.getDate() && year === this.today.getFullYear() && month === this.today.getMonth()) {
                 cell.classList.add("bg-info");
             } // color today's date
@@ -164,12 +186,6 @@ export class TaskViewerCalendarComponent {
 }
 
 
-
-cellCliked(date?:any){
-  //only works with the first task that exists on that date, needs to change to work with multiple.
-  this.modalService.taskModal.next(this.taskEndDates[""+ this.currentYear +"-"+ (this.currentMonth+1) +"-"+date][0])
-  console.log( this.taskEndDates[""+ this.currentYear +"-"+ (this.currentMonth+1) +"-"+date])
-}
 
 
 
