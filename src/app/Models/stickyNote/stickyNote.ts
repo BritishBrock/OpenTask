@@ -9,12 +9,22 @@ export class StickyNote{
     htmlElement?:HTMLElement;
     pos:Coord;
     descripcion?:string;
+    color:string;
     constructor(id?:number,){
         this.pos = {x:0,y:0}
         this.id = id ?? StickyNote.lastID++;
         this.component = StickyNoteComponent 
+        this.color = this.generateColor();
+        console.log(this.color)
     }
-
+    generateColor():string{
+        let char = "123456789ABCDEF";
+        let hexCol = "#";
+        for(let i = 0; i < 6; i++){
+          hexCol += char.charAt(Math.floor(Math.random() * char.length));
+        }
+        return hexCol;
+      }
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
     }
