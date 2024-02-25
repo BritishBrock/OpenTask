@@ -8,6 +8,8 @@ import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-view
 import { StickyNote } from '../../Models/stickyNote/stickyNote';
 import { TaskModalService } from '../../Services/task-modal.service';
 import { BoardService } from '../../Services/board/board.service';
+import { ContextMenuService } from '../../Services/ContextMenu/context-menu.service';
+import { SettingsService } from '../../Services/settings/settings.service';
 
 @Component({
   selector: 'app-task-viewer',
@@ -92,6 +94,8 @@ export class TaskViewerComponent {
     private taskviewerService: TaskViewerBoardService,
     private taskModalService:TaskModalService,
     private boardService:BoardService,
+    private ContextMenuService:ContextMenuService,
+    private settingsService:SettingsService,
   ) {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
@@ -151,6 +155,14 @@ export class TaskViewerComponent {
     this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
     this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
 
+
+
+    document.oncontextmenu =(e)=>{
+      if(!this.settingsService.userSettings.general.customContextMenu)return true;
+      this.ContextMenuService.switchContextMenu();
+      this.ContextMenuService.changeDisplayOfContextMenu({x:e.x,y:e.y});
+      return false;
+    }
 
     this.taskModalService.TaskModalOpen.subscribe(isOpen=>{
       this.isModalOpen = isOpen;

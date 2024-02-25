@@ -84,7 +84,6 @@ export class TaskComponent {
           break;
           case 2: break;
           case 3:
-             this.openContectMenu({x:event.x,y:event.y});
           break;
       }
     })
@@ -96,10 +95,6 @@ export class TaskComponent {
     })
   }
 
-  openContectMenu(coords:Coord){
-    // this.ContextMenuService.switchContextMenu();
-    // this.ContextMenuService.changeDisplayOfContextMenu(coords);
-  }
 
 
 
