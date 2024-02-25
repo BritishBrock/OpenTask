@@ -10,7 +10,8 @@ export class Board{
     boardTaskLists:TaskList[] = [];
     boardStickyNotes:StickyNote[] = [];
     isStarred:boolean= false;
-    constructor(id:number){
-        this.id = id;
+    constructor(id?:number){
+        this.id = id ?? Board.totalNumber;
+        Board.totalNumber++;
     }
 }
