@@ -9,11 +9,13 @@ import { TaskListDetailsComponent } from './tasklist/task-list-details/task-list
 import { TaskListLinksComponent } from './tasklist/task-list-links/task-list-links.component';
 import { Subject } from 'rxjs';
 import { TaskListStylingComponent } from './tasklist/task-list-styling/task-list-styling.component';
+import { StickyNote } from '../../Models/stickyNote/stickyNote';
+import { StickynoteComponent } from './stickynote/stickynote.component';
 
 @Component({
-  selector: 'app-task-modal',
-  templateUrl: './task-modal.component.html',
-  styleUrl: './task-modal.component.scss'
+  selector: 'app-modal',
+  templateUrl: './modal.component.html',
+  styleUrl: './modal.component.scss'
 })
 
 
@@ -22,12 +24,15 @@ export class TaskModalComponent {
 
   task?:Task;
   taskList?:TaskList;
+  stickyNote?:StickyNote;
+  modalOpen:string = "";
   constructor(private taskModalService:TaskModalService){}
 
 
 
   component?:any;
   taklistcomponent?:any;
+  stickyNoteComponent?:any;
   taskOpcions = [
     {
       title:"Task Details",
@@ -77,6 +82,9 @@ export class TaskModalComponent {
     },
   ]
 
+
+
+
   event:Subject<any> = new Subject<any>()
   input:any;
   ngOnInit(){
@@ -90,7 +98,7 @@ export class TaskModalComponent {
 
     this.taskModalService.taskModal.subscribe((task:Task)=>{
       if(!task) return;
-      delete this.taskList;
+      this.modalOpen = "task"
       this.task = task;
       this.input = {task:this.task};
       this.component = TaskDetailsComponent;
@@ -100,10 +108,19 @@ export class TaskModalComponent {
 
     this.taskModalService.taskListModal.subscribe((taskList:TaskList)=>{
       if(!taskList) return;
-      delete this.task;
+      this.modalOpen = "taskList"
       this.taskList = taskList;
       this.taklistcomponent = TaskListDetailsComponent;
       this.input = {taskList:this.taskList};
+      this.isTaskModalOpen=true;
+      this.taskModalService.TaskModalOpen.next(true)
+    })
+    this.taskModalService.stickyNoteModal.subscribe((stickyNote:StickyNote)=>{
+      if(!stickyNote) return;
+      this.modalOpen = "stickyNote"
+      this.stickyNote = stickyNote;
+      this.stickyNoteComponent = StickynoteComponent;
+      this.input = {stickyNote:this.stickyNote};
       this.isTaskModalOpen=true;
       this.taskModalService.TaskModalOpen.next(true)
     })

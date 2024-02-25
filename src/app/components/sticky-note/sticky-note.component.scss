@@ -1,6 +1,7 @@
 /* Some positioning and ratios */
 :host{
   z-index: 100;
+  user-select: none;
 }
 .sticky-container {
   position: relative;

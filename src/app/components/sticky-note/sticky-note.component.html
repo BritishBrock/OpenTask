@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" (dblclick)="openStickyNoteModal()">
     <div class="container-inner">
       <div class="sticky-container">
         <div class="sticky-outer">
@@ -15,7 +15,7 @@
               </defs>
             </svg>
             <div class="sticky-content">
-              
+              {{stickyNote.descripcion}}
             </div>
           </div>
         </div>

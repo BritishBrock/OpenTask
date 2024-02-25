@@ -73,6 +73,10 @@ export class StickyNoteComponent {
     //this.isResizing =false;
   }
 
+  openStickyNoteModal(){
+    this.taskModalService.stickyNoteModal.next(this.stickyNote);
+  }
+
   ngOnInit(){
     if(this.nativeElement) {
 
