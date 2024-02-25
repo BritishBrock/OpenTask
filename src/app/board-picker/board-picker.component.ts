@@ -65,6 +65,9 @@ export class BoardPickerComponent {
       if(this.boards[i].id == boardId)this.boards.splice(i,1)
     }
   }
+  starBoard(board:Board){
+    board.isStarred = true;
+  }
   duplicateBoard(boardId:number){
     for(let i = 0; i <  this.boards.length;i++){
        if(this.boards[i].id == boardId){

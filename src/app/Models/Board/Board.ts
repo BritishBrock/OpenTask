@@ -5,7 +5,8 @@ export class Board{
     static totalNumber:number = 0;
     id:number;
     boardTasks:Task[] = [];
-    boardTaskLists:TaskList[] = []
+    boardTaskLists:TaskList[] = [];
+    isStarred:boolean= false;
     constructor(id:number){
         this.id = id;
     }
