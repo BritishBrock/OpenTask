@@ -63,7 +63,31 @@
         font-size: x-large;
         padding:5px 20px;
         cursor: pointer;
-  
+        
+    }
+    .boardOption{
+        color: white;
+        position: relative;
+        font-size: x-large;
+        padding:5px 20px;
+        transition: all 0.2s ease-in;
+        transform: translateX(25px);
+    }
+    .boardOption:hover{
+        transform: translateX(50px);
+    }
+    .boardOption::after{
+        content: "";
+        position: absolute;
+        width: 0%;
+        left: 0;
+        transition: all 0.2s ease-in;
+        bottom: 0;
+        height: 1px;
+        background-color: white;
+    }
+    .boardOption:hover::after{
+        width: 100%;
     }
     .boardViewsOpcion::after{
         content: "";

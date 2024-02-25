@@ -17,6 +17,18 @@
                 {{opcion.title}}
             </div>
         }
+        <div >
+            <div (click)="isQuickBoardSelectOpen = !isQuickBoardSelectOpen" class="boardViewsOpcion">
+                Starred Boards <span *ngIf="!isQuickBoardSelectOpen"> &downarrow;</span><span *ngIf="isQuickBoardSelectOpen"> &uparrow;</span>
+            </div>
+            @if(isQuickBoardSelectOpen){
+               @for (board of allBoards; track $index) {
+                    @if(board.isStarred){
+                        <div class="boardOption" (click)="goToBoard(board.id)">{{board.name}}  {{ board.id}}</div>
+                    }
+               }
+            }
+        </div>
         <div class="boardViewsOpcion" (click)="goToSettings()">
             Settings
         </div>
