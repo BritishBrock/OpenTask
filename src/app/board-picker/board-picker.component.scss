@@ -8,16 +8,85 @@
     .board{
         width: 300px;
         height: 300px;
-        border-radius: 59px;
-        display: flex;
+        border-radius: 60px;
+        cursor: pointer;
         flex-direction: column;
+        position: relative;
         background: #e0e0e0;
         box-shadow:  28px 28px 67px #b3b3b3,
                     -28px -28px 67px #ffffff;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        .clicker{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        .boardOption{
+            width: 40px;
+            height: 40px;
+            display:none;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            background-color: rgb(37, 37, 37);
+            color: white;
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            z-index: 1;
+            svg{
+                z-index: 1;
+            }
+        }
+        .boardOption::after{
+            content: "";
+            width: 0%; 
+            border-radius: 100%;
+            position: absolute;
+            height: 0%;
+            background-color: rgb(0, 0, 0);
+            transition: all 0.2s ease-in-out;
+        }
+    
+        .boardOption:hover::after{
+            width: 100%; 
+            height: 100%;
+        }
+        .boardDelete{
+            top: 10px;
+            right:25px;
+        }
+        .boardDuplicate{
+            top: 10px;
+            right:75px;
+        }
+        .boardStar{
+            top: 10px;
+            left:25px;
+        }
+    }
+    .board:hover{
+        .boardOption{
+            display: flex;
+        }
+    }
+    .board::before{
+        content: "";
+        position: absolute;
+        width:100%;
+        height: 100%;
+        border: 5px solid rgba(94, 118, 255, 0);
+        padding: 10px 10px;
+        border-radius: 60px;
+        transition: all 0.2s ease-in-out;
+    }
+    .board:hover::before{
+        border: 5px solid rgb(94, 118, 255);
     }
     .createBoard{
         width: 300px;
@@ -39,7 +108,7 @@
         width: 300px;
         height: 300px;
         scale: 1.1;
-        border-radius: 59px;
+        border-radius:60px;
         background: #e0e0e0;
         box-shadow:  0px 0px 100px rgba(129, 33, 255, 0.582);
         border:5px dashed rgb(129, 33, 255);
@@ -69,3 +138,34 @@
     }
 }
 
+
+
+@media only screen and (max-width: 1200px) {
+    
+.mainBoardPicker{ 
+    grid-template-columns: repeat(2,auto);
+    }
+  }
+
+  @media only screen and (max-width:800px) {
+      
+  .mainBoardPicker{ 
+      grid-template-columns: repeat(1,auto);
+      justify-items: center;
+    }
+}
+@media only screen and (max-width:500px) {
+      
+    .mainBoardPicker{ 
+        grid-template-columns: repeat(1,auto);
+        justify-items: center;
+        .board{
+          width:250px;
+          height: 250px;
+      }
+      .createBoard{
+        width:250px;
+          height: 250px;
+      }
+      }
+  }

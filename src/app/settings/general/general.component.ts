@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SettingsService } from '../../Services/settings/settings.service';
 
 @Component({
   selector: 'app-general',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './general.component.scss'
 })
 export class GeneralComponent {
-
+  constructor(private settingsService:SettingsService) {}
+  generalSettings = this.settingsService.userSettings.general;
 }

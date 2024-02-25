@@ -29,6 +29,7 @@ export class BoardService {
     if(!this.activeBoard )return false;
     this.taskViewerService.globalTasks = this.activeBoard.boardTasks;
     this.taskViewerService.globalTaskLists = this.activeBoard.boardTaskLists;
+    this.taskViewerService.globalStickyNotes = this.activeBoard.boardStickyNotes;
     this.boardUpdates.next(true);
     return true;
   }

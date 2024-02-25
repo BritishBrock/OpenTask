@@ -15,11 +15,11 @@ export class Task{
     cardColorTagType:number = 0;
     endDate?:Date;
     startDate?:Date;
-    constructor(name:string,colorTag:string,id?:number,){
+    constructor(name:string,id?:number,){
         this.pos = {x:0,y:0}
         this.id = id ?? Task.lastID++;
         this.name= name;
-        this.colorTag = colorTag;
+        this.colorTag = this.generateColor();
         this.component = TaskComponent
        
     }
@@ -39,4 +39,12 @@ export class Task{
     removeHmtl(){
         delete this.htmlElement;
     }
+    generateColor():string{
+        let char = "123456789ABCDEF";
+        let hexCol = "#";
+        for(let i = 0; i < 6; i++){
+          hexCol += char.charAt(Math.floor(Math.random() * char.length));
+        }
+        return hexCol;
+      }
 }

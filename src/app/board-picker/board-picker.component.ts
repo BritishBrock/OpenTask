@@ -7,6 +7,8 @@ import { BoardSerializer } from '../Models/Board/BoardSerializer';
 import { Task } from '../Models/Task/Task';
 import { TaskList } from '../Models/TaskList/TaskList';
 import { DBService } from '../Services/DB/db.service';
+import { TaskSerializer } from '../Models/Task/TaskSerializer';
+import { TaskListSerializer } from '../Models/TaskList/TaskListSerializer';
 
 @Component({
   selector: 'app-board-picker',
@@ -64,6 +66,17 @@ export class BoardPickerComponent {
     for(let i = 0; i <  this.boards.length;i++){
       if(this.boards[i].id == boardId)this.boards.splice(i,1)
     }
+  }
+  starBoard(board:Board){
+    board.isStarred = true;
+  }
+  duplicateBoard(board:Board){
+    let newBoard = new Board();
+    newBoard.boardTasks =   TaskSerializer.DeSerialize(JSON.parse(JSON.stringify(board.boardTasks)))
+    newBoard.boardTaskLists =  TaskListSerializer.DeSerialize(JSON.parse(JSON.stringify(board.boardTaskLists)))
+    //need to do the same with the sticky notes, but first make it so they save to indexdb.
+    // newBoard.boardStickyNotes = structuredClone(board.boardStickyNotes)
+    this.boardService.globalBoards.push(newBoard)
   }
 
   // checking:any;

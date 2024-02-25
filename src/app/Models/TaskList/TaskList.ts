@@ -8,13 +8,15 @@ export class TaskList{
     pos:Coord;
     id:number;
     relatesTo?:TaskList;
-    title:string
+    title:string;
+    color:string;
     isLocked:boolean = false;
     constructor(id?:number){
         this.id =   TaskList.lastID++;
         this.component = TasklistComponent;
         this.pos = {x:0,y:0}
         this.title = `Example text (${this.id})`
+        this.color = this.generateColor();
     }
     component;
     htmlElement!:HTMLElement;
@@ -40,4 +42,14 @@ export class TaskList{
     setHtmlElement(htmlElement:HTMLElement){
         this.htmlElement = htmlElement;
     }
+
+    generateColor():string{
+        let char = "123456789ABCDEF";
+        let hexCol = "#";
+        for(let i = 0; i < 6; i++){
+          hexCol += char.charAt(Math.floor(Math.random() * char.length));
+        }
+        return hexCol;
+      }
+
 }

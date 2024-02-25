@@ -2,7 +2,7 @@
     <div class="closeModal" (click)="closeModal()">
 
     </div>
-    @if(taskList) {
+    @if(modalOpen == "taskList") {
        
         <div class="contentEditor card">
             @if (taklistcomponent) {
@@ -21,7 +21,7 @@
             <p>x</p>
       </div>
     }
-    @if (task) {
+    @else if (modalOpen == "task") {
         <div class="contentEditor card">
             @if (component) {
                 <ng-container *ngComponentOutlet="component  inputs: this.input; "/>
@@ -33,6 +33,15 @@
                     {{opcion.title}}
                 </div>
             }
+        </div>
+    
+        <div class="closeButton" (click)="closeModal()">
+              <p>x</p>
+        </div>
+    }
+    @else if (modalOpen == "stickyNote") {
+        <div class="contentEditor card">
+            <ng-container *ngComponentOutlet="stickyNoteComponent  inputs: this.input; "/>
         </div>
     
         <div class="closeButton" (click)="closeModal()">

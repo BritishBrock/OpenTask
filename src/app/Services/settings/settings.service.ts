@@ -10,6 +10,9 @@ export class SettingsService {
   userSettings:userSettings = {
     keybinds:{
       multiSelect:"shift",
+    },
+    general:{
+      customContextMenu:true,
     }
   }
 
@@ -19,8 +22,10 @@ export class SettingsService {
 
 
 export interface userSettings{
-  keybinds:keyBinds,
-}
-export interface keyBinds{
+  keybinds:{
     [key:string]:string,
+},
+  general:{
+    customContextMenu:boolean,
+  },
 }

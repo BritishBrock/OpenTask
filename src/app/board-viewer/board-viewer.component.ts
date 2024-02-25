@@ -8,6 +8,7 @@ import { NotesViewerComponent } from './notes-viewer/notes-viewer.component';
 import { BoardService } from '../Services/board/board.service';
 import { DBService } from '../Services/DB/db.service';
 import { BoardSerializer } from '../Models/Board/BoardSerializer';
+import { Board } from '../Models/Board/Board';
 
 @Component({
   selector: 'app-board-viewer',
@@ -25,7 +26,8 @@ export class BoardViewerComponent {
       private DBService:DBService,
       ){}
 
-
+      isQuickBoardSelectOpen:boolean = false;
+      allBoards:Board[] = this.boardService.globalBoards;
       ngOnInit(){
         let doesntExists = true;
         this.activeRoute.params.subscribe((query)=>{
@@ -49,17 +51,20 @@ export class BoardViewerComponent {
           })
           }else{
             for(let i = 0; i < this.boardService.globalBoards.length;i++){
-              if(this.boardService.globalBoards[i].id == query["id"])this.router.navigateByUrl("b/"+query["id"]);
+              if(this.boardService.globalBoards[i].id == query["id"]){
+                this.boardService.setActiveBoard(query["id"])
+                this.router.navigateByUrl("b/"+query["id"]);
+              }
             }
           }
-          
-          
-
           query["id"]
         })
       }
       goToSettings(){
         this.router.navigateByUrl("/settings");
+      }
+      goToBoard(boardId:number){
+        this.router.navigateByUrl("/b/"+boardId);
       }
 
     boardViews = [

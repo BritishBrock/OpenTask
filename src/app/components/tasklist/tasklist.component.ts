@@ -54,14 +54,13 @@ export class TasklistComponent {
     this.nativeElement.addEventListener("mousedown",(event:any)=>{
       switch (event.which) {
           case 1:
-            if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
             if(!this.DragService.Tasks && !this.taskList.isLocked){
               this.DragService.selectHTMLElement(this.taskList)
             };
           break;
           case 2: break;
           case 3:
-             this.openContectMenu({x:event.x,y:event.y});
+           
           break;
       }
     })
@@ -74,10 +73,6 @@ export class TasklistComponent {
     })
   }
 
-  openContectMenu(coords:Coord){
-    // this.ContextMenuService.switchContextMenu();
-    // this.ContextMenuService.changeDisplayOfContextMenu(coords);
-  }
 
 
   ngOnChanges(){
