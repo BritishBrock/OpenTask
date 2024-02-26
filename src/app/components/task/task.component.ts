@@ -75,10 +75,13 @@ export class TaskComponent {
 
   mousedown(){
     this.nativeElement!.addEventListener("mousedown",(event:any)=>{
+
       switch (event.which) {
           case 1:
             if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
             if(!this.DragService.Tasks){
+              
+               console.log( this.task.pos)
               this.DragService.selectHTMLElement(this.task)
             };
           break;

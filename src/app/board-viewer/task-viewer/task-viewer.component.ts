@@ -180,7 +180,9 @@ export class TaskViewerComponent {
 
     this.select.classList.add('selector');
     this.elRef.nativeElement.addEventListener('mousedown', (event: any) => {
+      
       if (this.dragService.Tasks) return;
+     
 
      
         this.isselectM= true;
@@ -294,6 +296,23 @@ export class TaskViewerComponent {
         if (this.dragService.Tasks){
         
           this.redoCanvas()
+
+
+
+            if(this.dragService.Tasks.isInTaskList){
+              let tasklist = this.taskviewerService.globalTaskLists;
+              for(let i=0; i < tasklist.length;i++){
+                  if(tasklist[i].id == this.dragService.Tasks.taskListId){
+                    this.dragService.Tasks.pos = {x:tasklist[i].pos.x + this.dragService.Tasks.htmlElement!.offsetLeft ,y:tasklist[i].pos.y  + this.dragService.Tasks.htmlElement!.offsetTop}
+                    this.taskviewerService.getFromGlobalTasksList( this.dragService.Tasks.taskListId)?.removeFromList( this.dragService.Tasks.id);
+                    this.dragService.Tasks.removeTaskListId()
+                    this.taskviewerService.addToGlobalTasks(this.dragService.Tasks);
+                  }
+              }
+            }
+
+
+
             this.dragService.moveSelectedHTMLElement({x:  event.movementX  / this.dragService.currentZoom, y: event.movementY  / this.dragService.currentZoom});
         }
         else if (this.isselect && this.isselectM) {

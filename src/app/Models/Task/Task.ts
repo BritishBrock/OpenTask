@@ -23,7 +23,6 @@ export class Task{
         this.colorTag = this.generateColor();
         this.component = TaskComponent
         this.creationDate = Date.now();
-        console.log(this.creationDate)
     }
 
     setHtmlElement(htmlElement:HTMLElement){
