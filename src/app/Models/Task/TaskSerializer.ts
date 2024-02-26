@@ -14,6 +14,8 @@ export class TaskSerializer{
             newTask.isInTaskList = taskJsonArray[i].isInTaskList;
             newTask.taskListId = taskJsonArray[i].taskListId;
             newTask.colorTag= taskJsonArray[i].colorTag;
+            newTask.startDate= taskJsonArray[i].startDate;
+            newTask.endDate= taskJsonArray[i].endDate;
             newTask.pos = taskJsonArray[i].pos as Coord;
             taskArray.push(newTask)
         }
