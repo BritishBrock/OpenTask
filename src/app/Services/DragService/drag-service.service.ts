@@ -11,22 +11,21 @@ export class DragServiceService {
 
   Tasks?:any;
   currentBardPos:Coord = {x:0,y:0};
+  currentZoom:number = 1;
   viewBoard?:HTMLElement;
   selectHTMLElement(element:any){
     this.Tasks = element;
   }
 
-  moveSelectedHTMLElement(newCoord:Coord){
+  moveSelectedHTMLElement(event:any){
     if(!this.Tasks)return;
-    this.Tasks.pos = newCoord;
-    this.Tasks.pos.y = newCoord.y - +10  ;
-    this.Tasks.pos.x = newCoord.x  -(this.Tasks.htmlElement.offsetWidth /2)
+    this.Tasks.pos.y +=  event.movementY / this.currentZoom;
+    this.Tasks.pos.x +=   event.movementX  / this.currentZoom;
     //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
-    this.Tasks.htmlElement.style.position= "fixed";
-    this.Tasks.htmlElement.style.left =  newCoord.x   + "px";
-    this.Tasks.htmlElement.style.top =  newCoord.y +  "px";
-    this.Tasks.pos.y =(this.currentBardPos.y*-1) +this.Tasks.pos.y;
-    this.Tasks.pos.x = (this.currentBardPos.x*-1) + this.Tasks.pos.x
+    this.Tasks.htmlElement.style.position= "absolute";
+    this.Tasks.htmlElement.style.left =   this.Tasks.pos.x+ "px";
+    this.Tasks.htmlElement.style.top =  this.Tasks.pos.y +  "px";
+
 
   }
   clearSelectedHTMLElement(){

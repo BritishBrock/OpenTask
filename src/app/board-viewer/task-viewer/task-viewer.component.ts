@@ -251,62 +251,68 @@ export class TaskViewerComponent {
       //this.dragService.getPlaceOfDropped();
        this.dragService.clearSelectedHTMLElement();
     })
-    this.elRef.nativeElement.addEventListener('mousemove', (event: any) => {
-    if(this.isModalOpen)return;
-      if (this.dragService.Tasks){
-        
-        this.redoCanvas()
-          this.dragService.moveSelectedHTMLElement({
-            x: event.x,
-            y: event.y,
-          } as Coord);
-      }
-      else if (this.isselect && this.isselectM) {
-        let width = Math.abs(this.iSX - event.x);
-        let height = Math.abs(this.iSY - event.y);
-        this.select.style.width = width + 'px';
-        this.select.style.height = height + 'px';
-        this.select.style.left =Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
-        this.select.style.top = this.iSY + 'px';
-        this.select.style.position = 'absolute';
-        this.select.style.border = ' 1px dashed blue';
-      }
-      if (this.mouseDown) {
-        this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
-      
-      }
-    });
+   
 
-    this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
-      this.iMX = 0;
-      this.iMY = 0;
-      this.mouseDown = false;
-      this.isMoving = false;
-      this.isselectM= false;
-      if (this.dragService.Tasks) return;
-    });
+   
   }
   @ViewChild("TaskViewerBoard")TaskViewerBoard?:ElementRef;
-  zoom: number = 1;
+  
   zoom2: number = 100;
   zoomIn() {
     if(!this.TaskViewerBoard)return;
-    this.zoom += 0.01;
-    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"";
+    this.dragService.currentZoom += 0.01;
+    this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom+"";
   }
 
   zoomOut() {
     if(!this.TaskViewerBoard)return;
-    this.zoom -= 0.01;
-    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"" ;
+    this.dragService.currentZoom -= 0.01;
+
+
+    this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom+"" ;
   }
   changeZoom(){
     if(!this.TaskViewerBoard)return;
-    this.zoom = this.zoom2/100; 
-    this.TaskViewerBoard.nativeElement.style.scale = this.zoom+"" ;
+    this.dragService.currentZoom = this.zoom2/100; 
+    this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom+"" ;
   }
   ngAfterViewInit(){
-   
+    if( this.TaskViewerBoard){
+
+      this.TaskViewerBoard.nativeElement.addEventListener('mousemove', (event: any) => {
+      if(this.isModalOpen)return;
+        if (this.dragService.Tasks){
+          
+
+          this.redoCanvas()
+            this.dragService.moveSelectedHTMLElement(event);
+        }
+        else if (this.isselect && this.isselectM) {
+          let width = Math.abs(this.iSX - event.x);
+          let height = Math.abs(this.iSY - event.y);
+          this.select.style.width = width + 'px';
+          this.select.style.height = height + 'px';
+          this.select.style.left =Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
+          this.select.style.top = this.iSY + 'px';
+          this.select.style.position = 'absolute';
+          this.select.style.border = ' 1px dashed blue';
+        }
+        if (this.mouseDown) {
+          this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+        
+        }
+      });
+
+      this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
+        this.iMX = 0;
+        this.iMY = 0;
+        this.mouseDown = false;
+        this.isMoving = false;
+        this.isselectM= false;
+        if (this.dragService.Tasks) return;
+      });
+
+    }
     let c = <HTMLCanvasElement>document.getElementById("canvas");
     c.width = this.htmlElement.clientWidth;
     c.height = this.htmlElement.clientHeight;
@@ -349,3 +355,6 @@ export class TaskViewerComponent {
 
   }
 }
+
+
+

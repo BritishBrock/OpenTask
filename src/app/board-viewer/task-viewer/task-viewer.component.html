@@ -1,5 +1,4 @@
 <div #TaskViewerBoard class="TaskViewerBoard">
-
     <canvas id="canvas"></canvas>
 
 
@@ -19,6 +18,9 @@
     <app-modal></app-modal>
     
 </div>
+
+
+
 <div class="create" (click)="toggleCreateMenu()">
         <div class="icon">+</div>
         <div class="createMenu" [ngClass]="this.isCreateMenuOpen ? 'createMenuIsOpen': ''">
