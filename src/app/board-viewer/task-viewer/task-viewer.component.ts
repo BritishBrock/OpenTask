@@ -44,7 +44,7 @@ export class TaskViewerComponent {
         if(!this.isCreatingOnMouse){
           let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
           let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-          this.createTask(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+          this.createTask( vw/2,vh/2);
         }else{
           this.isCreating = "task"; 
           this.htmlElement.style.backgroundColor = "grey"
@@ -58,7 +58,7 @@ export class TaskViewerComponent {
         if(!this.isCreatingOnMouse){
           let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
           let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-          this.createTaskList(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+          this.createTaskList(vw/2, vh/2);
         }else{
           this.isCreating = "taskList"; 
           this.htmlElement.style.backgroundColor = "grey"
@@ -71,7 +71,7 @@ export class TaskViewerComponent {
         if(!this.isCreatingOnMouse){
           let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
           let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-          this.createStickyNote(this.dragService.currentBardPos.x + vw/2,this.dragService.currentBardPos.y + vh/2);
+          this.createStickyNote( vw/2,vh/2);
         }else{
           this.isCreating = "stickyNote"; 
           this.htmlElement.style.backgroundColor = "grey"
