@@ -1,12 +1,12 @@
 <div #TaskViewerBoard class="TaskViewerBoard">
     <canvas id="canvas"></canvas>
 
+    @for (taskList of taskLists; track $index) {
+        <ng-container *ngComponentOutlet="taskList.component  inputs: {taskList:taskList}; "/>
+    }
 
     @for (task of tasks; track $index) {
         <ng-container *ngComponentOutlet="task.component  inputs: {task:task}; "/>
-    }
-    @for (taskList of taskLists; track $index) {
-        <ng-container *ngComponentOutlet="taskList.component  inputs: {taskList:taskList}; "/>
     }
     @for (stickyNote of stickyNotes; track $index) {
         <ng-container *ngComponentOutlet="stickyNote.component  inputs: {stickyNote:stickyNote}; "/>

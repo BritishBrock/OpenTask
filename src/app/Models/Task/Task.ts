@@ -18,7 +18,7 @@ export class Task{
     creationDate:number;
     constructor(name:string,id?:number,){
         this.pos = {x:0,y:0}
-        this.id = id ?? Task.lastID++;
+        this.id = Math.floor(Math.random()*100000000000000);
         this.name= name;
         this.colorTag = this.generateColor();
         this.component = TaskComponent

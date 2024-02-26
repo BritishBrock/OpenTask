@@ -19,7 +19,6 @@ export class DragServiceService {
 
   moveSelectedHTMLElement(coords:Coord){
     if(!this.Tasks)return;
-    
     this.Tasks.pos.y +=  coords.y;
     this.Tasks.pos.x +=  coords.x;
 
@@ -81,7 +80,7 @@ export class DragServiceService {
       }
     } 
     delete this.Tasks;
-  }
+     }
     
 
 
