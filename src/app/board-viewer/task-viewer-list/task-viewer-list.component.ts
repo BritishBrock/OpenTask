@@ -22,6 +22,22 @@ export class TaskViewerListComponent {
         this.tasks.push(this.TaskViewerBoardService.globalTaskLists[i].tasks[y])
       }
     }  
+    this.tasks = this.tasks.sort((x,x2)=>x.creationDate - x2.creationDate )
+  }
+
+  orderType:number = 0;
+  OrderList(){
+    switch(this.orderType+""){
+      case "0":
+        this.tasks = this.tasks.sort((x,x2)=>x.creationDate - x2.creationDate )
+      break;
+      case "1":
+        this.tasks = this.tasks.sort((x,x2)=>x2.creationDate -x.creationDate   )   
+      break;
+      default:
+        break;
+    }
+     
   }
 
 }

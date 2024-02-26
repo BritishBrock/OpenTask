@@ -12,8 +12,11 @@
       <div class="listTasks">
         <div class='main-table-containter' >
           <div class='title-table-container'>
-            <div class='subtitle'>Tasks</div>
-            <button class='select-button'> Reciente </button>
+            <div class='subtitle' >Tasks</div>
+            <select name="" id="" [(ngModel)]="orderType" (change)="OrderList()">
+              <option value="0">Newest</option>
+              <option value="1">Oldest</option>
+            </select>
           </div>
           <div>
             <table>
