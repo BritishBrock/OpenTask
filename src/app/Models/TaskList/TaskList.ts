@@ -12,7 +12,7 @@ export class TaskList{
     color:string;
     isLocked:boolean = false;
     constructor(id?:number){
-        this.id =   TaskList.lastID++;
+        this.id =   id ?? TaskList.lastID++;
         this.component = TasklistComponent;
         this.pos = {x:0,y:0}
         this.title = `Example text (${this.id})`
