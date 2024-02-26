@@ -9,6 +9,7 @@ import { TaskList } from '../Models/TaskList/TaskList';
 import { DBService } from '../Services/DB/db.service';
 import { TaskSerializer } from '../Models/Task/TaskSerializer';
 import { TaskListSerializer } from '../Models/TaskList/TaskListSerializer';
+import { StickyNoteSerializer } from '../Models/stickyNote/StickyNoteSerializer';
 
 @Component({
   selector: 'app-board-picker',
@@ -75,7 +76,7 @@ export class BoardPickerComponent {
     newBoard.boardTasks =   TaskSerializer.DeSerialize(JSON.parse(JSON.stringify(board.boardTasks)))
     newBoard.boardTaskLists =  TaskListSerializer.DeSerialize(JSON.parse(JSON.stringify(board.boardTaskLists)))
     //need to do the same with the sticky notes, but first make it so they save to indexdb.
-    // newBoard.boardStickyNotes = structuredClone(board.boardStickyNotes)
+    newBoard.boardStickyNotes = StickyNoteSerializer.DeSerialize(JSON.parse(JSON.stringify(board.boardStickyNotes)));
     this.boardService.globalBoards.push(newBoard)
   }
 

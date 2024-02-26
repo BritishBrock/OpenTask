@@ -1,5 +1,6 @@
 import { TaskSerializer } from "../Task/TaskSerializer";
 import { TaskListSerializer } from "../TaskList/TaskListSerializer";
+import { StickyNoteSerializer } from "../stickyNote/StickyNoteSerializer";
 import { Board } from "./Board";
 
 
@@ -17,6 +18,7 @@ export class BoardSerializer{
             let newBoard = new Board(boardJsonArray[i].id);
             newBoard.boardTaskLists =   TaskListSerializer.DeSerialize(boardJsonArray[i].boardTaskLists);
             newBoard.boardTasks =    TaskSerializer.DeSerialize(boardJsonArray[i].boardTasks);
+            newBoard.boardStickyNotes =    StickyNoteSerializer.DeSerialize(boardJsonArray[i].boardStickyNotes);
             boardArray.push(newBoard)
             Board.totalNumber++;
         }
