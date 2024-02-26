@@ -76,7 +76,6 @@ export class TaskComponent {
 
 
   mousedown(){
-    
     this.nativeElement!.addEventListener("touchstart",(event:any)=>{
       event.preventDefault();
             if(!this.DragService.Tasks){

@@ -21,8 +21,9 @@ export class DragServiceService {
     if(!this.Tasks)return;
     this.Tasks.pos.y +=  coords.y;
     this.Tasks.pos.x +=  coords.x;
+
     //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
-    this.Tasks.htmlElement.style.position= "absolute";
+    this.Tasks.htmlElement.style.position= "fixed";
     this.Tasks.htmlElement.style.left =   this.Tasks.pos.x+ "px";
     this.Tasks.htmlElement.style.top =  this.Tasks.pos.y +  "px";
 

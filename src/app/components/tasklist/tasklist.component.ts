@@ -17,6 +17,7 @@ export class TasklistComponent {
     this.nativeElement = this.elRef.nativeElement;
   }
   ngOnInit(){
+    
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
@@ -26,7 +27,9 @@ export class TasklistComponent {
         this.nativeElement!.style.position = "absolute"
         this.nativeElement!.style.left = this.taskList.pos.x  +"px";
         this.nativeElement!.style.top =  this.taskList.pos.y +"px";
-      
+        
+    
+  
    
         if(this.DragService.Tasks)
         this.DragService.clearSelectedHTMLElement();
@@ -80,7 +83,6 @@ export class TasklistComponent {
       this.nativeElement!.style.position = "absolute"
       this.nativeElement!.style.left = this.taskList.pos.x +"px";
       this.nativeElement!.style.top = this.taskList.pos.y +"px";
-    
 
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
