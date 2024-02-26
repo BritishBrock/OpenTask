@@ -206,41 +206,7 @@ export class TaskViewerComponent {
 
 
     });
-    this.elRef.nativeElement.addEventListener("touchmove", (event: any) => {
-      event.preventDefault();
-      if(this.isModalOpen)return;
-      var touch = event.targetTouches[0];
-      if (this.dragService.Tasks){
-        this.redoCanvas()
-        this.dragService.moveSelectedHTMLElement({
-          x: touch.clientX,
-          y: touch.clientY,
-        } as Coord);
-      }
-      else if (this.isselect && this.isselectM) {
-        let width = Math.abs(this.iSX - event.x);
-        let height = Math.abs(this.iSY - event.y);
-        this.select.style.width = width + 'px';
-        this.select.style.height = height + 'px';
-        this.select.style.left =Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
-        this.select.style.top = this.iSY + 'px';
-        this.select.style.position = 'absolute';
-        this.select.style.border = ' 1px dashed blue';
-      }
-      
-      if (!this.dragService.Tasks) {
-        const touch = event.touches[0];
-
-        if (this.previousTouch) {
-          let velocidad = 5;
-            event.movementX = touch.pageX < this.previousTouch.pageX ? -velocidad : velocidad;
-            event.movementY = touch.pageY < this.previousTouch.pageY ? -velocidad : velocidad;
-            this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
-        };
-    
-        this.previousTouch = touch;
-      }
-    });
+   
 
     this.elRef.nativeElement.addEventListener('mouseleave', (event: any) => {
       if(this.mouseDown)this.mouseDown = false;
@@ -279,13 +245,56 @@ export class TaskViewerComponent {
   ngAfterViewInit(){
     if( this.TaskViewerBoard){
 
+      this.TaskViewerBoard.nativeElement.addEventListener("touchmove", (event: any) => {
+        event.preventDefault();
+
+
+        if(this.isModalOpen)return;
+      
+        if (this.dragService.Tasks){
+          var touch = event.targetTouches[0];
+       
+          if (this.previousTouch) {
+          this.redoCanvas()
+          event.movementY = touch.pageY - this.previousTouch.pageY;
+          event.movementX = touch.pageX - this.previousTouch.pageX;
+          this.dragService.moveSelectedHTMLElement({x:  event.movementX  / this.dragService.currentZoom, y: event.movementY  / this.dragService.currentZoom});
+        }
+        this.previousTouch = touch;
+        }
+        else if (this.isselect && this.isselectM) {
+          let width = Math.abs(this.iSX - event.x);
+          let height = Math.abs(this.iSY - event.y);
+          this.select.style.width = width + 'px';
+          this.select.style.height = height + 'px';
+          this.select.style.left =Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
+          this.select.style.top = this.iSY + 'px';
+          this.select.style.position = 'absolute';
+          this.select.style.border = ' 1px dashed blue';
+        }
+        
+        if (!this.dragService.Tasks) {
+          const touch = event.touches[0];
+  
+          if (this.previousTouch) {
+            let velocidad = 5;
+            event.movementX = touch.pageX - this.previousTouch.pageX;
+            event.movementY = touch.pageY - this.previousTouch.pageY;
+    
+    
+              this.dragService.setBoardPos({x: parseInt(this.htmlElement.style.left) +(event.movementX  ),y:parseInt(this.htmlElement.style.top) +(event.movementY ) })
+          };
+      
+          this.previousTouch = touch;
+        }
+      });
+
       this.TaskViewerBoard.nativeElement.addEventListener('mousemove', (event: any) => {
       if(this.isModalOpen)return;
         if (this.dragService.Tasks){
-          
-
+        
           this.redoCanvas()
-            this.dragService.moveSelectedHTMLElement(event);
+            this.dragService.moveSelectedHTMLElement({x:  event.movementX  / this.dragService.currentZoom, y: event.movementY  / this.dragService.currentZoom});
         }
         else if (this.isselect && this.isselectM) {
           let width = Math.abs(this.iSX - event.x);
@@ -302,7 +311,9 @@ export class TaskViewerComponent {
         
         }
       });
-
+      this.elRef.nativeElement.addEventListener('touchend', (event: any) => {
+        delete this.previousTouch;
+      });
       this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
         this.iMX = 0;
         this.iMY = 0;

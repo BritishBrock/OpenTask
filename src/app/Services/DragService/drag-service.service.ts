@@ -17,10 +17,12 @@ export class DragServiceService {
     this.Tasks = element;
   }
 
-  moveSelectedHTMLElement(event:any){
+  moveSelectedHTMLElement(coords:Coord){
     if(!this.Tasks)return;
-    this.Tasks.pos.y +=  event.movementY / this.currentZoom;
-    this.Tasks.pos.x +=   event.movementX  / this.currentZoom;
+    console.log(this.Tasks.pos)
+    this.Tasks.pos.y +=  coords.y;
+    this.Tasks.pos.x +=  coords.x;
+    console.log(this.Tasks.pos)
     //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
     this.Tasks.htmlElement.style.position= "absolute";
     this.Tasks.htmlElement.style.left =   this.Tasks.pos.x+ "px";
