@@ -12,7 +12,7 @@ export class SettingsService {
       multiSelect:"shift",
     },
     general:{
-      customContextMenu:true,
+      customContextMenu:false,
     }
   }
 
