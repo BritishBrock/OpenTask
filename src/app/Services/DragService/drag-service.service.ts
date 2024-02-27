@@ -19,11 +19,10 @@ export class DragServiceService {
 
   moveSelectedHTMLElement(coords:Coord){
     if(!this.Tasks)return;
-    this.Tasks.pos.y +=  coords.y;
-    this.Tasks.pos.x +=  coords.x;
-
+    this.Tasks.pos.y += coords.y;
+    this.Tasks.pos.x += coords.x;
     //Absolute doesnt work beacuse absolute is 0,0 of the element its in. 
-    this.Tasks.htmlElement.style.position= "fixed";
+    this.Tasks.htmlElement.style.position= "absolute";
     this.Tasks.htmlElement.style.left =   this.Tasks.pos.x+ "px";
     this.Tasks.htmlElement.style.top =  this.Tasks.pos.y +  "px";
 
@@ -66,6 +65,7 @@ export class DragServiceService {
         this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
         this.Tasks.removeTaskListId();
         this.taskViewerService.addToGlobalTasks(this.Tasks);
+     
       }
     }else{
       if(!this.Tasks.isInTaskList){
