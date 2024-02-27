@@ -98,9 +98,60 @@ export class StickyNoteComponent {
       this.DragService.clearSelectedHTMLElement();
       
     })
+
+
+    this.nativeElement!.addEventListener("touchend",(event:any)=>{
+      this.nativeElement!.style.position = "absolute"
+      this.nativeElement!.style.left =+ this.stickyNote.pos.x+"px";
+      this.nativeElement!.style.top = +this.stickyNote.pos.y  +"px";
+      this.detectDoubleTapClosure(event)
+
+      if(this.DragService.Tasks)
+      this.DragService.getPlaceOfDropped();
+      this.DragService.clearSelectedHTMLElement();
+
+
+    })
+
+    this.nativeElement!.addEventListener("touchstart",(event:any)=>{
+      event.preventDefault();
+            if(!this.DragService.Tasks){
+       this.DragService.selectHTMLElement(this.stickyNote)
+      }
+    })
+
+
+
+
   }
     
   }
+
+
+
+  doubleClick(){
+    this.taskModalService.stickyNoteModal.next(this.stickyNote);
+  }
+
+  lastTap = 0;
+   detectDoubleTapClosure(event:any) {
+    let timeout:any;
+      const curTime = new Date().getTime();
+      const tapLen = curTime - this.lastTap;
+      if (tapLen < 500 && tapLen > 0) {
+       
+        this.doubleClick();
+        event.preventDefault();
+        clearTimeout(timeout);
+      } else {
+        timeout = setTimeout(() => {
+          clearTimeout(timeout);
+        }, 500);
+      }
+      this.lastTap = curTime;
+  }
+
+
 
   mousedown(){
     if(!this.nativeElement) return;

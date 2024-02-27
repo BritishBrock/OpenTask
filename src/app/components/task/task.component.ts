@@ -4,6 +4,7 @@ import { DragServiceService } from '../../Services/DragService/drag-service.serv
 import { ContextMenuService } from '../../Services/ContextMenu/context-menu.service';
 import { Coord } from '../../interfaces/Coord/Coord';
 import { TaskModalService } from '../../Services/task-modal.service';
+import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 
 @Component({
   selector: 'app-task',
@@ -21,7 +22,8 @@ export class TaskComponent {
   constructor(private elRef:ElementRef,
     private DragService:DragServiceService,
     private ContextMenuService:ContextMenuService,
-    private taskModalService:TaskModalService
+    private taskModalService:TaskModalService,
+    private taskViewerService:TaskViewerBoardService,
     ) {
     this.nativeElement = this.elRef.nativeElement;
   }
@@ -56,6 +58,7 @@ export class TaskComponent {
       this.nativeElement!.style.position = "absolute"
       this.nativeElement!.style.left =+ this.task.pos.x+"px";
       this.nativeElement!.style.top = +this.task.pos.y  +"px";
+      this.detectDoubleTapClosure(event)
       if(this.task.isInTaskList){
         this.nativeElement!.style.position = "relative"
         this.nativeElement!.style.left = "0";
@@ -74,19 +77,6 @@ export class TaskComponent {
 
 
   mousedown(){
-    this.nativeElement!.addEventListener("mousedown",(event:any)=>{
-      switch (event.which) {
-          case 1:
-            if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
-            if(!this.DragService.Tasks){
-              this.DragService.selectHTMLElement(this.task)
-            };
-          break;
-          case 2: break;
-          case 3:
-          break;
-      }
-    })
     this.nativeElement!.addEventListener("touchstart",(event:any)=>{
       event.preventDefault();
             if(!this.DragService.Tasks){
@@ -104,8 +94,63 @@ export class TaskComponent {
 
 
 
+  ngAfterViewInit(){
+    this.nativeElement!.addEventListener("mousedown",(event:any)=>{
+      switch (event.which) {
+          case 1:
+            if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
+            if(!this.DragService.Tasks){
+            
+              if(this.task.taskListId != undefined){
+               
+                let tasklists = this.taskViewerService.globalTaskLists;
+                for(let i = 0; i < tasklists.length;i++){
+                  if(tasklists[i].id == this.task.taskListId ){
+                 
+                    this.task.pos = {
+                      x:this.taskViewerService.getFromGlobalTasksList(this.task.taskListId)!.pos.x + this.task.htmlElement!.offsetLeft,
+                      y:this.taskViewerService.getFromGlobalTasksList(this.task.taskListId)!.pos.y+ this.task.htmlElement!.offsetTop
+                    }
+                   
+                    tasklists[i].removeFromList(this.task.id);
+                    this.task.removeTaskListId();
+                    this.taskViewerService.addToGlobalTasks(this.task);
 
+                  }
+                }
+              
+              }
+            
+              this.DragService.selectHTMLElement(this.task)
+            };
+          break;
+          case 2: break;
+          case 3:
+          break;
+      }
+    })
+  }
+  doubleClick(){
+    this.taskModalService.taskModal.next(this.task);
+  }
 
+  lastTap = 0;
+   detectDoubleTapClosure(event:any) {
+    let timeout:any;
+      const curTime = new Date().getTime();
+      const tapLen = curTime - this.lastTap;
+      if (tapLen < 500 && tapLen > 0) {
+       
+        this.doubleClick();
+        event.preventDefault();
+        clearTimeout(timeout);
+      } else {
+        timeout = setTimeout(() => {
+          clearTimeout(timeout);
+        }, 500);
+      }
+      this.lastTap = curTime;
+  }
 
 
 

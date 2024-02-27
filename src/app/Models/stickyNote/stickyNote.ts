@@ -15,7 +15,6 @@ export class StickyNote{
         this.id = id ?? StickyNote.lastID++;
         this.component = StickyNoteComponent 
         this.color = this.generateColor();
-        console.log(this.color)
     }
     generateColor():string{
         let char = "123456789ABCDEF";

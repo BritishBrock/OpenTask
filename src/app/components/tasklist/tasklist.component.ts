@@ -17,6 +17,7 @@ export class TasklistComponent {
     this.nativeElement = this.elRef.nativeElement;
   }
   ngOnInit(){
+    
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
@@ -26,7 +27,9 @@ export class TasklistComponent {
         this.nativeElement!.style.position = "absolute"
         this.nativeElement!.style.left = this.taskList.pos.x  +"px";
         this.nativeElement!.style.top =  this.taskList.pos.y +"px";
-      
+        
+    
+  
    
         if(this.DragService.Tasks)
         this.DragService.clearSelectedHTMLElement();
@@ -37,10 +40,9 @@ export class TasklistComponent {
         this.nativeElement!.style.left = this.taskList.pos.x  +"px";
         this.nativeElement!.style.top =  this.taskList.pos.y +"px";
       
-   
+        this.detectDoubleTapClosure(event)
         if(this.DragService.Tasks)
         this.DragService.clearSelectedHTMLElement();
-  
   
       })
     }
@@ -80,13 +82,29 @@ export class TasklistComponent {
       this.nativeElement!.style.position = "absolute"
       this.nativeElement!.style.left = this.taskList.pos.x +"px";
       this.nativeElement!.style.top = this.taskList.pos.y +"px";
-    
 
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
     }
   }
-
+  
+  lastTap = 0;
+   detectDoubleTapClosure(event:any) {
+    let timeout:any;
+      const curTime = new Date().getTime();
+      const tapLen = curTime - this.lastTap;
+      if (tapLen < 500 && tapLen > 0) {
+       
+        this.doubleClick();
+        event.preventDefault();
+        clearTimeout(timeout);
+      } else {
+        timeout = setTimeout(() => {
+          clearTimeout(timeout);
+        }, 500);
+      }
+      this.lastTap = curTime;
+  }
 
 }

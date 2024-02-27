@@ -69,12 +69,12 @@ export class TaskViewerCalendarComponent {
   }
 
 
-  createTaskInCalender(task:Task){
+  createTaskInCalender(task:Task,CreateTitle:boolean){
     let taskDiv = document.createElement("div");
     taskDiv.style.width = "100%";
     taskDiv.style.height = "20px";
     taskDiv.style.background = task.colorTag;
-    taskDiv.textContent = task.name;
+    if(CreateTitle)taskDiv.textContent = task.name;
     taskDiv.onclick = ()=>{
       this.modalService.taskModal.next(task)
     }
@@ -82,24 +82,25 @@ export class TaskViewerCalendarComponent {
   }
 
   addTasksToCalender(){
-    console.log(this.allDates)
     for(let i = 0; i < this.allDates.length;i++){
       
       if(this.allDates[i][0] === "NaN-NaN-NaN"){
         if(this.currentMonth == new Date(this.allDates[i][1]).getMonth() && this.currentYear == new Date(this.allDates[i][1]).getFullYear()){
-          document.getElementById("C-"+new Date(this.allDates[i][1]).getDate())!.append(this.createTaskInCalender(this.allDates[i][2]));
+          document.getElementById("C-"+new Date(this.allDates[i][1]).getDate())!.append(this.createTaskInCalender(this.allDates[i][2],true));
         }
       }
       else if(this.allDates[i][1] === "NaN-NaN-NaN"){
         if(this.currentMonth == new Date(this.allDates[i][0]).getMonth() && this.currentYear == new Date(this.allDates[i][0]).getFullYear()){
-          document.getElementById("C-"+new Date(this.allDates[i][0]).getDate())!.append(this.createTaskInCalender(this.allDates[i][2]));
+          document.getElementById("C-"+new Date(this.allDates[i][0]).getDate())!.append(this.createTaskInCalender(this.allDates[i][2],true));
         }
       }else{
         if(this.currentMonth == new Date(this.allDates[i][0]).getMonth() && this.currentYear == new Date(this.allDates[i][0]).getFullYear() && this.currentMonth == new Date(this.allDates[i][1]).getMonth() && this.currentYear == new Date(this.allDates[i][1]).getFullYear()){
-          
-          console.log(new Date(this.allDates[i][0]).getDate())
           for(let j = 0;j<= new Date(this.allDates[i][0]).getDate() - new Date(this.allDates[i][1]).getDate();j++){
-            document.getElementById("C-"+(new Date(this.allDates[i][1]).getDate()+j))!.append(this.createTaskInCalender(this.allDates[i][2]));
+            if(j != new Date(this.allDates[i][0]).getDate() - new Date(this.allDates[i][1]).getDate()){
+              document.getElementById("C-"+(new Date(this.allDates[i][1]).getDate()+j))!.append(this.createTaskInCalender(this.allDates[i][2],false));
+            }else{
+              document.getElementById("C-"+(new Date(this.allDates[i][1]).getDate()+j))!.append(this.createTaskInCalender(this.allDates[i][2],true));
+            }
           }
           
         }
