@@ -58,6 +58,7 @@ export class TaskComponent {
       this.nativeElement!.style.position = "absolute"
       this.nativeElement!.style.left =+ this.task.pos.x+"px";
       this.nativeElement!.style.top = +this.task.pos.y  +"px";
+      this.detectDoubleTapClosure(event)
       if(this.task.isInTaskList){
         this.nativeElement!.style.position = "relative"
         this.nativeElement!.style.left = "0";
@@ -128,6 +129,27 @@ export class TaskComponent {
           break;
       }
     })
+  }
+  doubleClick(){
+    this.taskModalService.taskModal.next(this.task);
+  }
+
+  lastTap = 0;
+   detectDoubleTapClosure(event:any) {
+    let timeout:any;
+      const curTime = new Date().getTime();
+      const tapLen = curTime - this.lastTap;
+      if (tapLen < 500 && tapLen > 0) {
+       
+        this.doubleClick();
+        event.preventDefault();
+        clearTimeout(timeout);
+      } else {
+        timeout = setTimeout(() => {
+          clearTimeout(timeout);
+        }, 500);
+      }
+      this.lastTap = curTime;
   }
 
 
