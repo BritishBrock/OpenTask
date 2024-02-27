@@ -28,6 +28,7 @@ export class BoardPickerComponent {
   ) {
 
   }
+  isEditingBoardName:boolean = false;
   dbLoaded = false;
   ngOnInit() {
     this.boards = this.boardService.globalBoards;

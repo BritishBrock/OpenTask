@@ -19,6 +19,7 @@ export class BoardSerializer{
             newBoard.boardTaskLists =   TaskListSerializer.DeSerialize(boardJsonArray[i].boardTaskLists);
             newBoard.boardTasks =    TaskSerializer.DeSerialize(boardJsonArray[i].boardTasks);
             newBoard.boardStickyNotes =    StickyNoteSerializer.DeSerialize(boardJsonArray[i].boardStickyNotes);
+            newBoard.name =    boardJsonArray[i].name;
             boardArray.push(newBoard)
             Board.totalNumber++;
         }
