@@ -17,7 +17,7 @@ import { Board } from '../Models/Board/Board';
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerComponent;
+    component:any = TaskViewerListComponent;
     constructor(
       private elRef:ElementRef,
       private router:Router,
