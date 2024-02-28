@@ -230,14 +230,16 @@ export class TaskViewerComponent {
   zoom2: number = 100;
   zoomIn() {
     if (!this.TaskViewerBoard) return;
-    this.dragService.currentZoom += 0.01;
+    if(this.dragService.currentZoom > 1.5)return;
+    this.dragService.currentZoom += 0.02;
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
   }
 
   zoomOut() {
     if (!this.TaskViewerBoard) return;
-    this.dragService.currentZoom -= 0.01;
+    if(this.dragService.currentZoom < 0.5)return;
+    this.dragService.currentZoom -= 0.02
 
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
