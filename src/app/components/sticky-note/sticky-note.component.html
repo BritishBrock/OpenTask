@@ -15,7 +15,10 @@
               </defs>
             </svg>
             <div class="sticky-content" [ngStyle]="{'backgroundColor':stickyNote.color, 'padding':'15px'}">
-              {{stickyNote.descripcion}}
+              <pre
+              style="text-overflow: ellipsis;
+              overflow: hidden;"
+              >{{stickyNote.descripcion}}</pre> 
             </div>
           </div>
         </div>
