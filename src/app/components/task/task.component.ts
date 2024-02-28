@@ -9,174 +9,147 @@ import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-view
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrl: './task.component.scss'
+  styleUrl: './task.component.scss',
 })
 export class TaskComponent {
-  @Input() task!:Task;
-  @Input() isInModal?:boolean;
-  nativeElement?:HTMLElement;
+  @Input() task!: Task;
+  @Input() isInModal?: boolean;
+  nativeElement?: HTMLElement;
 
-  isTaskModalOpen:boolean = false;
+  isTaskModalOpen: boolean = false;
 
-
-  constructor(private elRef:ElementRef,
-    private DragService:DragServiceService,
-    private ContextMenuService:ContextMenuService,
-    private taskModalService:TaskModalService,
-    private taskViewerService:TaskViewerBoardService,
-    ) {
+  constructor(
+    private elRef: ElementRef,
+    private DragService: DragServiceService,
+    private ContextMenuService: ContextMenuService,
+    private taskModalService: TaskModalService,
+    private taskViewerService: TaskViewerBoardService
+  ) {
     this.nativeElement = this.elRef.nativeElement;
   }
-  ngOnInit(){
-
-
-
-    
-
-
-
-
-    if(this.isInModal) return;
-    this.nativeElement!.addEventListener("mouseup",(event:any)=>{
-      this.nativeElement!.style.position = "absolute"
-      this.nativeElement!.style.left =+ this.task.pos.x+"px";
-      this.nativeElement!.style.top = +this.task.pos.y  +"px";
-      if(this.task.isInTaskList){
-        this.nativeElement!.style.position = "relative"
-        this.nativeElement!.style.left = "0";
-        this.nativeElement!.style.top = "0";
-        this.nativeElement!.style.zIndex = "0";
+  ngOnInit() {
+    if (this.isInModal) return;
+    this.nativeElement!.addEventListener('mouseup', (event: any) => {
+      this.nativeElement!.style.position = 'absolute';
+      this.nativeElement!.style.left = +this.task.pos.x + 'px';
+      this.nativeElement!.style.top = +this.task.pos.y + 'px';
+      if (this.task.isInTaskList) {
+        this.nativeElement!.style.position = 'relative';
+        this.nativeElement!.style.left = '0';
+        this.nativeElement!.style.top = '0';
+        this.nativeElement!.style.zIndex = '0';
       }
-      
-      if(this.DragService.Tasks )
-      this.DragService.getPlaceOfDropped();
+
+      if (this.DragService.Tasks) this.DragService.getPlaceOfDropped();
       this.DragService.clearSelectedHTMLElement();
-
-
-    })
-    this.nativeElement!.addEventListener("touchend",(event:any)=>{
-      this.nativeElement!.style.position = "absolute"
-      this.nativeElement!.style.left =+ this.task.pos.x+"px";
-      this.nativeElement!.style.top = +this.task.pos.y  +"px";
-      this.detectDoubleTapClosure(event)
-      if(this.task.isInTaskList){
-        this.nativeElement!.style.position = "relative"
-        this.nativeElement!.style.left = "0";
-        this.nativeElement!.style.top = "0";
-        this.nativeElement!.style.zIndex = "0";
+    });
+    this.nativeElement!.addEventListener('touchend', (event: any) => {
+      this.nativeElement!.style.position = 'absolute';
+      this.nativeElement!.style.left = +this.task.pos.x + 'px';
+      this.nativeElement!.style.top = +this.task.pos.y + 'px';
+      this.detectDoubleTapClosure(event);
+      if (this.task.isInTaskList) {
+        this.nativeElement!.style.position = 'relative';
+        this.nativeElement!.style.left = '0';
+        this.nativeElement!.style.top = '0';
+        this.nativeElement!.style.zIndex = '0';
       }
-     
-      if(this.DragService.Tasks)
-      this.DragService.getPlaceOfDropped();
+
+      if (this.DragService.Tasks) this.DragService.getPlaceOfDropped();
       this.DragService.clearSelectedHTMLElement();
-
-
-    })
-    
+    });
   }
 
-
-  mousedown(){
-    this.nativeElement!.addEventListener("touchstart",(event:any)=>{
+  mousedown() {
+    this.nativeElement!.addEventListener('touchstart', (event: any) => {
       event.preventDefault();
-            if(!this.DragService.Tasks){
-       this.DragService.selectHTMLElement(this.task)
+      if (!this.DragService.Tasks) {
+        this.DragService.selectHTMLElement(this.task);
       }
-    })
+    });
   }
 
-
-
-
-  openTaskModal(){
+  openTaskModal() {
     this.taskModalService.taskModal.next(this.task);
   }
 
-
-
-  ngAfterViewInit(){
-    this.nativeElement!.addEventListener("mousedown",(event:any)=>{
+  ngAfterViewInit() {
+    this.nativeElement!.addEventListener('mousedown', (event: any) => {
       switch (event.which) {
-          case 1:
-            if(this.ContextMenuService._isOpen) this.ContextMenuService.switchContextMenu();
-            if(!this.DragService.Tasks){
-            
-              if(this.task.taskListId != undefined){
-               
-                let tasklists = this.taskViewerService.globalTaskLists;
-                for(let i = 0; i < tasklists.length;i++){
-                  if(tasklists[i].id == this.task.taskListId ){
-                 
-                    this.task.pos = {
-                      x:this.taskViewerService.getFromGlobalTasksList(this.task.taskListId)!.pos.x + this.task.htmlElement!.offsetLeft,
-                      y:this.taskViewerService.getFromGlobalTasksList(this.task.taskListId)!.pos.y+ this.task.htmlElement!.offsetTop
-                    }
-                   
-                    tasklists[i].removeFromList(this.task.id);
-                    this.task.removeTaskListId();
-                    this.taskViewerService.addToGlobalTasks(this.task);
+        case 1:
+          if (this.ContextMenuService._isOpen)
+            this.ContextMenuService.switchContextMenu();
+          if (!this.DragService.Tasks) {
+            if (this.task.taskListId != undefined) {
+              let tasklists = this.taskViewerService.globalTaskLists;
+              for (let i = 0; i < tasklists.length; i++) {
+                if (tasklists[i].id == this.task.taskListId) {
+                  this.task.pos = {
+                    x:
+                      this.taskViewerService.getFromGlobalTasksList(
+                        this.task.taskListId
+                      )!.pos.x + this.task.htmlElement!.offsetLeft,
+                    y:
+                      this.taskViewerService.getFromGlobalTasksList(
+                        this.task.taskListId
+                      )!.pos.y + this.task.htmlElement!.offsetTop,
+                  };
 
-                  }
+                  tasklists[i].removeFromList(this.task.id);
+                  this.task.removeTaskListId();
+                  this.taskViewerService.addToGlobalTasks(this.task);
                 }
-              
               }
-            
-              this.DragService.selectHTMLElement(this.task)
-            };
+            }
+
+            this.DragService.selectHTMLElement(this.task);
+          }
           break;
-          case 2: break;
-          case 3:
+        case 2:
+          break;
+        case 3:
           break;
       }
-    })
+    });
   }
-  doubleClick(){
+  doubleClick() {
     this.taskModalService.taskModal.next(this.task);
   }
 
   lastTap = 0;
-   detectDoubleTapClosure(event:any) {
-    let timeout:any;
-      const curTime = new Date().getTime();
-      const tapLen = curTime - this.lastTap;
-      if (tapLen < 500 && tapLen > 0) {
-       
-        this.doubleClick();
-        event.preventDefault();
+  detectDoubleTapClosure(event: any) {
+    let timeout: any;
+    const curTime = new Date().getTime();
+    const tapLen = curTime - this.lastTap;
+    if (tapLen < 500 && tapLen > 0) {
+      this.doubleClick();
+      event.preventDefault();
+      clearTimeout(timeout);
+    } else {
+      timeout = setTimeout(() => {
         clearTimeout(timeout);
-      } else {
-        timeout = setTimeout(() => {
-          clearTimeout(timeout);
-        }, 500);
-      }
-      this.lastTap = curTime;
+      }, 500);
+    }
+    this.lastTap = curTime;
   }
 
+  ngOnChanges() {
+    this.nativeElement!.style.position = 'absolute';
 
+    this.nativeElement!.style.left = this.task.pos.x + 'px';
+    this.nativeElement!.style.top = this.task.pos.y + 'px';
 
-
-
-
-  ngOnChanges(){
-    this.nativeElement!.style.position = "absolute";
-
-    this.nativeElement!.style.left =  this.task.pos.x +"px";
-    this.nativeElement!.style.top = this.task.pos.y +"px";
-  
-    if(this.task.isInTaskList ||this.isInModal){
-      this.nativeElement!.style.position = "relative"
-      this.nativeElement!.style.left = "0";
-      this.nativeElement!.style.top = "0";
-      this.nativeElement!.style.zIndex = "0";
+    if (this.task.isInTaskList || this.isInModal) {
+      this.nativeElement!.style.position = 'relative';
+      this.nativeElement!.style.left = '0';
+      this.nativeElement!.style.top = '0';
+      this.nativeElement!.style.zIndex = '0';
     }
-    
-    if(this.nativeElement && !this.isInModal) {
 
+    if (this.nativeElement && !this.isInModal) {
       this.task.setHtmlElement(this.nativeElement);
 
       this.mousedown();
     }
-
   }
-
 }

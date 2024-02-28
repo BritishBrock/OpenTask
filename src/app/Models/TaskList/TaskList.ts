@@ -12,10 +12,10 @@ export class TaskList{
     color:string;
     isLocked:boolean = false;
     constructor(id?:number){
-        this.id =   id ?? TaskList.lastID++;
+        this.id =   id ?? Math.floor(Math.random()*100000000000000);
         this.component = TasklistComponent;
         this.pos = {x:0,y:0}
-        this.title = `Example text (${this.id})`
+        this.title = `Example text`
         this.color = this.generateColor();
     }
     component;

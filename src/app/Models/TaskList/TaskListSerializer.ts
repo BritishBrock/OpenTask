@@ -16,6 +16,7 @@ export class TaskListSerializer{
             newTaskList.pos = taskListJsonArray[i].pos;
             newTaskList.color = taskListJsonArray[i].color;
             taskListArray.push(newTaskList)
+            
         }
         return taskListArray;
     }
