@@ -11,7 +11,6 @@ export class Board{
     boardStickyNotes:StickyNote[] = [];
     isStarred:boolean= false;
     constructor(id?:number){
-        this.id = id ?? Board.totalNumber;
-        Board.totalNumber++;
+        this.id = id ?? Math.floor(Math.random()*100000000000000);
     }
 }
