@@ -251,9 +251,12 @@ export class TaskViewerComponent {
       this.dragService.currentZoom + '';
   }
   ngAfterViewInit() {
+    
     if (this.TaskViewerBoard) {
+      this.TaskViewerBoard.nativeElement.addEventListener("touchend",()=>{this.redoCanvas();})
+      this.TaskViewerBoard.nativeElement.addEventListener("mouseup",()=>{this.redoCanvas();})
       this.TaskViewerBoard.nativeElement.addEventListener(
-        'touchmove',
+'touchmove',
         (event: any) => {
           event.preventDefault();
 
@@ -263,7 +266,7 @@ export class TaskViewerComponent {
             var touch = event.targetTouches[0];
 
             if (this.previousTouch) {
-              this.redoCanvas();
+              
               event.movementY = touch.pageY - this.previousTouch.pageY;
               event.movementX = touch.pageX - this.previousTouch.pageX;
               this.dragService.moveSelectedHTMLElement({
@@ -300,6 +303,7 @@ export class TaskViewerComponent {
 
             this.previousTouch = touch;
           }
+          
         }
       );
 
@@ -308,7 +312,7 @@ export class TaskViewerComponent {
         (event: any) => {
           if (this.isModalOpen) return;
           if (this.dragService.Tasks) {
-            this.redoCanvas();
+            
 
             if (this.dragService.Tasks.isInTaskList) {
               let tasklist = this.taskviewerService.globalTaskLists;
