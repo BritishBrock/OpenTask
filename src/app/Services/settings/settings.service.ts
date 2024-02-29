@@ -13,6 +13,7 @@ export class SettingsService {
     },
     general:{
       customContextMenu:false,
+      showLoadEffect:false,
     }
   }
 
@@ -27,5 +28,6 @@ export interface userSettings{
 },
   general:{
     customContextMenu:boolean,
+    showLoadEffect:boolean,
   },
 }

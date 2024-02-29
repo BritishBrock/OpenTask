@@ -21,7 +21,7 @@ export class BoardSerializer{
             newBoard.boardStickyNotes =    StickyNoteSerializer.DeSerialize(boardJsonArray[i].boardStickyNotes);
             newBoard.name =    boardJsonArray[i].name;
             boardArray.push(newBoard)
-            Board.totalNumber++;
+
         }
         return boardArray;
     }

@@ -27,6 +27,7 @@ export class TaskListLinksComponent {
         this.taskList.relatesTo = this.globalTaskList[i];
       }
     }
+    this.taskviewer.taskListUpdateLines.next(true);
   }
 
   deleteLink(){

@@ -55,12 +55,12 @@ export class BoardPickerComponent {
   addBoard() {
     this.boardService.addEmptyBoard();
   }
-
+  clearAllBoards(){
+    this.DBService.deleteBoards();
+    this.boards = []
+  }
   saveBoards() {
     this.DBService.storeBoards(this.boards);
-  }
-  deleteBoards() {
-    this.DBService.deleteBoards();
   }
 
 
@@ -69,9 +69,7 @@ export class BoardPickerComponent {
       if(this.boards[i].id == boardId)this.boards.splice(i,1)
     }
   }
-  starBoard(board:Board){
-    board.isStarred = true;
-  }
+ 
   duplicateBoard(board:Board){
     let newBoard = new Board();
     newBoard.boardTasks =   TaskSerializer.DeSerialize(JSON.parse(JSON.stringify(board.boardTasks)))

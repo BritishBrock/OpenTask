@@ -82,6 +82,23 @@ export class TaskViewerCalendarComponent {
   }
 
   addTasksToCalender(){
+    let auxFirst:any[] = [];
+      for(let i = 0; i < this.allDates.length;i++){
+        if(this.allDates[i][0] !== "NaN-NaN-NaN" && this.allDates[i][1]!== "NaN-NaN-NaN"){
+          if(auxFirst.length == 0)auxFirst.push(this.allDates[i])
+          else{
+            if(new Date(this.allDates[i][1])>new Date(auxFirst[0][1]))auxFirst.push(this.allDates[i])
+            if(new Date(this.allDates[i][1]) < new Date(auxFirst[0][1])) auxFirst.unshift(this.allDates[i])
+          }
+          this.allDates.splice(i,1)
+          i--;
+        }
+      }
+
+      this.allDates = [...auxFirst,...this.allDates]
+
+
+
     for(let i = 0; i < this.allDates.length;i++){
       
       if(this.allDates[i][0] === "NaN-NaN-NaN"){

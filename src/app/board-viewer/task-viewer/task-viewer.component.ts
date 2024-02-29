@@ -146,18 +146,24 @@ export class TaskViewerComponent {
     this.isCreating = '';
     this.htmlElement.style.backgroundColor = 'white';
   }
-  previousTouch: any;
+
   isModalOpen = false;
 
   ngOnInit() {
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
+
     this.boardService.boardUpdates.subscribe(() => {
       this.tasks = this.taskviewerService.globalTasks;
       this.taskLists = this.taskviewerService.globalTaskLists;
       this.stickyNotes = this.taskviewerService.globalStickyNotes;
     });
+
+    this.taskviewerService.taskListUpdateLines.subscribe(() => {
+      this.drawLines(false);
+    });
+
     this.htmlElement = this.elRef.nativeElement;
     this.dragService.viewBoard = this.htmlElement;
     //set view in the center
@@ -185,9 +191,9 @@ export class TaskViewerComponent {
     });
     window.addEventListener('wheel', (event) => {
       if (event.deltaY == -100) {
-        this.zoomIn();
+        this.updateZoom(0.1)
       } else if (event.deltaY == 100) {
-        this.zoomOut();
+        this.updateZoom(-0.1)
       }
     });
 
@@ -228,76 +234,67 @@ export class TaskViewerComponent {
   @ViewChild('TaskViewerBoard') TaskViewerBoard?: ElementRef;
 
   zoom2: number = 100;
-  zoomIn() {
+  updateZoom(amount:number){
+    console.log(this.dragService.currentZoom)
     if (!this.TaskViewerBoard) return;
-    this.dragService.currentZoom += 0.01;
-    this.TaskViewerBoard.nativeElement.style.scale =
-      this.dragService.currentZoom + '';
+    if (this.dragService.currentZoom +amount > 1.5 ||this.dragService.currentZoom + amount< 0.5) return;
+    this.dragService.currentZoom += amount;
+    this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
   }
 
-  zoomOut() {
-    if (!this.TaskViewerBoard) return;
-    this.dragService.currentZoom -= 0.01;
-
-    this.TaskViewerBoard.nativeElement.style.scale =
-      this.dragService.currentZoom + '';
-  }
   changeZoom() {
     if (!this.TaskViewerBoard) return;
     this.dragService.currentZoom = this.zoom2 / 100;
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
   }
+
+
+createSelect(event:any){
+  let width = Math.abs(this.iSX - event.x);
+  let height = Math.abs(this.iSY - event.y);
+  this.select.style.width = width + 'px';
+  this.select.style.height = height + 'px';
+  this.select.style.left =
+    Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
+  this.select.style.top = this.iSY + 'px';
+  this.select.style.position = 'absolute';
+  this.select.style.border = ' 1px dashed blue';
+}
+
+
+
+  previousTouch: any;
   ngAfterViewInit() {
     if (this.TaskViewerBoard) {
+
       this.TaskViewerBoard.nativeElement.addEventListener(
         'touchmove',
         (event: any) => {
           event.preventDefault();
-
           if (this.isModalOpen) return;
-
+          var touch = event.targetTouches[0];
+          if (this.previousTouch) {
+            event.movementY = touch.pageY - this.previousTouch.pageY;
+            event.movementX = touch.pageX - this.previousTouch.pageX;
+          }
           if (this.dragService.Tasks) {
-            var touch = event.targetTouches[0];
-
             if (this.previousTouch) {
-              this.redoCanvas();
-              event.movementY = touch.pageY - this.previousTouch.pageY;
-              event.movementX = touch.pageX - this.previousTouch.pageX;
               this.dragService.moveSelectedHTMLElement({
                 x: event.movementX / this.dragService.currentZoom,
                 y: event.movementY / this.dragService.currentZoom,
               });
             }
-            this.previousTouch = touch;
-          } else if (this.isselect && this.isselectM) {
-            let width = Math.abs(this.iSX - event.x);
-            let height = Math.abs(this.iSY - event.y);
-            this.select.style.width = width + 'px';
-            this.select.style.height = height + 'px';
-            this.select.style.left =
-              Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
-            this.select.style.top = this.iSY + 'px';
-            this.select.style.position = 'absolute';
-            this.select.style.border = ' 1px dashed blue';
-          }
-
+          } 
           if (!this.dragService.Tasks) {
-            const touch = event.touches[0];
-
             if (this.previousTouch) {
-              let velocidad = 5;
-              event.movementX = touch.pageX - this.previousTouch.pageX;
-              event.movementY = touch.pageY - this.previousTouch.pageY;
-
               this.dragService.setBoardPos({
                 x: parseInt(this.htmlElement.style.left) + event.movementX,
                 y: parseInt(this.htmlElement.style.top) + event.movementY,
               });
             }
-
-            this.previousTouch = touch;
           }
+          this.previousTouch = touch;
         }
       );
 
@@ -306,45 +303,15 @@ export class TaskViewerComponent {
         (event: any) => {
           if (this.isModalOpen) return;
           if (this.dragService.Tasks) {
-            this.redoCanvas();
 
-            if (this.dragService.Tasks.isInTaskList) {
-              let tasklist = this.taskviewerService.globalTaskLists;
-              for (let i = 0; i < tasklist.length; i++) {
-                if (tasklist[i].id == this.dragService.Tasks.taskListId) {
-                  this.dragService.Tasks.pos = {
-                    x:
-                      tasklist[i].pos.x +
-                      this.dragService.Tasks.htmlElement!.offsetLeft,
-                    y:
-                      tasklist[i].pos.y +
-                      this.dragService.Tasks.htmlElement!.offsetTop,
-                  };
-                  this.taskviewerService
-                    .getFromGlobalTasksList(this.dragService.Tasks.taskListId)
-                    ?.removeFromList(this.dragService.Tasks.id);
-                  this.dragService.Tasks.removeTaskListId();
-                  this.taskviewerService.addToGlobalTasks(
-                    this.dragService.Tasks
-                  );
-                }
-              }
-            }
+            this.setTaskInTasklistPos()
 
             this.dragService.moveSelectedHTMLElement({
               x: event.movementX / this.dragService.currentZoom,
               y: event.movementY / this.dragService.currentZoom,
             });
           } else if (this.isselect && this.isselectM) {
-            let width = Math.abs(this.iSX - event.x);
-            let height = Math.abs(this.iSY - event.y);
-            this.select.style.width = width + 'px';
-            this.select.style.height = height + 'px';
-            this.select.style.left =
-              Math.abs(parseInt(this.htmlElement.style.left)) + this.iSX + 'px';
-            this.select.style.top = this.iSY + 'px';
-            this.select.style.position = 'absolute';
-            this.select.style.border = ' 1px dashed blue';
+            this.createSelect(event);
           }
           if (this.mouseDown) {
             this.dragService.setBoardPos({
@@ -355,7 +322,10 @@ export class TaskViewerComponent {
         }
       );
       this.elRef.nativeElement.addEventListener('touchend', (event: any) => {
+        if(!this.dragService.Tasks) return;
+        this.setElement();
         delete this.previousTouch;
+        this.drawLines(true);
       });
       this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
         this.iMX = 0;
@@ -363,14 +333,61 @@ export class TaskViewerComponent {
         this.mouseDown = false;
         this.isMoving = false;
         this.isselectM = false;
-        if (this.dragService.Tasks) return;
+        if (this.dragService.Tasks) {
+          this.setElement();
+        };
+        this.drawLines(true);
       });
+      this.drawLines(false);
     }
+  }
+
+
+  setElement(){
+    this.dragService.Tasks.htmlElement!.style.position = 'absolute';
+    this.dragService.Tasks.htmlElement!.style.left = +this.dragService.Tasks.pos.x + 'px';
+    this.dragService.Tasks.htmlElement!.style.top = +this.dragService.Tasks.pos.y + 'px';
+    if (this.dragService.Tasks.isInTaskList) {
+      this.dragService.Tasks.htmlElement!.style.position = 'relative';
+      this.dragService.Tasks.htmlElement!.style.left = '0';
+      this.dragService.Tasks.htmlElement!.style.top = '0';
+      this.dragService.Tasks.htmlElement!.style.zIndex = '0';
+    }
+    this.dragService.getPlaceOfDropped();
+    this.dragService.clearSelectedHTMLElement();
+  }
+
+  setTaskInTasklistPos(){
+  if (this.dragService.Tasks.isInTaskList) {
+    let tasklist = this.taskviewerService.globalTaskLists;
+    for (let i = 0; i < tasklist.length; i++) {
+      if (tasklist[i].id == this.dragService.Tasks.taskListId) {
+        this.dragService.Tasks.pos = {
+          x:
+            tasklist[i].pos.x +
+            this.dragService.Tasks.htmlElement!.offsetLeft,
+          y:
+            tasklist[i].pos.y +
+            this.dragService.Tasks.htmlElement!.offsetTop,
+        };
+        this.taskviewerService
+          .getFromGlobalTasksList(this.dragService.Tasks.taskListId)
+          ?.removeFromList(this.dragService.Tasks.id);
+        this.dragService.Tasks.removeTaskListId();
+        this.taskviewerService.addToGlobalTasks(
+          this.dragService.Tasks
+        );
+      }
+    }
+  }
+}
+
+  drawLines(clear:boolean){
     let c = <HTMLCanvasElement>document.getElementById('canvas');
     c.width = this.htmlElement.clientWidth;
     c.height = this.htmlElement.clientHeight;
     var ctx = c.getContext('2d')!;
-
+    if(clear) ctx.clearRect(0, 0, c.width, c.height);
     for (let i = 0; i < this.taskLists.length; i++) {
       if (this.taskLists[i].relatesTo != undefined) {
         ctx.moveTo(
@@ -394,33 +411,6 @@ export class TaskViewerComponent {
     }
   }
 
-  redoCanvas() {
-    let c = <HTMLCanvasElement>document.getElementById('canvas');
-    c.width = this.htmlElement.clientWidth;
-    c.height = this.htmlElement.clientHeight;
-    var ctx = c.getContext('2d')!;
-    ctx.clearRect(0, 0, c.width, c.height);
 
-    for (let i = 0; i < this.taskLists.length; i++) {
-      if (this.taskLists[i].relatesTo != undefined) {
-        ctx.moveTo(
-          this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,
-          this.taskLists[i].pos.y +
-            this.taskLists[i].htmlElement.clientHeight / 2
-        );
-        ctx.lineTo(
-          this.taskLists[i].relatesTo!.pos.x +
-            this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
-          this.taskLists[i].pos.y +
-            this.taskLists[i].htmlElement.clientHeight / 2
-        );
-        ctx.lineTo(
-          this.taskLists[i].relatesTo!.pos.x +
-            this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
-          this.taskLists[i].relatesTo!.pos.y
-        );
-        ctx.stroke();
-      }
-    }
-  }
+
 }

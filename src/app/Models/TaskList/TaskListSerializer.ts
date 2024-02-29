@@ -4,6 +4,7 @@ import { TaskList } from "./TaskList";
 
 export class TaskListSerializer{
     boardPropertyMapper = {};
+    static excludeList:string[] = ["component","htmlElement","lastID","tasks"] as const; 
     static Serialize(){
 
     }
@@ -11,12 +12,15 @@ export class TaskListSerializer{
         let taskListJsonArray = Object.values(boardJson);
         let taskListArray:TaskList[] = []
         for(let i = 0; i < taskListJsonArray.length;i++){
-            let newTaskList = new TaskList(taskListJsonArray[i].id);
+            let newTaskList:any = new TaskList(taskListJsonArray[i].id);
             newTaskList.tasks =  TaskSerializer.DeSerialize(taskListJsonArray[i].tasks);
-            newTaskList.pos = taskListJsonArray[i].pos;
-            newTaskList.color = taskListJsonArray[i].color;
-            taskListArray.push(newTaskList)
-            
+            Object.entries(taskListJsonArray[i]).every(([key,value])=>{
+                if(!this.excludeList.includes(key)){
+                    newTaskList[key as keyof typeof newTaskList] = value;
+                }
+                return true;
+            })
+            taskListArray.push(newTaskList)  
         }
         return taskListArray;
     }

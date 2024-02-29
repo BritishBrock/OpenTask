@@ -4,6 +4,7 @@ import { Task } from '../../Models/Task/Task';
 import { Coord } from '../../interfaces/Coord/Coord';
 import { FactoryService } from '../../Factory/factory.service';
 import { StickyNote } from '../../Models/stickyNote/stickyNote';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,8 @@ export class TaskViewerBoardService {
     }
   }
 
+
+  taskListUpdateLines:Subject<boolean> = new Subject<boolean>();
   
   
 
