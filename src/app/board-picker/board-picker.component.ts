@@ -55,12 +55,12 @@ export class BoardPickerComponent {
   addBoard() {
     this.boardService.addEmptyBoard();
   }
-
+  clearAllBoards(){
+    this.DBService.deleteBoards();
+    this.boards = []
+  }
   saveBoards() {
     this.DBService.storeBoards(this.boards);
-  }
-  deleteBoards() {
-    this.DBService.deleteBoards();
   }
 
 

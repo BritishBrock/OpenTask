@@ -3,6 +3,7 @@
 <div class="boardViewsOpcion" (click)="goToSettings()">
     Settings
 </div>
+<button (click)="clearAllBoards()">Clear All Boards</button>
 <div class="mainBoardPicker">
     @for (board of boards; track $index) {
         <div class="board" >
