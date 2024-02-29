@@ -310,6 +310,9 @@ createSelect(event:any){
               x: event.movementX / this.dragService.currentZoom,
               y: event.movementY / this.dragService.currentZoom,
             });
+
+            this.checkPos()
+
           } else if (this.isselect && this.isselectM) {
             this.createSelect(event);
           }
@@ -340,6 +343,16 @@ createSelect(event:any){
       });
       this.drawLines(false);
     }
+  }
+  taskListHightlighted?:TaskList;
+  checkPos(){
+    let taskList = this.taskviewerService.getTaskListsAtPosition(this.dragService.Tasks.pos);
+    if(taskList)this.taskListHightlighted =taskList;
+    else {
+      this.taskListHightlighted?.htmlElement.getElementsByClassName("dropBox")[0].classList.remove("hoverdover");
+      delete this.taskListHightlighted
+    }
+    if(this.taskListHightlighted)this.taskListHightlighted?.htmlElement.getElementsByClassName("dropBox")[0].classList.add("hoverdover");
   }
 
 

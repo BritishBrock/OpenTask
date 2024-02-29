@@ -26,7 +26,9 @@ export class TasklistComponent {
       this.nativeElement!.addEventListener("touchend",(event:any)=>{
         this.lastTap = detectDoubleTapClosure(this.lastTap,this.taskModalService.taskListModal,this.taskList)
       })
-
+      this.nativeElement.addEventListener("mouseenter",()=>{
+        this.nativeElement!.getElementsByClassName("dropBox")[0].classList.remove("hoverdover");
+      })
       this.nativeElement.addEventListener("touchstart",(event:any)=>{
         event.preventDefault();
          if(!this.DragService.Tasks) this.DragService.selectHTMLElement(this.taskList)
@@ -64,7 +66,7 @@ export class TasklistComponent {
       this.nativeElement!.style.position = "absolute"
       this.nativeElement!.style.left = this.taskList.pos.x +"px";
       this.nativeElement!.style.top = this.taskList.pos.y +"px";
-
+      
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
