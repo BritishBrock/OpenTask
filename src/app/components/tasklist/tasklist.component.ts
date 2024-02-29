@@ -4,6 +4,7 @@ import { DragServiceService } from '../../Services/DragService/drag-service.serv
 import { ContextMenuService } from '../../Services/ContextMenu/context-menu.service';
 import { Coord } from '../../interfaces/Coord/Coord';
 import { TaskModalService } from '../../Services/task-modal.service';
+import { detectDoubleTapClosure } from '../../event/customEvents/doubleTapEvent';
 
 @Component({
   selector: 'app-tasklist',
@@ -21,30 +22,17 @@ export class TasklistComponent {
     if(this.nativeElement) {
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
-     
-      this.nativeElement.addEventListener("mouseup",(event:any)=>{
-       
-        this.nativeElement!.style.position = "absolute"
-        this.nativeElement!.style.left = this.taskList.pos.x  +"px";
-        this.nativeElement!.style.top =  this.taskList.pos.y +"px";
-        
-    
-  
-   
-        if(this.DragService.Tasks)
-        this.DragService.clearSelectedHTMLElement();
-        
-      })
+
       this.nativeElement!.addEventListener("touchend",(event:any)=>{
-        this.nativeElement!.style.position = "absolute"
-        this.nativeElement!.style.left = this.taskList.pos.x  +"px";
-        this.nativeElement!.style.top =  this.taskList.pos.y +"px";
-      
-        this.detectDoubleTapClosure(event)
-        if(this.DragService.Tasks)
-        this.DragService.clearSelectedHTMLElement();
-  
+        this.lastTap = detectDoubleTapClosure(this.lastTap,this.taskModalService.taskListModal,this.taskList)
       })
+
+      this.nativeElement.addEventListener("touchstart",(event:any)=>{
+        event.preventDefault();
+         if(!this.DragService.Tasks) this.DragService.selectHTMLElement(this.taskList)
+        
+      })
+
     }
   }
 
@@ -66,13 +54,7 @@ export class TasklistComponent {
           break;
       }
     })
-    this.nativeElement.addEventListener("touchstart",(event:any)=>{
-      event.preventDefault();
-    
-            if(!this.DragService.Tasks){
-       this.DragService.selectHTMLElement(this.taskList)
-      }
-    })
+   
   }
 
 
@@ -90,21 +72,5 @@ export class TasklistComponent {
   }
   
   lastTap = 0;
-   detectDoubleTapClosure(event:any) {
-    let timeout:any;
-      const curTime = new Date().getTime();
-      const tapLen = curTime - this.lastTap;
-      if (tapLen < 500 && tapLen > 0) {
-       
-        this.doubleClick();
-        event.preventDefault();
-        clearTimeout(timeout);
-      } else {
-        timeout = setTimeout(() => {
-          clearTimeout(timeout);
-        }, 500);
-      }
-      this.lastTap = curTime;
-  }
 
 }

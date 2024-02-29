@@ -34,11 +34,11 @@
 
 
 <div class="zoom" >
-    <div class="zoomB1" (click)="zoomOut()">
+    <div class="zoomB1" (click)="updateZoom(-0.1)">
         -
     </div>
     <input type="range" min="50" max="150" (input)="changeZoom()" [(ngModel)]="zoom2" class="slider" id="myRange">
-    <div class="zoomB2" (click)="zoomIn()">
+    <div class="zoomB2" (click)="updateZoom(0.1)">
         +
     </div>
 </div>

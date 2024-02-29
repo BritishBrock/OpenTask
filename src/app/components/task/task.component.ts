@@ -5,6 +5,7 @@ import { ContextMenuService } from '../../Services/ContextMenu/context-menu.serv
 import { Coord } from '../../interfaces/Coord/Coord';
 import { TaskModalService } from '../../Services/task-modal.service';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
+import { detectDoubleTapClosure } from '../../event/customEvents/doubleTapEvent';
 
 @Component({
   selector: 'app-task',
@@ -29,43 +30,16 @@ export class TaskComponent {
   }
   ngOnInit() {
     if (this.isInModal) return;
-    this.nativeElement!.addEventListener('mouseup', (event: any) => {
-      this.nativeElement!.style.position = 'absolute';
-      this.nativeElement!.style.left = +this.task.pos.x + 'px';
-      this.nativeElement!.style.top = +this.task.pos.y + 'px';
-      if (this.task.isInTaskList) {
-        this.nativeElement!.style.position = 'relative';
-        this.nativeElement!.style.left = '0';
-        this.nativeElement!.style.top = '0';
-        this.nativeElement!.style.zIndex = '0';
-      }
 
-      if (this.DragService.Tasks) this.DragService.getPlaceOfDropped();
-      this.DragService.clearSelectedHTMLElement();
-    });
     this.nativeElement!.addEventListener('touchend', (event: any) => {
-      this.nativeElement!.style.position = 'absolute';
-      this.nativeElement!.style.left = +this.task.pos.x + 'px';
-      this.nativeElement!.style.top = +this.task.pos.y + 'px';
-      this.detectDoubleTapClosure(event);
-      if (this.task.isInTaskList) {
-        this.nativeElement!.style.position = 'relative';
-        this.nativeElement!.style.left = '0';
-        this.nativeElement!.style.top = '0';
-        this.nativeElement!.style.zIndex = '0';
-      }
-
-      if (this.DragService.Tasks) this.DragService.getPlaceOfDropped();
-      this.DragService.clearSelectedHTMLElement();
+      this.lastTap = detectDoubleTapClosure(this.lastTap,this.taskModalService.taskModal,this.task)
     });
   }
 
   mousedown() {
     this.nativeElement!.addEventListener('touchstart', (event: any) => {
       event.preventDefault();
-      if (!this.DragService.Tasks) {
-        this.DragService.selectHTMLElement(this.task);
-      }
+      if (!this.DragService.Tasks) this.DragService.selectHTMLElement(this.task);
     });
   }
 
@@ -117,21 +91,6 @@ export class TaskComponent {
   }
 
   lastTap = 0;
-  detectDoubleTapClosure(event: any) {
-    let timeout: any;
-    const curTime = new Date().getTime();
-    const tapLen = curTime - this.lastTap;
-    if (tapLen < 500 && tapLen > 0) {
-      this.doubleClick();
-      event.preventDefault();
-      clearTimeout(timeout);
-    } else {
-      timeout = setTimeout(() => {
-        clearTimeout(timeout);
-      }, 500);
-    }
-    this.lastTap = curTime;
-  }
 
   ngOnChanges() {
     this.nativeElement!.style.position = 'absolute';

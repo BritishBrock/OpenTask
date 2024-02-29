@@ -3,6 +3,7 @@ import { StickyNote } from '../../Models/stickyNote/stickyNote';
 import { DragServiceService } from '../../Services/DragService/drag-service.service';
 import { TaskModalService } from '../../Services/task-modal.service';
 import { Coord } from '../../interfaces/Coord/Coord';
+import { detectDoubleTapClosure } from '../../event/customEvents/doubleTapEvent';
 
 @Component({
   selector: 'app-sticky-note',
@@ -73,12 +74,8 @@ export class StickyNoteComponent {
     //this.isResizing =false;
   }
 
-  openStickyNoteModal(){
-    this.taskModalService.stickyNoteModal.next(this.stickyNote);
-  }
-
   ngOnInit(){
-    if(this.nativeElement) {
+    if(!this.nativeElement) return;
 
       this.nativeElement.addEventListener("mouseenter",(event:any)=>{
         this.isHoveringOver = true;
@@ -99,57 +96,29 @@ export class StickyNoteComponent {
       
     })
 
-
-    this.nativeElement!.addEventListener("touchend",(event:any)=>{
-      this.nativeElement!.style.position = "absolute"
-      this.nativeElement!.style.left =+ this.stickyNote.pos.x+"px";
-      this.nativeElement!.style.top = +this.stickyNote.pos.y  +"px";
-      this.detectDoubleTapClosure(event)
-
-      if(this.DragService.Tasks)
-      this.DragService.getPlaceOfDropped();
-      this.DragService.clearSelectedHTMLElement();
-
-
-    })
+    if(this.stickyNote){
+      this.nativeElement!.addEventListener("touchend",(event:any)=>{
+        this.lastTap = detectDoubleTapClosure(this.lastTap,this.taskModalService.stickyNoteModal,this.stickyNote)
+      })
+    }
 
     this.nativeElement!.addEventListener("touchstart",(event:any)=>{
       event.preventDefault();
-            if(!this.DragService.Tasks){
-       this.DragService.selectHTMLElement(this.stickyNote)
-      }
+      if(!this.DragService.Tasks) this.DragService.selectHTMLElement(this.stickyNote)
     })
 
-
-
-
-  }
+  
+  
     
   }
-
-
-
-  doubleClick(){
-    this.taskModalService.stickyNoteModal.next(this.stickyNote);
-  }
-
   lastTap = 0;
-   detectDoubleTapClosure(event:any) {
-    let timeout:any;
-      const curTime = new Date().getTime();
-      const tapLen = curTime - this.lastTap;
-      if (tapLen < 500 && tapLen > 0) {
-       
-        this.doubleClick();
-        event.preventDefault();
-        clearTimeout(timeout);
-      } else {
-        timeout = setTimeout(() => {
-          clearTimeout(timeout);
-        }, 500);
-      }
-      this.lastTap = curTime;
+
+
+  openStickyNoteModal(){
+    this.taskModalService.stickyNoteModal.next(this.stickyNote)
   }
+
+
 
 
 
