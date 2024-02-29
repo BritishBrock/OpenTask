@@ -44,11 +44,13 @@ export class TaskList{
     }
 
     generateColor():string{
+        if(Math.floor(Math.random()*65535) == 0)return "";
         let char = "123456789ABCDEF";
         let hexCol = "#";
         for(let i = 0; i < 6; i++){
           hexCol += char.charAt(Math.floor(Math.random() * char.length));
         }
+
         return hexCol;
       }
 
