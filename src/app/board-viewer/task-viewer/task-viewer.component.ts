@@ -158,6 +158,9 @@ export class TaskViewerComponent {
       this.taskLists = this.taskviewerService.globalTaskLists;
       this.stickyNotes = this.taskviewerService.globalStickyNotes;
     });
+    this.taskviewerService.taskListUpdateLines.subscribe(()=>{
+      this.redoCanvas();
+    })
     this.htmlElement = this.elRef.nativeElement;
     this.dragService.viewBoard = this.htmlElement;
     //set view in the center
