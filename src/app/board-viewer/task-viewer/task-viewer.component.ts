@@ -342,7 +342,6 @@ createSelect(event:any){
         if(!this.dragService.Tasks) return;
         this.setElement();
         delete this.previousTouch;
-        this.drawLines(true);
       });
       this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
         this.iMX = 0;
@@ -353,9 +352,7 @@ createSelect(event:any){
         if (this.dragService.Tasks) {
           this.setElement();
         };
-        this.drawLines(true);
       });
-      this.drawLines(false);
     }
   }
   taskListHightlighted?:TaskList;
@@ -410,33 +407,33 @@ createSelect(event:any){
 }
 
   drawLines(clear:boolean){
-    let c = <HTMLCanvasElement>document.getElementById('canvas');
-    c.width = this.htmlElement.clientWidth;
-    c.height = this.htmlElement.clientHeight;
-    var ctx = c.getContext('2d')!;
-    if(clear) ctx.clearRect(0, 0, c.width, c.height);
-    for (let i = 0; i < this.taskLists.length; i++) {
-      if (this.taskLists[i].relatesTo != undefined) {
-        ctx.moveTo(
-          this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,
-          this.taskLists[i].pos.y +
-            this.taskLists[i].htmlElement.clientHeight / 2
-        );
-        ctx.lineTo(
-          this.taskLists[i].relatesTo!.pos.x +
-            this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
-          this.taskLists[i].pos.y +
-            this.taskLists[i].htmlElement.clientHeight / 2
-        );
-        ctx.lineTo(
-          this.taskLists[i].relatesTo!.pos.x +
-            this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
-          this.taskLists[i].relatesTo!.pos.y
-        );
-        ctx.stroke();
-      }
-    }
-  }
+  //   let c = <HTMLCanvasElement>document.getElementById('canvas');
+  //   c.width = this.htmlElement.clientWidth;
+  //   c.height = this.htmlElement.clientHeight;
+  //   var ctx = c.getContext('2d')!;
+  //   if(clear) ctx.clearRect(0, 0, c.width, c.height);
+  //   for (let i = 0; i < this.taskLists.length; i++) {
+  //     if (this.taskLists[i].relatesTo != undefined) {
+  //       ctx.moveTo(
+  //         this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,
+  //         this.taskLists[i].pos.y +
+  //           this.taskLists[i].htmlElement.clientHeight / 2
+  //       );
+  //       ctx.lineTo(
+  //         this.taskLists[i].relatesTo!.pos.x +
+  //           this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
+  //         this.taskLists[i].pos.y +
+  //           this.taskLists[i].htmlElement.clientHeight / 2
+  //       );
+  //       ctx.lineTo(
+  //         this.taskLists[i].relatesTo!.pos.x +
+  //           this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
+  //         this.taskLists[i].relatesTo!.pos.y
+  //       );
+  //       ctx.stroke();
+  //     }
+  //   }
+   }
 
 
 
