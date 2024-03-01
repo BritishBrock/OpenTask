@@ -165,12 +165,7 @@ export class TaskViewerComponent {
     });
 
     this.htmlElement = this.elRef.nativeElement;
-    this.dragService.viewBoard = this.htmlElement;
-    //set view in the center
-
-    this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
-    this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
-
+ 
     document.oncontextmenu = (e) => {
       if (!this.settingsService.userSettings.general.customContextMenu)
         return true;
@@ -191,9 +186,9 @@ export class TaskViewerComponent {
     });
     window.addEventListener('wheel', (event) => {
       if (event.deltaY == -100) {
-        this.updateZoom(0.1)
+        this.updateZoom(0.05)
       } else if (event.deltaY == 100) {
-        this.updateZoom(-0.1)
+        this.updateZoom(-0.05)
       }
     });
 
@@ -235,11 +230,11 @@ export class TaskViewerComponent {
 
   zoom2: number = 100;
   updateZoom(amount:number){
-    console.log(this.dragService.currentZoom)
     if (!this.TaskViewerBoard) return;
     if (this.dragService.currentZoom +amount > 1.5 ||this.dragService.currentZoom + amount< 0.5) return;
     this.dragService.currentZoom += amount;
     this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
+    this.moveBoard()
   }
 
   changeZoom() {
@@ -247,8 +242,20 @@ export class TaskViewerComponent {
     this.dragService.currentZoom = this.zoom2 / 100;
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
+      this.moveBoard()
   }
-
+  auxzoom = 1;
+  moveBoard(){
+    if(this.auxzoom == this.dragService.currentZoom) return;
+    this.dragService.currentZoomOffset = {
+      x:this.dragService.currentBardPos.x + (this.auxzoom < this.dragService.currentZoom ?  375 : -375),
+      y:this.dragService.currentBardPos.y + (this.auxzoom < this.dragService.currentZoom ?  375 : -375)
+    }
+    this.dragService.setBoardPos(
+      this.dragService.currentZoomOffset
+    )
+    this.auxzoom = this.dragService.currentZoom;
+  }
 
 createSelect(event:any){
   let width = Math.abs(this.iSX - event.x);
@@ -267,7 +274,12 @@ createSelect(event:any){
   previousTouch: any;
   ngAfterViewInit() {
     if (this.TaskViewerBoard) {
-
+      this.dragService.viewBoard = this.TaskViewerBoard.nativeElement;
+      //set view in the center
+  
+      this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
+      this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
+  
       this.TaskViewerBoard.nativeElement.addEventListener(
         'touchmove',
         (event: any) => {
@@ -288,9 +300,10 @@ createSelect(event:any){
           } 
           if (!this.dragService.Tasks) {
             if (this.previousTouch) {
+             
               this.dragService.setBoardPos({
-                x: parseInt(this.htmlElement.style.left) + event.movementX,
-                y: parseInt(this.htmlElement.style.top) + event.movementY,
+                x: parseInt(this.TaskViewerBoard!.nativeElement.style.left) + event.movementX,
+                y: parseInt(this.TaskViewerBoard!.nativeElement.style.top) + event.movementY,
               });
             }
           }
@@ -318,8 +331,8 @@ createSelect(event:any){
           }
           if (this.mouseDown) {
             this.dragService.setBoardPos({
-              x: parseInt(this.htmlElement.style.left) + event.movementX,
-              y: parseInt(this.htmlElement.style.top) + event.movementY,
+              x: parseInt(this.TaskViewerBoard!.nativeElement.style.left) + event.movementX,
+              y: parseInt(this.TaskViewerBoard!.nativeElement.style.top) + event.movementY,
             });
           }
         }

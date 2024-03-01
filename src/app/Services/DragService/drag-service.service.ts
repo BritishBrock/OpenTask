@@ -12,6 +12,7 @@ export class DragServiceService {
   Tasks?:any;
   currentBardPos:Coord = {x:0,y:0};
   currentZoom:number = 1;
+  currentZoomOffset:Coord = {x:0,y:0};
   viewBoard?:HTMLElement;
   selectHTMLElement(element:any){
     this.Tasks = element;
@@ -49,11 +50,11 @@ export class DragServiceService {
     this.currentBardPos.x = pos.x;
     let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
     let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-    // if(this.currentBardPos.y >0)this.currentBardPos.y = 0
-    // if(this.currentBardPos.x >0)this.currentBardPos.x = 0
-    //  if(this.currentBardPos.y < (this.viewBoard.clientHeight - vh)*-1 )this.currentBardPos.y = (this.viewBoard.clientHeight - vh)*-1
-    //  if(this.currentBardPos.x < (this.viewBoard.clientWidth - vw)*-1) this.currentBardPos.x =  (this.viewBoard.clientWidth - vw)*-1
-     this.viewBoard.style.left = this.currentBardPos.x  + 'px';
+    if(this.currentBardPos.y - this.currentZoomOffset.y >0)this.currentBardPos.y = this.currentZoomOffset.y
+    if(this.currentBardPos.x - this.currentZoomOffset.x >0)this.currentBardPos.x = this.currentZoomOffset.x
+    if(this.currentBardPos.y + this.currentZoomOffset.y< (this.viewBoard.clientHeight - vh)*-1 )this.currentBardPos.y =  (this.currentZoomOffset.y + (this.viewBoard.clientHeight - vh ))*-1
+    if(this.currentBardPos.x + this.currentZoomOffset.x < (this.viewBoard.clientWidth - vw)*-1) this.currentBardPos.x =   (this.currentZoomOffset.x + (this.viewBoard.clientWidth - vw ))*-1
+    this.viewBoard.style.left = this.currentBardPos.x  + 'px';
     this.viewBoard.style.top = this.currentBardPos.y + 'px';
 
   }
