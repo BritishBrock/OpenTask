@@ -82,9 +82,7 @@ export class StickyNoteComponent {
 
     
     if(!this.nativeElement) return;
-    console.log(this.stickyNote.width)
     if(this.stickyNote.width){
-      console.log(this.stickyNote.width)
       this.nativeElement!.style.width = this.stickyNote.width
     }
     if(this.stickyNote.height)this.nativeElement!.style.height = this.stickyNote.height

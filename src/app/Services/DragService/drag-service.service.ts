@@ -67,7 +67,6 @@ export class DragServiceService {
         this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
         this.Tasks.removeTaskListId();
         this.taskViewerService.addToGlobalTasks(this.Tasks);
-     
       }
     }else{
       if(!this.Tasks.taskListId){

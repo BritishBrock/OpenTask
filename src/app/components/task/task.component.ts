@@ -42,12 +42,14 @@ export class TaskComponent {
         this.DragService.Tasks.htmlElement!.style.top = '0';
         this.DragService.Tasks.htmlElement!.style.zIndex = '0';
       }
+      this.previousTouch = null;
       this.DragService.getPlaceOfDropped();
       this.DragService.clearSelectedHTMLElement();
     });
     this.nativeElement!.addEventListener(
       'touchmove',
       (event: any) => {
+        
         if(!this.DragService.Tasks) return;
         event.preventDefault();
         var touch = event.targetTouches[0];
@@ -57,7 +59,6 @@ export class TaskComponent {
           event.movementY = touch.pageY - this.previousTouch.pageY;
           event.movementX = touch.pageX - this.previousTouch.pageX;
         }
-        if (this.DragService.Tasks) {
           if (this.previousTouch) {
             this.setTaskInTasklistPos()
             this.DragService.moveSelectedHTMLElement({
@@ -65,7 +66,6 @@ export class TaskComponent {
               y: event.movementY / this.DragService.currentZoom,
             });
           }
-        } 
         this.previousTouch = touch;
       }
     );
@@ -83,6 +83,7 @@ export class TaskComponent {
   }
   setTaskInTasklistPos(){
     if (this.DragService.Tasks.isInTaskList) {
+     
       let tasklist = this.taskViewerService.globalTaskLists;
       for (let i = 0; i < tasklist.length; i++) {
         if (tasklist[i].id == this.DragService.Tasks.taskListId) {

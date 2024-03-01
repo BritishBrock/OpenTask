@@ -297,7 +297,7 @@ createSelect(event:any){
             event.movementX = touch.pageX - this.previousTouch.pageX;
           }
          
-          console.log(this.dragService.Tasks)
+         
           if (!this.dragService.Tasks) {
             if (this.previousTouch) {
               this.dragService.setBoardPos({
