@@ -249,11 +249,13 @@ export class TaskViewerComponent {
   moveBoard(){
     if(this.auxzoom == this.dragService.currentZoom) return;
     this.dragService.currentZoomOffset = {
-      x:this.dragService.currentBardPos.x + (this.auxzoom < this.dragService.currentZoom ?  375 : -375),
+      x:  this.dragService.currentZoomOffset.x +(this.auxzoom < this.dragService.currentZoom ?  375 : -375),
+      y: this.dragService.currentZoomOffset.y +(this.auxzoom < this.dragService.currentZoom ?  375 : -375)
+    }
+    this.dragService.setBoardPos({
+      x:this.dragService.currentBardPos.x +  (this.auxzoom < this.dragService.currentZoom ?  375 : -375),
       y:this.dragService.currentBardPos.y + (this.auxzoom < this.dragService.currentZoom ?  375 : -375)
     }
-    this.dragService.setBoardPos(
-      this.dragService.currentZoomOffset
     )
     this.auxzoom = this.dragService.currentZoom;
   }
