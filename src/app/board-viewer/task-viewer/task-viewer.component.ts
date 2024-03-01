@@ -342,7 +342,7 @@ createSelect(event:any){
         if(!this.dragService.Tasks) return;
         this.setElement();
         delete this.previousTouch;
-        this.drawLines(true);
+      
       });
       this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
         this.iMX = 0;
