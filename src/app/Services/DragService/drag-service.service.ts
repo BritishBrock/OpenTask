@@ -63,14 +63,14 @@ export class DragServiceService {
   getPlaceOfDropped(){
     let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
     if(taskList == undefined){
-      if(this.Tasks.isInTaskList){
+      if(this.Tasks.taskListId){
         this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);
         this.Tasks.removeTaskListId();
         this.taskViewerService.addToGlobalTasks(this.Tasks);
      
       }
     }else{
-      if(!this.Tasks.isInTaskList){
+      if(!this.Tasks.taskListId){
         this.Tasks.setTaskListId(taskList.id);
         taskList.addTaskToList(this.Tasks);
         this.taskViewerService.removeTaskFromGlobalTasks(this.Tasks.id);
@@ -81,7 +81,7 @@ export class DragServiceService {
         taskList.addTaskToList(this.Tasks);
       }
     } 
-    delete this.Tasks;
+      this.clearSelectedHTMLElement()
      }
     
 

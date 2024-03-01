@@ -282,11 +282,12 @@ createSelect(event:any){
   
       this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
       this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
-  
+
       this.TaskViewerBoard.nativeElement.addEventListener(
         'touchmove',
         (event: any) => {
           event.preventDefault();
+         
           if (this.isModalOpen) return;
           var touch = event.targetTouches[0];
           
@@ -295,7 +296,18 @@ createSelect(event:any){
             event.movementY = touch.pageY - this.previousTouch.pageY;
             event.movementX = touch.pageX - this.previousTouch.pageX;
           }
+         
+          console.log(this.dragService.Tasks)
+          if (!this.dragService.Tasks) {
+            if (this.previousTouch) {
+              this.dragService.setBoardPos({
+                x: this.dragService.currentBardPos.x + event.movementX,
+                y: this.dragService.currentBardPos.y + event.movementY ,
+              });
+            }
+          }
           if (this.dragService.Tasks) {
+            if(this.dragService.Tasks.type)return;
             if (this.previousTouch) {
               this.dragService.moveSelectedHTMLElement({
                 x: event.movementX / this.dragService.currentZoom,
@@ -303,16 +315,8 @@ createSelect(event:any){
               });
             }
           } 
-          if (!this.dragService.Tasks) {
-            if (this.previousTouch) {
-              console.log( event.movementX)
-              this.dragService.setBoardPos({
-                x: this.dragService.currentBardPos.x + event.movementX,
-                y: this.dragService.currentBardPos.y + event.movementY ,
-              });
-            }
-          }
           this.previousTouch = touch;
+
         }
       );
 
@@ -323,7 +327,7 @@ createSelect(event:any){
           if (this.dragService.Tasks) {
 
             this.setTaskInTasklistPos()
-
+      
             this.dragService.moveSelectedHTMLElement({
               x: event.movementX / this.dragService.currentZoom,
               y: event.movementY / this.dragService.currentZoom,
