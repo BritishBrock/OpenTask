@@ -231,6 +231,7 @@ export class TaskViewerComponent {
   zoom2: number = 100;
   updateZoom(amount:number){
     if (!this.TaskViewerBoard) return;
+    if(this.dragService.Tasks)delete this.dragService.Tasks;
     if (this.dragService.currentZoom +amount > 1.5 ||this.dragService.currentZoom + amount< 0.5) return;
     this.dragService.currentZoom += amount;
     this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
