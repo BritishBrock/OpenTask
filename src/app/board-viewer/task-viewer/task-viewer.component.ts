@@ -289,7 +289,9 @@ createSelect(event:any){
           event.preventDefault();
           if (this.isModalOpen) return;
           var touch = event.targetTouches[0];
+          
           if (this.previousTouch) {
+            
             event.movementY = touch.pageY - this.previousTouch.pageY;
             event.movementX = touch.pageX - this.previousTouch.pageX;
           }
@@ -303,10 +305,10 @@ createSelect(event:any){
           } 
           if (!this.dragService.Tasks) {
             if (this.previousTouch) {
-             
+              console.log( event.movementX)
               this.dragService.setBoardPos({
-                x: parseInt(this.TaskViewerBoard!.nativeElement.style.left) + event.movementX,
-                y: parseInt(this.TaskViewerBoard!.nativeElement.style.top) + event.movementY,
+                x: this.dragService.currentBardPos.x + event.movementX,
+                y: this.dragService.currentBardPos.y + event.movementY ,
               });
             }
           }
@@ -341,9 +343,16 @@ createSelect(event:any){
         }
       );
       this.elRef.nativeElement.addEventListener('touchend', (event: any) => {
+        this.previousTouch = null;
+           
+        this.iMX = 0;
+        this.iMY = 0;
+        this.mouseDown = false;
+        this.isMoving = false;
+        this.isselectM = false;
         if(!this.dragService.Tasks) return;
         this.setElement();
-        delete this.previousTouch;
+   
       });
       this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
         this.iMX = 0;
