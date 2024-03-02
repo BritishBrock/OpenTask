@@ -10,6 +10,8 @@ export class StickyNote{
     pos:Coord;
     descripcion?:string;
     color:string;
+    width?:string;
+    height?:string;
     constructor(id?:number,){
         this.pos = {x:0,y:0}
         this.id = id ?? StickyNote.lastID++;

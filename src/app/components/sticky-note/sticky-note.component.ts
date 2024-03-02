@@ -68,14 +68,24 @@ export class StickyNoteComponent {
       break;
     }
     this.nativeElement!.style.left = this.stickyNote.pos.x  +"px";
-        this.nativeElement!.style.top =  this.stickyNote.pos.y +"px";
+    this.nativeElement!.style.top =  this.stickyNote.pos.y +"px";
+    this.stickyNote.height =  this.nativeElement!.style.height;
+    this.stickyNote.width =  this.nativeElement!.style.width;
+
   }
   resizeMouseLeave(event:any){
     //this.isResizing =false;
   }
 
   ngOnInit(){
+
+
+    
     if(!this.nativeElement) return;
+    if(this.stickyNote.width){
+      this.nativeElement!.style.width = this.stickyNote.width
+    }
+    if(this.stickyNote.height)this.nativeElement!.style.height = this.stickyNote.height
 
       this.nativeElement.addEventListener("mouseenter",(event:any)=>{
         this.isHoveringOver = true;

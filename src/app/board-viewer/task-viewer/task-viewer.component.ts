@@ -165,12 +165,7 @@ export class TaskViewerComponent {
     });
 
     this.htmlElement = this.elRef.nativeElement;
-    this.dragService.viewBoard = this.htmlElement;
-    //set view in the center
-
-    this.htmlElement.style.left = this.dragService.currentBardPos.x + 'px';
-    this.htmlElement.style.top = this.dragService.currentBardPos.y + 'px';
-
+ 
     document.oncontextmenu = (e) => {
       if (!this.settingsService.userSettings.general.customContextMenu)
         return true;
@@ -191,9 +186,9 @@ export class TaskViewerComponent {
     });
     window.addEventListener('wheel', (event) => {
       if (event.deltaY == -100) {
-        this.updateZoom(0.1)
+        this.updateZoom(0.05)
       } else if (event.deltaY == 100) {
-        this.updateZoom(-0.1)
+        this.updateZoom(-0.05)
       }
     });
 
@@ -235,11 +230,12 @@ export class TaskViewerComponent {
 
   zoom2: number = 100;
   updateZoom(amount:number){
-    console.log(this.dragService.currentZoom)
     if (!this.TaskViewerBoard) return;
+    if(this.dragService.Tasks)delete this.dragService.Tasks;
     if (this.dragService.currentZoom +amount > 1.5 ||this.dragService.currentZoom + amount< 0.5) return;
     this.dragService.currentZoom += amount;
     this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
+    this.moveBoard()
   }
 
   changeZoom() {
@@ -247,8 +243,22 @@ export class TaskViewerComponent {
     this.dragService.currentZoom = this.zoom2 / 100;
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
+      this.moveBoard()
   }
-
+  auxzoom = 1;
+  moveBoard(){
+    if(this.auxzoom == this.dragService.currentZoom) return;
+    this.dragService.currentZoomOffset = {
+      x:  this.dragService.currentZoomOffset.x +(this.auxzoom < this.dragService.currentZoom ?  375 : -375),
+      y: this.dragService.currentZoomOffset.y +(this.auxzoom < this.dragService.currentZoom ?  375 : -375)
+    }
+    this.dragService.setBoardPos({
+      x:this.dragService.currentBardPos.x +  (this.auxzoom < this.dragService.currentZoom ?  375 : -375),
+      y:this.dragService.currentBardPos.y + (this.auxzoom < this.dragService.currentZoom ?  375 : -375)
+    }
+    )
+    this.auxzoom = this.dragService.currentZoom;
+  }
 
 createSelect(event:any){
   let width = Math.abs(this.iSX - event.x);
@@ -267,18 +277,37 @@ createSelect(event:any){
   previousTouch: any;
   ngAfterViewInit() {
     if (this.TaskViewerBoard) {
+      this.dragService.viewBoard = this.TaskViewerBoard.nativeElement;
+      //set view in the center
+  
+      this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
+      this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
 
       this.TaskViewerBoard.nativeElement.addEventListener(
         'touchmove',
         (event: any) => {
           event.preventDefault();
+         
           if (this.isModalOpen) return;
           var touch = event.targetTouches[0];
+          
           if (this.previousTouch) {
+            
             event.movementY = touch.pageY - this.previousTouch.pageY;
             event.movementX = touch.pageX - this.previousTouch.pageX;
           }
+         
+         
+          if (!this.dragService.Tasks) {
+            if (this.previousTouch) {
+              this.dragService.setBoardPos({
+                x: this.dragService.currentBardPos.x + event.movementX,
+                y: this.dragService.currentBardPos.y + event.movementY ,
+              });
+            }
+          }
           if (this.dragService.Tasks) {
+            if(this.dragService.Tasks.type)return;
             if (this.previousTouch) {
               this.dragService.moveSelectedHTMLElement({
                 x: event.movementX / this.dragService.currentZoom,
@@ -286,15 +315,8 @@ createSelect(event:any){
               });
             }
           } 
-          if (!this.dragService.Tasks) {
-            if (this.previousTouch) {
-              this.dragService.setBoardPos({
-                x: parseInt(this.htmlElement.style.left) + event.movementX,
-                y: parseInt(this.htmlElement.style.top) + event.movementY,
-              });
-            }
-          }
           this.previousTouch = touch;
+
         }
       );
 
@@ -305,7 +327,7 @@ createSelect(event:any){
           if (this.dragService.Tasks) {
 
             this.setTaskInTasklistPos()
-
+      
             this.dragService.moveSelectedHTMLElement({
               x: event.movementX / this.dragService.currentZoom,
               y: event.movementY / this.dragService.currentZoom,
@@ -318,17 +340,23 @@ createSelect(event:any){
           }
           if (this.mouseDown) {
             this.dragService.setBoardPos({
-              x: parseInt(this.htmlElement.style.left) + event.movementX,
-              y: parseInt(this.htmlElement.style.top) + event.movementY,
+              x: parseInt(this.TaskViewerBoard!.nativeElement.style.left) + event.movementX,
+              y: parseInt(this.TaskViewerBoard!.nativeElement.style.top) + event.movementY,
             });
           }
         }
       );
       this.elRef.nativeElement.addEventListener('touchend', (event: any) => {
+        this.previousTouch = null;
+           
+        this.iMX = 0;
+        this.iMY = 0;
+        this.mouseDown = false;
+        this.isMoving = false;
+        this.isselectM = false;
         if(!this.dragService.Tasks) return;
         this.setElement();
-        delete this.previousTouch;
-        this.drawLines(true);
+   
       });
       this.elRef.nativeElement.addEventListener('mouseup', (event: any) => {
         this.iMX = 0;
@@ -339,9 +367,7 @@ createSelect(event:any){
         if (this.dragService.Tasks) {
           this.setElement();
         };
-        this.drawLines(true);
       });
-      this.drawLines(false);
     }
   }
   taskListHightlighted?:TaskList;
@@ -396,33 +422,33 @@ createSelect(event:any){
 }
 
   drawLines(clear:boolean){
-    let c = <HTMLCanvasElement>document.getElementById('canvas');
-    c.width = this.htmlElement.clientWidth;
-    c.height = this.htmlElement.clientHeight;
-    var ctx = c.getContext('2d')!;
-    if(clear) ctx.clearRect(0, 0, c.width, c.height);
-    for (let i = 0; i < this.taskLists.length; i++) {
-      if (this.taskLists[i].relatesTo != undefined) {
-        ctx.moveTo(
-          this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,
-          this.taskLists[i].pos.y +
-            this.taskLists[i].htmlElement.clientHeight / 2
-        );
-        ctx.lineTo(
-          this.taskLists[i].relatesTo!.pos.x +
-            this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
-          this.taskLists[i].pos.y +
-            this.taskLists[i].htmlElement.clientHeight / 2
-        );
-        ctx.lineTo(
-          this.taskLists[i].relatesTo!.pos.x +
-            this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
-          this.taskLists[i].relatesTo!.pos.y
-        );
-        ctx.stroke();
-      }
-    }
-  }
+  //   let c = <HTMLCanvasElement>document.getElementById('canvas');
+  //   c.width = this.htmlElement.clientWidth;
+  //   c.height = this.htmlElement.clientHeight;
+  //   var ctx = c.getContext('2d')!;
+  //   if(clear) ctx.clearRect(0, 0, c.width, c.height);
+  //   for (let i = 0; i < this.taskLists.length; i++) {
+  //     if (this.taskLists[i].relatesTo != undefined) {
+  //       ctx.moveTo(
+  //         this.taskLists[i].pos.x + this.taskLists[i].htmlElement.clientWidth,
+  //         this.taskLists[i].pos.y +
+  //           this.taskLists[i].htmlElement.clientHeight / 2
+  //       );
+  //       ctx.lineTo(
+  //         this.taskLists[i].relatesTo!.pos.x +
+  //           this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
+  //         this.taskLists[i].pos.y +
+  //           this.taskLists[i].htmlElement.clientHeight / 2
+  //       );
+  //       ctx.lineTo(
+  //         this.taskLists[i].relatesTo!.pos.x +
+  //           this.taskLists[i].relatesTo!.htmlElement.clientWidth / 2,
+  //         this.taskLists[i].relatesTo!.pos.y
+  //       );
+  //       ctx.stroke();
+  //     }
+  //   }
+   }
 
 
 

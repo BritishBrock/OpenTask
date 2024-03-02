@@ -3,6 +3,7 @@ import { Coord } from "../../interfaces/Coord/Coord";
 
 export class Task{
     static lastID:number = 0; 
+    type="task";
     id:number;
     name:string;
     colorTag:string;

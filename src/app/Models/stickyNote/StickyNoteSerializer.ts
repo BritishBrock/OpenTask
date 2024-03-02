@@ -3,6 +3,7 @@ import { StickyNote } from "./stickyNote";
 
 
 export class StickyNoteSerializer{
+    static excludeList:string[] = ["htmlElement"] as const; 
     static Serialize(){
 
     }
@@ -10,11 +11,14 @@ export class StickyNoteSerializer{
         let taskListJsonArray = Object.values(boardJson);
         let stickyNoteArray:StickyNote[] = []
         for(let i = 0; i < taskListJsonArray.length;i++){
-            let newTaskList = new StickyNote(taskListJsonArray[i].id);
-            newTaskList.pos = taskListJsonArray[i].pos;
-            newTaskList.color = taskListJsonArray[i].color;
-            newTaskList.descripcion = taskListJsonArray[i].descripcion;
-            stickyNoteArray.push(newTaskList)
+            let newStickyNote:any = new StickyNote(taskListJsonArray[i].id);
+            Object.entries(taskListJsonArray[i]).every(([key,value])=>{
+                if(!this.excludeList.includes(key)){
+                    newStickyNote[key as keyof typeof newStickyNote] = value;
+                }
+                return true;
+            })
+            stickyNoteArray.push(newStickyNote)
         }
         return stickyNoteArray;
     }

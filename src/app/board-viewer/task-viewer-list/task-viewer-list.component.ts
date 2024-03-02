@@ -15,7 +15,7 @@ export class TaskViewerListComponent {
   tasks:Task[]= []
   taskLists:TaskList[]= []
   ngOnInit(){
-    this.tasks = this.TaskViewerBoardService.globalTasks;
+    this.tasks = [...this.TaskViewerBoardService.globalTasks];
     this.taskLists = [...this.TaskViewerBoardService.globalTaskLists];
     for(let i = 0;i < this.TaskViewerBoardService.globalTaskLists.length;i++){
       for(let y = 0; y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;y++){
@@ -38,6 +38,14 @@ export class TaskViewerListComponent {
         break;
     }
      
+  }
+  openTasksOf(TaskListID:number){
+
+    let tasksOfTasklist:HTMLCollectionOf<HTMLElement>= document.getElementsByClassName('t'+TaskListID) as HTMLCollectionOf<HTMLElement>
+    for(let i = 0; i < tasksOfTasklist.length;i++){
+      tasksOfTasklist[i]!.style.display == "table-row" ? tasksOfTasklist[i]!.style.display = "none": tasksOfTasklist[i]!.style.display = "table-row"
+    }
+   
   }
 
 

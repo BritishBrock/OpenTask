@@ -73,6 +73,7 @@
     <div>
       <table>
         <thead>
+            <th></th>
             <th>id</th>
             <th>title</th>
             <th>Relates To</th>
@@ -83,14 +84,22 @@
             @for (taskList of taskLists; track $index) {
   
           <tr>
+            <td (click)="openTasksOf(taskList.id)">+</td>
             <td>{{taskList.id}}</td>
             <td><input type="text" [(ngModel)]="taskList.title"  name="" id=""></td>
               <td> {{taskList.relatesTo?.title ?? ""}}</td>
             <td>{{taskList.isLocked ? "Yes":"No"}}</td>
             <td><svg class='dot' viewBox="0 0 512 512" width="100" title="ellipsis-h">
-    <path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z" />
-  </svg></td>
+            <path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z" />
+            </svg> </td>
           </tr>
+          @for (task of taskList.tasks; track $index) {
+            <tr [class]="'t'+taskList.id" style="display: none;">
+              <td><input type="text" [(ngModel)]="task.name"  name="" id=""></td>
+              <td><input type="text" [(ngModel)]="task.descripcion"  name="" id=""></td>
+              <td> <input type="color" [(ngModel)]="task.colorTag" name="" id=""></td>
+            </tr>
+          }
   
   
         }

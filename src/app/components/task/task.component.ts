@@ -33,16 +33,79 @@ export class TaskComponent {
 
     this.nativeElement!.addEventListener('touchend', (event: any) => {
       this.lastTap = detectDoubleTapClosure(this.lastTap,this.taskModalService.taskModal,this.task)
+      this.DragService.Tasks.htmlElement!.style.position = 'absolute';
+      this.DragService.Tasks.htmlElement!.style.left = +this.DragService.Tasks.pos.x + 'px';
+      this.DragService.Tasks.htmlElement!.style.top = +this.DragService.Tasks.pos.y + 'px';
+      if (this.DragService.Tasks.isInTaskList) {
+        this.DragService.Tasks.htmlElement!.style.position = 'relative';
+        this.DragService.Tasks.htmlElement!.style.left = '0';
+        this.DragService.Tasks.htmlElement!.style.top = '0';
+        this.DragService.Tasks.htmlElement!.style.zIndex = '0';
+      }
+      this.previousTouch = null;
+      this.DragService.getPlaceOfDropped();
+      this.DragService.clearSelectedHTMLElement();
     });
+    this.nativeElement!.addEventListener(
+      'touchmove',
+      (event: any) => {
+        
+        if(!this.DragService.Tasks) return;
+        event.preventDefault();
+        var touch = event.targetTouches[0];
+        
+        if (this.previousTouch) {
+          
+          event.movementY = touch.pageY - this.previousTouch.pageY;
+          event.movementX = touch.pageX - this.previousTouch.pageX;
+        }
+          if (this.previousTouch) {
+            this.setTaskInTasklistPos()
+            this.DragService.moveSelectedHTMLElement({
+              x: event.movementX / this.DragService.currentZoom,
+              y: event.movementY / this.DragService.currentZoom,
+            });
+          }
+        this.previousTouch = touch;
+      }
+    );
   }
-
+  previousTouch:any;
   mousedown() {
     this.nativeElement!.addEventListener('touchstart', (event: any) => {
       event.preventDefault();
-      if (!this.DragService.Tasks) this.DragService.selectHTMLElement(this.task);
+      if (!this.DragService.Tasks){
+        
+        this.DragService.selectHTMLElement(this.task);
+      } 
+        
     });
   }
-
+  setTaskInTasklistPos(){
+    if (this.DragService.Tasks.isInTaskList) {
+     
+      let tasklist = this.taskViewerService.globalTaskLists;
+      for (let i = 0; i < tasklist.length; i++) {
+        if (tasklist[i].id == this.DragService.Tasks.taskListId) {
+          this.DragService.Tasks.pos = {
+            x:
+              tasklist[i].pos.x +
+              this.DragService.Tasks.htmlElement!.offsetLeft,
+            y:
+              tasklist[i].pos.y +
+              this.DragService.Tasks.htmlElement!.offsetTop,
+          };
+          this.taskViewerService
+            .getFromGlobalTasksList(this.DragService.Tasks.taskListId)
+            ?.removeFromList(this.DragService.Tasks.id);
+          this.DragService.Tasks.removeTaskListId();
+          this.taskViewerService.addToGlobalTasks(
+            this.DragService.Tasks
+          );
+        }
+      }
+    }
+  }
   openTaskModal() {
     this.taskModalService.taskModal.next(this.task);
   }
@@ -54,27 +117,7 @@ export class TaskComponent {
           if (this.ContextMenuService._isOpen)
             this.ContextMenuService.switchContextMenu();
           if (!this.DragService.Tasks) {
-            if (this.task.taskListId != undefined) {
-              let tasklists = this.taskViewerService.globalTaskLists;
-              for (let i = 0; i < tasklists.length; i++) {
-                if (tasklists[i].id == this.task.taskListId) {
-                  this.task.pos = {
-                    x:
-                      this.taskViewerService.getFromGlobalTasksList(
-                        this.task.taskListId
-                      )!.pos.x + this.task.htmlElement!.offsetLeft,
-                    y:
-                      this.taskViewerService.getFromGlobalTasksList(
-                        this.task.taskListId
-                      )!.pos.y + this.task.htmlElement!.offsetTop,
-                  };
-
-                  tasklists[i].removeFromList(this.task.id);
-                  this.task.removeTaskListId();
-                  this.taskViewerService.addToGlobalTasks(this.task);
-                }
-              }
-            }
+           
 
             this.DragService.selectHTMLElement(this.task);
           }
