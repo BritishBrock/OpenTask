@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import { TaskComponent } from '../../components/task/task.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class SettingsService {
     general:{
       customContextMenu:false,
       showLoadEffect:false,
+      defaultMenu:"Visual",
     }
   }
 
@@ -29,5 +31,6 @@ export interface userSettings{
   general:{
     customContextMenu:boolean,
     showLoadEffect:boolean,
+    defaultMenu:string,
   },
 }
