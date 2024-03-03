@@ -15,7 +15,7 @@ export class NotesViewerComponent {
   htmlElement!: HTMLElement;
   @ViewChild("noteBody") notebody!:ElementRef;
   ngOnInit() {
-    
+
   }
   globalPos: any;
   dropped  = false;
@@ -26,20 +26,29 @@ export class NotesViewerComponent {
   noteTitle:string = "";
   noteDesc:string = "";
   pickUpNote(note: any, pos: any) {
-    this.dropped = false;
-    this.ofPos = pos;
-    this.noteSelectd = this.notes.splice(pos, 1)[0];
+    if(this.isNoteCreationActive){
+      this.createNote()
+    }else{
+      this.dropped = false;
+      this.ofPos = pos;
+      this.noteSelectd = this.notes.splice(pos, 1)[0];
+    }
   }
+
   createNote(){
+    if(!this.isNoteCreationActive)return;
     let n = new Note(this.noteTitle)
+
     n.descripcion = this.noteDesc;
     this.notes.push(n);
     this.noteDesc = "";
     this.noteTitle = "";
+    this.isNoteCreationActive = false;
   }
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
   }
+  isNoteCreationActive:boolean = false;
 
   isOnOtherNote(x: any, y: any) {
     let ns = document.getElementById('selected');

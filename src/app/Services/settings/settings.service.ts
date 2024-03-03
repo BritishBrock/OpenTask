@@ -15,7 +15,7 @@ export class SettingsService {
     general:{
       customContextMenu:false,
       showLoadEffect:false,
-      defaultMenu:"Visual",
+      defaultMenu:"Notes",
     }
   }
 

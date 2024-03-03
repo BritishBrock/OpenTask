@@ -1,10 +1,12 @@
 :host{
     display: flex;
     user-select: none;
-    justify-content: center;
+    align-items: center;
     overflow-y: auto;
     flex-direction: column;
     height: 100%;
+    display: flex;
+
 }
 .noteBody{
     width: 100%;
@@ -14,18 +16,38 @@
     flex-direction: column;
     
 }
+.noteBack{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+
+}
 .noteCreator{
-    width:100%;
+    width: clamp(200px, 50%, 700px);
     
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow:  0px 5px 5px 1px #00000024;
     .title{
-        width: clamp(200px, 50%, 500px);
+       width: calc(100% - 20px);
+       border: none;
+       height: 50px;
+    }
+    .title:focus-visible{
+        outline: none;
     }
     .desc{
-        width: clamp(200px, 50%, 500px);
-        margin: 5px;
+        width: calc(100% - 20px);
+        border: none;
+    }
+    .desc:focus-visible{
+        outline: none;
     }
     .noteCreatorButton{
     width: 100px;
@@ -34,14 +56,65 @@
 }
 .noteGrid{
     width: 100%;
-
     display: grid;
     grid-template-columns: repeat(5,auto);
+    z-index: 1;
     justify-content: center;
     .note{
         width: 300px;
         min-height: 200px;
+        height: auto;
         border: 1px solid black;
         margin: 5px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        position: relative;
+        .noteMenu{
+           position: absolute;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: whitesmoke;
+            right: 10px;
+            z-index: 2;
+            bottom: 10px;
+            border-radius: 100%;
+        }   
     }
 }
+
+@media only screen and (max-width: 1550px) {
+    .noteGrid{
+
+        grid-template-columns: repeat(4,auto);
+
+
+    }
+  }
+  @media only screen and (max-width: 1250px) {
+    .noteGrid{
+
+        grid-template-columns: repeat(3,auto);
+
+
+    }
+  }
+  @media only screen and (max-width: 950px) {
+    .noteGrid{
+
+        grid-template-columns: repeat(2,auto);
+
+
+    }
+  }
+  @media only screen and (max-width: 650px) {
+    .noteGrid{
+
+        grid-template-columns: repeat(1,auto);
+
+
+    }
+  }
