@@ -1,7 +1,47 @@
 :host{
     display: flex;
+    user-select: none;
     justify-content: center;
+    overflow-y: auto;
+    flex-direction: column;
+    height: 100%;
 }
 .noteBody{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.noteCreator{
+    width:100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title{
+        width: clamp(200px, 50%, 500px);
+    }
+    .desc{
+        width: clamp(200px, 50%, 500px);
+        margin: 5px;
+    }
+    .noteCreatorButton{
+    width: 100px;
+    }
+    margin: 25px;
+}
+.noteGrid{
+    width: 100%;
 
+    display: grid;
+    grid-template-columns: repeat(5,auto);
+    justify-content: center;
+    .note{
+        width: 300px;
+        min-height: 200px;
+        border: 1px solid black;
+        margin: 5px;
+    }
 }

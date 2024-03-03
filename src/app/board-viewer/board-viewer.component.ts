@@ -18,7 +18,7 @@ import { SettingsService } from '../Services/settings/settings.service';
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerComponent;
+    component:any = NotesViewerComponent;
     constructor(
       private elRef:ElementRef,
       private router:Router,

@@ -27,6 +27,7 @@ import { KeybindsComponent } from './settings/keybinds/keybinds.component';
 import { TaskListStylingComponent } from './components/modal/tasklist/task-list-styling/task-list-styling.component';
 import { StickynoteComponent } from './components/modal/stickynote/stickynote.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NoteComponent } from './components/note/note.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     KeybindsComponent,
     TaskListStylingComponent,
     StickynoteComponent,
+    NoteComponent,
 
 
   ],
