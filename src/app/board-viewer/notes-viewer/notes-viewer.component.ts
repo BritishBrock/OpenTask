@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Note } from '../../Models/Note/Note';
 import { Subject } from 'rxjs';
 
@@ -11,7 +11,7 @@ export class NotesViewerComponent {
   noteToAdd: string = '';
   notes: Note[] = [];
   noteSelectd: any;
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef, private changeDetector: ChangeDetectorRef,) {}
   htmlElement!: HTMLElement;
   @ViewChild("noteBody") notebody!:ElementRef;
   ngOnInit() {
@@ -36,6 +36,9 @@ export class NotesViewerComponent {
     this.notes.push(n);
     this.noteDesc = "";
     this.noteTitle = "";
+  }
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   isOnOtherNote(x: any, y: any) {
@@ -86,6 +89,7 @@ export class NotesViewerComponent {
           this.notes.splice(this.pos,0,this.noteSelectd)
           this.globalPos = this.pos;
           s.next(true)
+          this.changeDetector.detectChanges();
       }
 
 
