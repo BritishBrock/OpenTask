@@ -1,3 +1,4 @@
+import { NoteSerializer } from "../Note/NoteSerializer";
 import { TaskSerializer } from "../Task/TaskSerializer";
 import { TaskListSerializer } from "../TaskList/TaskListSerializer";
 import { StickyNoteSerializer } from "../stickyNote/StickyNoteSerializer";
@@ -19,6 +20,7 @@ export class BoardSerializer{
             newBoard.boardTaskLists =   TaskListSerializer.DeSerialize(boardJsonArray[i].boardTaskLists);
             newBoard.boardTasks =    TaskSerializer.DeSerialize(boardJsonArray[i].boardTasks);
             newBoard.boardStickyNotes =    StickyNoteSerializer.DeSerialize(boardJsonArray[i].boardStickyNotes);
+            newBoard.boardNotes =   NoteSerializer.DeSerialize(boardJsonArray[i].boardNotes);
             newBoard.name =    boardJsonArray[i].name;
             boardArray.push(newBoard)
 

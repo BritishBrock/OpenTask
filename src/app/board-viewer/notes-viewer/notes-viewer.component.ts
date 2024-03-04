@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Note } from '../../Models/Note/Note';
 import { Subject } from 'rxjs';
+import { BoardService } from '../../Services/board/board.service';
 
 @Component({
   selector: 'app-notes-viewer',
@@ -11,11 +12,11 @@ export class NotesViewerComponent {
   noteToAdd: string = '';
   notes: Note[] = [];
   noteSelectd: any;
-  constructor(private elRef: ElementRef, private changeDetector: ChangeDetectorRef,) {}
+  constructor(private elRef: ElementRef, private changeDetector: ChangeDetectorRef,private globalBoards:BoardService) {}
   htmlElement!: HTMLElement;
   @ViewChild("noteBody") notebody!:ElementRef;
   ngOnInit() {
-
+    this.notes = this.globalBoards.activeBoard!.boardNotes
   }
   globalPos: any;
   dropped  = false;
