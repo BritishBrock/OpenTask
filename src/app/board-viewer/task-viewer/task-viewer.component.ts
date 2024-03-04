@@ -220,8 +220,18 @@ export class TaskViewerComponent {
       if (this.mouseDown) this.mouseDown = false;
       if (!this.dragService.Tasks) return;
       this.dragService.Tasks.htmlElement!.style.position = 'absolute';
-      this.dragService.Tasks.htmlElement!.style.left = event.x + 'px';
-      this.dragService.Tasks.htmlElement!.style.top = event.y + 'px';
+      if(event.x < 0){
+        this.dragService.Tasks.htmlElement!.style.left =  (this.dragService.currentBardPos.x - event.x)*-1 + 'px';
+        this.dragService.Tasks.pos.x =  (this.dragService.currentBardPos.x - event.x)*-1;
+      }
+      if(event.y < 0){
+        this.dragService.Tasks.htmlElement!.style.top =  (this.dragService.currentBardPos.y  + event.y)*-1 + 'px';
+        this.dragService.Tasks.pos.y =  (this.dragService.currentBardPos.y - event.y)*-1;
+      }
+    
+    
+      
+
       //this.dragService.getPlaceOfDropped();
       this.dragService.clearSelectedHTMLElement();
     });
