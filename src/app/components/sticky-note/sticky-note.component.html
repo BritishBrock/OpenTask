@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div id="resizeMain" (mousemove)="resize($event)" (mouseup)="resizingMouseUp($event)">
+    <div [id]="'resizeMain-'+stickyNote.id" (mousemove)="resize($event)" (mouseup)="resizingMouseUp($event)">
 
     </div>
     @if (isHoveringOver) {
