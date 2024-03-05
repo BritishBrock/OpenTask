@@ -14,6 +14,7 @@ export class StickynoteComponent {
 
   ngAfterViewInit(){
     this.c = <HTMLCanvasElement>this.canvas.nativeElement;
+    if(!this.c)return;
     let ctx = this.c.getContext("2d");
     ctx!.fillStyle = "white";
     ctx?.fillRect(0, 0, 500, 500)

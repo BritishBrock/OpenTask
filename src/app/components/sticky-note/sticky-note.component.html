@@ -15,7 +15,8 @@
               </defs>
             </svg>
             <div class="sticky-content" [ngStyle]="{'backgroundColor':stickyNote.color, 'padding':'15px'}">
-              @if(!stickyNote.isImageActive){
+          
+              @if(!stickyNote.isImageActive || !stickyNote.image){
 
                 <pre  style="text-overflow: ellipsis;overflow: hidden;">{{stickyNote.descripcion}}</pre> 
               }@else {
