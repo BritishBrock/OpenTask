@@ -31,7 +31,7 @@ export class SettingsComponent {
       }
     },
     {
-      title:"Keybinds",
+      title:"Default menu",
       onclick:()=>{
         this.currentlyActiveSettingsMenu = DefaultMenuSelectorComponent;
       }
