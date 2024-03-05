@@ -150,6 +150,9 @@ export class TaskViewerComponent {
   isModalOpen = false;
 
   ngOnInit() {
+    this.dragService.currentZoom = 1;
+    this.dragService.currentZoomOffset.x = 0;
+    this.dragService.currentZoomOffset.y = 0;
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
@@ -241,6 +244,7 @@ export class TaskViewerComponent {
   zoom2: number = 100;
   updateZoom(amount:number){
     if (!this.TaskViewerBoard) return;
+    console.log(this.dragService.currentZoom)
     if(this.dragService.Tasks)delete this.dragService.Tasks;
     if (this.dragService.currentZoom +amount > 1.5 ||this.dragService.currentZoom + amount< 0.5) return;
     this.dragService.currentZoom += amount;
@@ -251,6 +255,7 @@ export class TaskViewerComponent {
   changeZoom() {
     if (!this.TaskViewerBoard) return;
     this.dragService.currentZoom = this.zoom2 / 100;
+    console.log(this.dragService.currentZoom)
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
       this.moveBoard()

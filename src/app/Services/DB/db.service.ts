@@ -57,7 +57,7 @@ export class DBService {
     openRequest.onupgradeneeded =  ()=> {
       let db = openRequest.result;
       if (!db.objectStoreNames.contains('boards')) { 
-        db.createObjectStore('boards', { autoIncrement: true }); 
+        db.createObjectStore('boards', { keyPath: "id" }); 
       }
     };
 
