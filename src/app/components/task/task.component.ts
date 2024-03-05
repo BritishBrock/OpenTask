@@ -6,6 +6,7 @@ import { Coord } from '../../interfaces/Coord/Coord';
 import { TaskModalService } from '../../Services/task-modal.service';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 import { detectDoubleTapClosure } from '../../event/customEvents/doubleTapEvent';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-task',

@@ -45,6 +45,11 @@ export class BoardPickerComponent {
 
    
   }
+  idOfBoardEditing?:number;
+  editBoard(index:number){
+    this.isEditingBoardName = true;
+     this.idOfBoardEditing = index;
+  }
   goToSettings(){
     this.router.navigateByUrl("/settings");
   }

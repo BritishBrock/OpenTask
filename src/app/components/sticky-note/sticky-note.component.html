@@ -15,16 +15,19 @@
               </defs>
             </svg>
             <div class="sticky-content" [ngStyle]="{'backgroundColor':stickyNote.color, 'padding':'15px'}">
-              <pre
-              style="text-overflow: ellipsis;
-              overflow: hidden;"
-              >{{stickyNote.descripcion}}</pre> 
+          
+              @if(!stickyNote.isImageActive || !stickyNote.image){
+
+                <pre  style="text-overflow: ellipsis;overflow: hidden;">{{stickyNote.descripcion}}</pre> 
+              }@else {
+                <img draggable="false"  style=" user-select: none; width: 500px; height: 500px;" [src]="stickyNote.image">
+              }
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="resizeMain" (mousemove)="resize($event)" (mouseup)="resizingMouseUp($event)">
+    <div [id]="'resizeMain-'+stickyNote.id" (mousemove)="resize($event)" (mouseup)="resizingMouseUp($event)">
 
     </div>
     @if (isHoveringOver) {

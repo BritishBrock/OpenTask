@@ -11,6 +11,8 @@ import { Subject } from 'rxjs';
 import { TaskListStylingComponent } from './tasklist/task-list-styling/task-list-styling.component';
 import { StickyNote } from '../../Models/stickyNote/stickyNote';
 import { StickynoteComponent } from './stickynote/stickynote.component';
+import { BoardService } from '../../Services/board/board.service';
+import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 
 @Component({
   selector: 'app-modal',
@@ -26,7 +28,7 @@ export class TaskModalComponent {
   taskList?:TaskList;
   stickyNote?:StickyNote;
   modalOpen:string = "";
-  constructor(private taskModalService:TaskModalService){}
+  constructor(private taskModalService:TaskModalService,private boardService:TaskViewerBoardService){}
 
 
 
@@ -58,6 +60,38 @@ export class TaskModalComponent {
     this.isTaskModalOpen = false
     this.taskModalService.TaskModalOpen.next(false)
   }
+
+  Delete(type:number){
+     switch(type){
+      case 0:
+        if(this.taskList)
+        for(let i = 0; i < this.boardService.globalTaskLists.length;i++){
+          if(this.boardService.globalTaskLists[i].id == this.taskList.id){
+            this.boardService.globalTaskLists.splice(i,1)
+          }
+        }
+        break;
+      case 1:
+        if(this.task)
+        for(let i = 0; i < this.boardService.globalTasks.length;i++){
+          if(this.boardService.globalTasks[i].id == this.task.id){
+            this.boardService.globalTasks.splice(i,1)
+          }
+        }
+        break;
+      case 2:
+        if(this.stickyNote)
+        for(let i = 0; i < this.boardService.globalStickyNotes.length;i++){
+          if(this.boardService.globalStickyNotes[i].id == this.stickyNote.id){
+            this.boardService.globalStickyNotes.splice(i,1)
+          }
+        }
+        break;
+     }
+     this.closeModal();
+  }
+
+
 
   taskListOpcions = [
     {

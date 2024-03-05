@@ -1,8 +1,22 @@
-<div class="noteBody">
-    <h1>NOTES</h1>
-    @for (note of notes; track $index) {
-        <div> {{note}} <button (click)="removeNote($index)">Remove</button></div>
-    }
-    <input type="text" name="" id="" [(ngModel)]="noteToAdd">
-    <button (click)="addNote()">Add</button>
+<div class="noteBack" (mousedown)="createNote()"></div>
+<div class="noteCreator" (click)="isNoteCreationActive = true">
+    <input [(ngModel)]="noteTitle" placeholder="Title" class="title" type="text" name="" id="" />
+    <textarea [(ngModel)]="noteDesc" placeholder="Descripcion" class="desc" name="" id="" cols="30" rows="5" style="resize: none;"></textarea>
+    <!-- <button class="noteCreatorButton" (click)="createNote()">Create</button> -->
+</div>
+<div #noteBody class="noteBody">
+
+    <div class="noteGrid">
+        @for (note of notes; track $index) {
+                <div [id]="note.id"  [ngStyle]="{'grid-row':getGridSpan(note.id) } " (mousedown)="pickUpNote(note,$index)" class="note list">
+                    {{note.title}}
+                    <pre>{{note.descripcion}}</pre>
+                </div>
+                <!-- <app-note [id]="note.id" (mousedown)="pickUpNote(note,$index)" [note]="note"></app-note> -->
+        }
+        <div class="note" id="selected" *ngIf="noteSelectd">
+            {{noteSelectd.title}}
+            <pre>{{noteSelectd.descripcion}}</pre>
+        </div>
+    </div>
 </div>

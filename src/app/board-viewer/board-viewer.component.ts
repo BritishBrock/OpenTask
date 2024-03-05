@@ -18,7 +18,7 @@ import { SettingsService } from '../Services/settings/settings.service';
 })
 export class BoardViewerComponent {
     isNavClosed:boolean=false;
-    component:any = TaskViewerComponent;
+    component:any;
     constructor(
       private elRef:ElementRef,
       private router:Router,
@@ -30,9 +30,26 @@ export class BoardViewerComponent {
 
       isQuickBoardSelectOpen:boolean = false;
       allBoards:Board[] = this.boardService.globalBoards;
+      setComponent(){
+        switch(this.settings.userSettings.general.defaultMenu){
+          case "Notes":
+            this.component = NotesViewerComponent
+          break;
+          case "List":
+            this.component = TaskViewerListComponent
+          break;
+          case "Calender":
+            this.component = TaskViewerCalendarComponent
+          break;
+          case "Visual":
+          default:
+            this.component = TaskViewerComponent
+          break;
+        }
+      }
       ngOnInit(){
 
-  
+        this.setComponent()
 
         let doesntExists = true;
         

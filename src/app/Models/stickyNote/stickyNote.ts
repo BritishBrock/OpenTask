@@ -12,6 +12,8 @@ export class StickyNote{
     color:string;
     width?:string;
     height?:string;
+    image?:string;
+    isImageActive:boolean = false;
     constructor(id?:number,){
         this.pos = {x:0,y:0}
         this.id = id ?? StickyNote.lastID++;

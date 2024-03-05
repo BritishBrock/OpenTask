@@ -29,7 +29,7 @@ export class StickyNoteComponent {
     this.direction = direction;
     this.isResizing = true
     this.taskModalService.TaskModalOpen.next(true)
-    let main = document.getElementById("resizeMain");
+    let main = document.getElementById("resizeMain-"+this.stickyNote.id);
     
     main!.style.display = "block";
     main!.style.width = "100%";
@@ -44,7 +44,7 @@ export class StickyNoteComponent {
     this.isResizing = false;
     this.direction ="";
     this.taskModalService.TaskModalOpen.next(false)
-    let main = document.getElementById("resizeMain");
+    let main = document.getElementById("resizeMain-"+this.stickyNote.id);
     main!.style.display ="none"
   }
 
