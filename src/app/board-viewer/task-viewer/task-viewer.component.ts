@@ -119,18 +119,19 @@ export class TaskViewerComponent {
   createTask(x: number, y: number) {
     let t = new Task('new task');
     t.pos = {
-      x: this.dragService.currentBardPos.x * -1 + x,
-      y: this.dragService.currentBardPos.y * -1 + y,
+      x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
+      y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
     };
     this.taskviewerService.globalTasks.push(t);
     this.isCreating = '';
     
   }
-  createTaskList(x: number, y: number) {
+  createTaskList(x: number,y: number) {
     let t = new TaskList();
+    console.log(this.dragService.currentBardPos.x)
     t.pos = {
-      x: this.dragService.currentBardPos.x * -1 + x ,
-      y: this.dragService.currentBardPos.y * -1 + y,
+      x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
+      y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
     };
     this.taskviewerService.globalTaskLists.push(t);
     this.isCreating = '';
@@ -139,8 +140,8 @@ export class TaskViewerComponent {
   createStickyNote(x: number, y: number) {
     let t = new StickyNote();
     t.pos = {
-      x: this.dragService.currentBardPos.x * -1 + x,
-      y: this.dragService.currentBardPos.y * -1 + y,
+      x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
+      y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
     };
     this.taskviewerService.globalStickyNotes.push(t);
     this.isCreating = '';
@@ -242,7 +243,6 @@ export class TaskViewerComponent {
   zoom2: number = 100;
   updateZoom(amount:number){
     if (!this.TaskViewerBoard) return;
-    console.log(this.dragService.currentZoom)
     if(this.dragService.Tasks)delete this.dragService.Tasks;
     if (this.dragService.currentZoom +amount > 1.5 ||this.dragService.currentZoom + amount< 0.5) return;
     this.dragService.currentZoom += amount;
