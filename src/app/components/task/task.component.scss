@@ -6,12 +6,12 @@
   user-select: none;
   width: 300px;
 
-  background-color: whitesmoke;
+  background-color: var(--bgColor);
   display: flex;
-
+  color: var(--txtColor);
   align-items: center;
   flex-direction: column;
-  border: 2px solid black;
+  border: 2px solid var(--txtColor);
   border-radius: 10px 10px 2px 2px;
   overflow: hidden;
   position: relative;

@@ -124,7 +124,7 @@ export class TaskViewerComponent {
     };
     this.taskviewerService.globalTasks.push(t);
     this.isCreating = '';
-    this.htmlElement.style.backgroundColor = 'white';
+    
   }
   createTaskList(x: number, y: number) {
     let t = new TaskList();
@@ -134,7 +134,7 @@ export class TaskViewerComponent {
     };
     this.taskviewerService.globalTaskLists.push(t);
     this.isCreating = '';
-    this.htmlElement.style.backgroundColor = 'white';
+
   }
   createStickyNote(x: number, y: number) {
     let t = new StickyNote();
@@ -144,7 +144,7 @@ export class TaskViewerComponent {
     };
     this.taskviewerService.globalStickyNotes.push(t);
     this.isCreating = '';
-    this.htmlElement.style.backgroundColor = 'white';
+
   }
 
   isModalOpen = false;

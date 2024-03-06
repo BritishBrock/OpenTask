@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BoardService } from './Services/board/board.service';
 import { Board } from './Models/Board/Board';
 import { Router } from '@angular/router';
+import { SettingsService } from './Services/settings/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,6 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'OpenTask';
-  constructor(){}
+  constructor(public settingsService:SettingsService){}
 
 }

@@ -16,6 +16,7 @@ export class SettingsService {
       customContextMenu:false,
       showLoadEffect:false,
       defaultMenu:"Visual",
+      darkMode:true,
     }
   }
 
@@ -32,5 +33,6 @@ export interface userSettings{
     customContextMenu:boolean,
     showLoadEffect:boolean,
     defaultMenu:string,
+    darkMode:boolean,
   },
 }
