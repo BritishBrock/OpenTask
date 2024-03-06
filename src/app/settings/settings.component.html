@@ -8,7 +8,10 @@
             </div>
         }
     </div>
+    
     <div class="mainSettingsContent">
+        <button (click)="saveSettings()">Save Changes</button>
+        <button (click)="resetSettings()">Reset Settings</button>
         <ng-container *ngComponentOutlet="currentlyActiveSettingsMenu "/>
     </div>
 </div>

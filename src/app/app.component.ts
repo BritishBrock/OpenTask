@@ -12,5 +12,7 @@ import { SettingsService } from './Services/settings/settings.service';
 export class AppComponent {
   title = 'OpenTask';
   constructor(public settingsService:SettingsService){}
-
+  ngOnInit(){
+    this.settingsService.loadSettings();
+  }
 }

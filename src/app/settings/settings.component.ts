@@ -14,8 +14,14 @@ export class SettingsComponent {
   currentlyActiveSettingsMenu:any = GeneralComponent;
   @ViewChild("sidebar")sidebar?:ElementRef;
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private settingsService:SettingsService){}
 
+  resetSettings(){
+    this.settingsService.resetSettings();
+  }
+  saveSettings(){
+    this.settingsService.saveSettings();
+  }
   settingsMenu = [
     {
       title:"general",

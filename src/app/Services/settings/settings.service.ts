@@ -1,5 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { TaskComponent } from '../../components/task/task.component';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,7 @@ import { TaskComponent } from '../../components/task/task.component';
 export class SettingsService {
 
   constructor() { }
-
-  userSettings:userSettings = {
+  default:userSettings = {
     keybinds:{
       multiSelect:"shift",
     },
@@ -16,8 +16,22 @@ export class SettingsService {
       customContextMenu:false,
       showLoadEffect:false,
       defaultMenu:"Visual",
-      darkMode:true,
+      darkMode:false,
     }
+  }
+  userSettings:userSettings = JSON.parse(JSON.stringify(this.default));
+  updatedSettings:Subject<boolean> = new Subject<boolean>();
+  loadSettings(){
+    if(localStorage.getItem("settings") != null)
+    this.userSettings = JSON.parse(localStorage.getItem("settings")!)
+  }
+  resetSettings(){
+    this.userSettings = JSON.parse(JSON.stringify(this.default))
+    this.saveSettings();
+    this.updatedSettings.next(true)
+  }
+  saveSettings(){
+    localStorage.setItem("settings",JSON.stringify(this.userSettings))
   }
 
 

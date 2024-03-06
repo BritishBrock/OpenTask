@@ -9,4 +9,9 @@ import { SettingsService } from '../../Services/settings/settings.service';
 export class GeneralComponent {
   constructor(private settingsService:SettingsService) {}
   generalSettings = this.settingsService.userSettings.general;
+  ngOnInit(){
+    this.settingsService.updatedSettings.subscribe(()=>{
+      this.generalSettings = this.settingsService.userSettings.general;
+    })
+  }
 }
