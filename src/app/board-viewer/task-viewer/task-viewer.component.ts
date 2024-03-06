@@ -129,7 +129,7 @@ export class TaskViewerComponent {
   createTaskList(x: number, y: number) {
     let t = new TaskList();
     t.pos = {
-      x: this.dragService.currentBardPos.x * -1 + x,
+      x: this.dragService.currentBardPos.x * -1 + x ,
       y: this.dragService.currentBardPos.y * -1 + y,
     };
     this.taskviewerService.globalTaskLists.push(t);
@@ -151,8 +151,6 @@ export class TaskViewerComponent {
 
   ngOnInit() {
     this.dragService.currentZoom = 1;
-    this.dragService.currentZoomOffset.x = 0;
-    this.dragService.currentZoomOffset.y = 0;
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
@@ -263,13 +261,9 @@ export class TaskViewerComponent {
   auxzoom = 1;
   moveBoard(){
     if(this.auxzoom == this.dragService.currentZoom) return;
-    this.dragService.currentZoomOffset = {
-      x:  this.dragService.currentZoomOffset.x +(this.auxzoom < this.dragService.currentZoom ?  375 : -375),
-      y: this.dragService.currentZoomOffset.y +(this.auxzoom < this.dragService.currentZoom ?  375 : -375)
-    }
     this.dragService.setBoardPos({
-      x:this.dragService.currentBardPos.x +  (this.auxzoom < this.dragService.currentZoom ?  375 : -375),
-      y:this.dragService.currentBardPos.y + (this.auxzoom < this.dragService.currentZoom ?  375 : -375)
+      x:this.dragService.currentBardPos.x ,
+      y:this.dragService.currentBardPos.y,
     }
     )
     this.auxzoom = this.dragService.currentZoom;
