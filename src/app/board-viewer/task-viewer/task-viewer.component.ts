@@ -157,6 +157,7 @@ export class TaskViewerComponent {
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
     this.dragService.currentZoom  =1;
     this.boardService.boardUpdates.subscribe(() => {
+      this.dragService.currentBardPos = this.boardService.activeBoard!.boardOffset;
       this.tasks = this.taskviewerService.globalTasks;
       this.taskLists = this.taskviewerService.globalTaskLists;
       this.stickyNotes = this.taskviewerService.globalStickyNotes;
@@ -288,7 +289,7 @@ createSelect(event:any){
     if (this.TaskViewerBoard) {
       this.dragService.viewBoard = this.TaskViewerBoard.nativeElement;
       //set view in the center
-      this.dragService.currentBardPos = this.boardService.activeBoard!.boardOffset;
+     
       this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
       this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
       this.boardService.activeBoard?.boardOffset
@@ -381,6 +382,7 @@ createSelect(event:any){
   }
   taskListHightlighted?:TaskList;
   checkPos(){
+    if(!this.dragService.Tasks.type || this.dragService.Tasks.type != "task") return;
     let taskList = this.taskviewerService.getTaskListsAtPosition(this.dragService.Tasks.pos);
     if(taskList)this.taskListHightlighted =taskList;
     else {
