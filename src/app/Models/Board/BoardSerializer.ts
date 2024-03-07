@@ -23,6 +23,7 @@ export class BoardSerializer{
             newBoard.boardNotes =   NoteSerializer.DeSerialize(boardJsonArray[i].boardNotes);
             newBoard.name =    boardJsonArray[i].name;
             newBoard.boardOffset =    boardJsonArray[i].boardOffset;
+            newBoard.isStarred =    boardJsonArray[i].isStarred;
             boardArray.push(newBoard)
 
         }
