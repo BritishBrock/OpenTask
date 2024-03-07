@@ -55,6 +55,12 @@ export class BoardPickerComponent {
         i--;
       }
     }
+    for(let i = 0; i < this.starredBoards.length;i++){
+      if(!this.starredBoards[i].isStarred){
+        this.boards.push(this.starredBoards.splice(i,1)[0]);
+        i--;
+      }
+    }
   }
   idOfBoardEditing?:number;
   editBoard(index:number){
