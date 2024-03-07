@@ -59,10 +59,12 @@ export class BoardPickerComponent {
   }
   addBoard() {
     this.boardService.addEmptyBoard();
+    this.boards = this.boardService.globalBoards;
   }
   clearAllBoards(){
     this.DBService.deleteBoards();
     this.boards = []
+    this.boardService.globalBoards = []
   }
   saveBoards() {
     this.DBService.storeBoards(this.boards);
