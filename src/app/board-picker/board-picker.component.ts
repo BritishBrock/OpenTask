@@ -75,6 +75,7 @@ export class BoardPickerComponent {
     for(let i = 0; i <  this.boards.length;i++){
       if(this.boards[i].id == boardId)this.boards.splice(i,1)
     }
+  this.saveBoards();
   }
  
   duplicateBoard(board:Board){
