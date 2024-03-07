@@ -158,6 +158,10 @@ export class TaskViewerComponent {
     this.dragService.currentZoom  =1;
     this.boardService.boardUpdates.subscribe(() => {
       this.dragService.currentBardPos = this.boardService.activeBoard!.boardOffset;
+      if (this.TaskViewerBoard){
+        this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
+        this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
+      }
       this.tasks = this.taskviewerService.globalTasks;
       this.taskLists = this.taskviewerService.globalTaskLists;
       this.stickyNotes = this.taskviewerService.globalStickyNotes;
@@ -292,8 +296,7 @@ createSelect(event:any){
      
       this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
       this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
-      this.boardService.activeBoard?.boardOffset
-      this.TaskViewerBoard.nativeElement.addEventListener(
+        this.TaskViewerBoard.nativeElement.addEventListener(
         'touchmove',
         (event: any) => {
           event.preventDefault();
