@@ -155,7 +155,7 @@ export class TaskViewerComponent {
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
-
+    this.dragService.currentZoom  =1;
     this.boardService.boardUpdates.subscribe(() => {
       this.tasks = this.taskviewerService.globalTasks;
       this.taskLists = this.taskviewerService.globalTaskLists;
