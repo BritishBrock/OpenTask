@@ -18,7 +18,6 @@ import { StickyNoteSerializer } from '../Models/stickyNote/StickyNoteSerializer'
 })
 export class BoardPickerComponent {
   boards: Board[] = [];
-  starredBoards: Board[] = [];
   file?: File;
    
   constructor(
@@ -33,7 +32,6 @@ export class BoardPickerComponent {
   dbLoaded = false;
   ngOnInit() {
     this.boards = this.boardService.globalBoards;
-    this.setStarredBoards();
     // this.save();
     this.DBService.openDB();
     this.DBService.dbCompelte.subscribe((data) => {
@@ -42,25 +40,10 @@ export class BoardPickerComponent {
         let boards = event.target.result;
         if (this.boardService.globalBoards.length == 0) this.boardService.globalBoards.push(...BoardSerializer.DeSerialize(boards))
         this.boards = this.boardService.globalBoards;
-        this.setStarredBoards();
       };
     });
 
-    console.log(this.starredBoards)
-  }
-  setStarredBoards(){
-    for(let i = 0; i < this.boards.length;i++){
-      if(this.boards[i].isStarred){
-        this.starredBoards.push(this.boards.splice(i,1)[0]);
-        i--;
-      }
-    }
-    for(let i = 0; i < this.starredBoards.length;i++){
-      if(!this.starredBoards[i].isStarred){
-        this.boards.push(this.starredBoards.splice(i,1)[0]);
-        i--;
-      }
-    }
+   
   }
   idOfBoardEditing?:number;
   editBoard(index:number){
@@ -84,7 +67,7 @@ export class BoardPickerComponent {
     this.boardService.globalBoards = []
   }
   saveBoards() {
-    this.DBService.storeBoards([...this.boards,...this.starredBoards]);
+    this.DBService.storeBoards(this.boards);
   }
 
 
