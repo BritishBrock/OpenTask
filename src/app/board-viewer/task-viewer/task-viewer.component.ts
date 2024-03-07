@@ -288,10 +288,10 @@ createSelect(event:any){
     if (this.TaskViewerBoard) {
       this.dragService.viewBoard = this.TaskViewerBoard.nativeElement;
       //set view in the center
-  
+      this.dragService.currentBardPos = this.boardService.activeBoard!.boardOffset;
       this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
       this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
-
+      this.boardService.activeBoard?.boardOffset
       this.TaskViewerBoard.nativeElement.addEventListener(
         'touchmove',
         (event: any) => {

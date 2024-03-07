@@ -1,3 +1,4 @@
+import { Coord } from "../../interfaces/Coord/Coord";
 import { Note } from "../Note/Note";
 import { Task } from "../Task/Task";
 import { TaskList } from "../TaskList/TaskList";
@@ -11,6 +12,7 @@ export class Board{
     boardTaskLists:TaskList[] = [];
     boardStickyNotes:StickyNote[] = [];
     boardNotes:Note[] = [];
+    boardOffset:Coord = {x:0,y:0}
     isStarred:boolean= false;
     constructor(id?:number){
         this.id = id ?? Math.floor(Math.random()*100000000000000);
