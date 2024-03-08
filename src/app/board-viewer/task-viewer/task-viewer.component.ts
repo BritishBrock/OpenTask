@@ -398,8 +398,7 @@ createSelect(event:any){
   }
   taskListHightlighted?:TaskList;
   checkPos(){
-    if(!this.dragService.Tasks.type || this.dragService.Tasks.type != "task") return;
-    let taskList = this.taskviewerService.getTaskListsAtPosition(this.dragService.Tasks.pos);
+    let taskList = this.taskviewerService.getTaskListsAtPosition(this.dragService.Tasks);
     if(taskList)this.taskListHightlighted =taskList;
     else {
       this.taskListHightlighted?.htmlElement.getElementsByClassName("dropBox")[0].classList.remove("hoverdover");
