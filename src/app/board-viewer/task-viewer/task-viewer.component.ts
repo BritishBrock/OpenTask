@@ -253,6 +253,8 @@ export class TaskViewerComponent {
     this.dragService.currentZoom += amount;
     this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
     this.moveBoard()
+
+    this.zoom2 = this.dragService.currentZoom * 100
   }
 
   changeZoom() {
@@ -262,6 +264,17 @@ export class TaskViewerComponent {
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
       this.moveBoard()
+
+
+
+  }
+  resetZoom(){
+    if (!this.TaskViewerBoard) return;
+    this.dragService.currentZoom = 1;
+    this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
+    this.zoom2 = this.dragService.currentZoom * 100
+
+
   }
   auxzoom = 1;
   moveBoard(){

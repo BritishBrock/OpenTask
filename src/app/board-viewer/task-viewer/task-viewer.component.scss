@@ -59,7 +59,18 @@
   align-items: center;
   height: 50px;
   background-color: gray;
-
+  .zoomB0{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -50px;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+     border-radius: 100px;
+    background-color: black;
+    color: white;
+  }
   .zoomB1{
     width: 50px;
     height: 50px;
