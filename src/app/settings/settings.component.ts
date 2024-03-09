@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SettingsService } from '../Services/settings/settings.service';
 import { DefaultMenuSelectorComponent } from './default-menu-selector/default-menu-selector.component';
 import { StylingComponent } from './styling/styling.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-settings',
@@ -15,7 +16,7 @@ export class SettingsComponent {
   currentlyActiveSettingsMenu:any = GeneralComponent;
   @ViewChild("sidebar")sidebar?:ElementRef;
 
-  constructor(private router:Router,private settingsService:SettingsService){}
+  constructor(private router:Router,private settingsService:SettingsService,private location:Location){}
 
   resetSettings(){
     this.settingsService.resetSettings();
@@ -52,7 +53,7 @@ export class SettingsComponent {
     {
       title:"Back",
       onclick:()=>{
-        this.router.navigateByUrl("/");
+        this.location.back();
       }
     }
   ]
