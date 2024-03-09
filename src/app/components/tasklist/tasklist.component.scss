@@ -1,6 +1,7 @@
 :host{
     position: absolute;
     user-select: none;
+    z-index: 1;
 }
 .taskListBody{
     width: 400px;
