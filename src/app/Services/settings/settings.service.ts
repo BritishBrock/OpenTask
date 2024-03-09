@@ -16,7 +16,11 @@ export class SettingsService {
       customContextMenu:false,
       showLoadEffect:false,
       defaultMenu:"Visual",
+      
+    },
+    styling:{
       darkMode:false,
+      customStyles:false,
     }
   }
   userSettings:userSettings = JSON.parse(JSON.stringify(this.default));
@@ -47,6 +51,9 @@ export interface userSettings{
     customContextMenu:boolean,
     showLoadEffect:boolean,
     defaultMenu:string,
-    darkMode:boolean,
   },
+  styling:{
+    darkMode:boolean,
+    customStyles:boolean,
+  }
 }

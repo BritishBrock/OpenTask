@@ -4,6 +4,7 @@ import { KeybindsComponent } from './keybinds/keybinds.component';
 import { Router } from '@angular/router';
 import { SettingsService } from '../Services/settings/settings.service';
 import { DefaultMenuSelectorComponent } from './default-menu-selector/default-menu-selector.component';
+import { StylingComponent } from './styling/styling.component';
 
 @Component({
   selector: 'app-settings',
@@ -40,6 +41,12 @@ export class SettingsComponent {
       title:"Default menu",
       onclick:()=>{
         this.currentlyActiveSettingsMenu = DefaultMenuSelectorComponent;
+      }
+    },
+    {
+      title:"Styling",
+      onclick:()=>{
+        this.currentlyActiveSettingsMenu = StylingComponent;
       }
     },
     {

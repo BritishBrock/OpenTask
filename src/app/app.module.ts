@@ -29,6 +29,7 @@ import { StickynoteComponent } from './components/modal/stickynote/stickynote.co
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NoteComponent } from './components/note/note.component';
 import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/default-menu-selector.component';
+import { StylingComponent } from './settings/styling/styling.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/d
     StickynoteComponent,
     NoteComponent,
     DefaultMenuSelectorComponent,
+    StylingComponent,
 
 
   ],

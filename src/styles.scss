@@ -16,7 +16,18 @@
     --boardBgColor:#e0e0e0;
     --boardShadow:#8f8f8f;;
 }
-.style1{
+.darkmode{
+    --base_text: "Poppins", sans-serif;
+    --base_weight:400;
+    --bgColor:#202124;
+    --txtColor:rgb(255, 255, 255);
+    --navColor:rgba(255, 255, 255, 0.691);
+    --buttonBgColor:white;
+    --buttonTxtColor:black;
+    --boardBgColor:#474747;
+    --boardShadow:black;
+}
+.custom{
     --base_text: "Poppins", sans-serif;
     --base_weight:400;
     --bgColor:#202124;
