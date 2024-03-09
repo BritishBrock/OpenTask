@@ -11,6 +11,7 @@ export class StickyNote{
     descripcion?:string;
     color:string;
     width?:string;
+    zIndex:number = 3;
     height?:string;
     image?:string;
     isImageActive:boolean = false;

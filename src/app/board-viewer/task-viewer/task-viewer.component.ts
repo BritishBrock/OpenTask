@@ -174,10 +174,9 @@ export class TaskViewerComponent {
     this.htmlElement = this.elRef.nativeElement;
  
     document.oncontextmenu = (e) => {
-      if (!this.settingsService.userSettings.general.customContextMenu)
-        return true;
-      this.ContextMenuService.switchContextMenu();
-      this.ContextMenuService.changeDisplayOfContextMenu({ x: e.x, y: e.y });
+
+      if (!this.settingsService.userSettings.general.customContextMenu) return true
+
       return false;
     };
 
@@ -201,6 +200,15 @@ export class TaskViewerComponent {
 
     this.select.classList.add('selector');
     this.elRef.nativeElement.addEventListener('mousedown', (event: any) => {
+      event.preventDefault()
+      if(event.which == 3){
+        if (!this.ContextMenuService._isOpen){
+          this.ContextMenuService.switchContextMenu();
+          this.ContextMenuService.changeDisplayOfContextMenu({ x:event.x, y: event.y });
+        }else{
+          this.ContextMenuService.switchContextMenu();
+        }
+      }
       if (this.dragService.Tasks) return;
 
       this.isselectM = true;

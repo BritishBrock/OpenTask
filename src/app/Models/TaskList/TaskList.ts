@@ -10,6 +10,7 @@ export class TaskList{
     relatesTo?:TaskList;
     title:string;
     color:string;
+    zIndex:number = 1;
     isLocked:boolean = false;
     constructor(id?:number){
         this.id =   id ?? Math.floor(Math.random()*100000000000000);

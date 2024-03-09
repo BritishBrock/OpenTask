@@ -20,6 +20,7 @@ export class TasklistComponent {
   ngOnInit(){
     
     if(this.nativeElement) {
+      this.nativeElement.style.zIndex = this.taskList.zIndex +"";
       this.taskList.setHtmlElement(this.nativeElement);
       this.mousedown();
 
@@ -52,7 +53,7 @@ export class TasklistComponent {
           break;
           case 2: break;
           case 3:
-           
+            this.ContextMenuService.setElement(this.taskList);
           break;
       }
     })
