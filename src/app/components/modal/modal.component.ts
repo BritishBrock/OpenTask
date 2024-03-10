@@ -100,13 +100,13 @@ export class TaskModalComponent {
         this.taklistcomponent = TaskListDetailsComponent;
       }
     },
-    {
-      title:"Tasklist Links",
-      onclick:()=>{
-        this.input = {taskList:this.taskList, event:this.event};
-        this.taklistcomponent = TaskListLinksComponent;
-      }
-    },
+    // {
+    //   title:"Tasklist Links",
+    //   onclick:()=>{
+    //     this.input = {taskList:this.taskList, event:this.event};
+    //     this.taklistcomponent = TaskListLinksComponent;
+    //   }
+    // },
     {
       title:"Tasklist Styling",
       onclick:()=>{

@@ -8,4 +8,8 @@ import { TaskList } from '../../../../Models/TaskList/TaskList';
 })
 export class TaskListDetailsComponent {
   @Input() taskList!:TaskList;
+  taskVisible:boolean = false;
+  deleteTaskFromTasklist(index:number){
+    this.taskList.tasks.splice(index,1);
+  }
 }
