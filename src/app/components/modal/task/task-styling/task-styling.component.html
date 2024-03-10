@@ -1,10 +1,24 @@
 <div class="taskColorsBody">
+    <h1>Choose Card Color</h1>
+    <div class="colorPicker" [ngStyle]=" !stylingSettings.HSLColors ? {'display': 'flex','justify-content': 'center','align-items': 'center'} : {}">
+        @if (!stylingSettings.HSLColors) {
+            <input type="color" [(ngModel)]="task.colorTag" name="" id=""> 
+        }@else {
+            <app-color-slider (colorEmiter)="updateTaskColor($event)"></app-color-slider>
+        }
+     </div>
+     <h1>Choose Card Color Type</h1>
     <div class="type">
-        <h3>Choose Card Color Type</h3>
+        
+        
+        
+
+
+
         <div class="cardType">
            
-            <div class="card" (click)="cardType(0)">
-                <div class="headerColor1">
+            <div class="card" (click)="cardType(0)" [ngClass]="this.task.cardColorTagType == 0 ? 'cardActive': ''">
+                <div class="headerColor1" [style]="'background-color:'+ task.colorTag">
 
                 </div>
                 <div class="lines">
@@ -14,8 +28,8 @@
 
                 </div>
             </div>
-            <div class="card" (click)="cardType(1)">
-                <div class="headerColor2">
+            <div class="card" (click)="cardType(1)"  [ngClass]="this.task.cardColorTagType == 1 ? 'cardActive': ''">
+                <div class="headerColor2" [style]="'background-color:'+ task.colorTag">
                     <div class="lines">
                         @for (item of [0,1,2,3,4,5,6]; track $index) {
                             <div class="line"></div>
@@ -26,9 +40,6 @@
         </div>
 
     </div>
-    <div class="colorPicker">
-       <input type="color" [(ngModel)]="task.colorTag" name="" id="">
-    </div>
+    
 
-    <app-task [task]="task" [isInModal]="true"></app-task>
 </div>

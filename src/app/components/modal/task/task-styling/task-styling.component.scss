@@ -1,3 +1,16 @@
+:host{
+    width: 100%;
+}
+.taskColorsBody{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+.colorPicker{
+    width: 100%;
+
+}
 .type{
     width: 100%;
     display: flex;
@@ -9,12 +22,20 @@
     .card{
         width: 300px;
         height: 100px;
-        background-color: rgb(211, 211, 211);
-        border: 1px solid gray;
+        background-color: var(--bgColor);
+        border: 1px solid var(--txtColor);
         border-radius: 12px;
         display: flex;
         flex-direction: column;
         overflow: hidden;
+    }
+    .card:hover{
+
+        border: 5px solid var(--hoverOver);
+    }
+    .cardActive{
+
+        border: 5px solid var(--hoverOver);
     }
     .headerColor1{
         width: 100%;
@@ -44,4 +65,4 @@
 }
 
 
-}
+}}

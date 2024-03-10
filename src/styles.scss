@@ -14,7 +14,8 @@
     --buttonBgColor:black;
     --buttonTxtColor:white;
     --boardBgColor:#e0e0e0;
-    --boardShadow:#8f8f8f;;
+    --boardShadow:#8f8f8f;
+    --hoverOver: rgb(94, 118, 255);
 }
 .darkmode{
     --base_text: "Poppins", sans-serif;
@@ -26,6 +27,7 @@
     --buttonTxtColor:black;
     --boardBgColor:#474747;
     --boardShadow:black;
+    --hoverOver: rgb(94, 118, 255);
 }
 .custom{
     --base_text: "Poppins", sans-serif;
@@ -37,6 +39,7 @@
     --buttonTxtColor:black;
     --boardBgColor:#474747;
     --boardShadow:black;
+    --hoverOver: rgb(94, 118, 255);
 }
 
 

@@ -19,6 +19,7 @@ export class SettingsService {
       
     },
     styling:{
+      HSLColors:false,
       darkMode:false,
       customStyles:false,
     }
@@ -53,6 +54,7 @@ export interface userSettings{
     defaultMenu:string,
   },
   styling:{
+    HSLColors:boolean,
     darkMode:boolean,
     customStyles:boolean,
   }

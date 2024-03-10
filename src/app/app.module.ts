@@ -30,6 +30,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NoteComponent } from './components/note/note.component';
 import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/default-menu-selector.component';
 import { StylingComponent } from './settings/styling/styling.component';
+import { ColorSliderComponent } from './components/inputs/color-slider/color-slider.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { StylingComponent } from './settings/styling/styling.component';
     NoteComponent,
     DefaultMenuSelectorComponent,
     StylingComponent,
+    ColorSliderComponent,
 
 
   ],

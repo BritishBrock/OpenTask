@@ -191,6 +191,7 @@ export class TaskViewerComponent {
       if (event.key == 'Shift') this.isselect = false;
     });
     window.addEventListener('wheel', (event) => {
+      if(this.isModalOpen) return;
       if (event.deltaY == -100) {
         this.updateZoom(0.05)
       } else if (event.deltaY == 100) {
