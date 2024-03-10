@@ -200,7 +200,7 @@ export class TaskViewerComponent {
 
     this.select.classList.add('selector');
     this.elRef.nativeElement.addEventListener('mousedown', (event: any) => {
-      event.preventDefault()
+
       if(event.which == 3){
         if (!this.ContextMenuService._isOpen){
           this.ContextMenuService.switchContextMenu();
