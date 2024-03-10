@@ -1,7 +1,7 @@
 <div class="noteBack" (mousedown)="createNote()"></div>
 <div class="noteCreator" (click)="isNoteCreationActive = true">
-    <input [(ngModel)]="noteTitle" placeholder="Title" class="title" type="text" name="" id="" />
-    <textarea [(ngModel)]="noteDesc" placeholder="Descripcion" class="desc" name="" id="" cols="30" rows="5" style="resize: none;"></textarea>
+    <input [(ngModel)]="noteTitle" i18n-placholder placeholder="Title" class="title" type="text" name="" id="" />
+    <textarea [(ngModel)]="noteDesc" i18n-placholder placeholder="Descripcion" class="desc" name="" id="" cols="30" rows="5" style="resize: none;"></textarea>
     <!-- <button class="noteCreatorButton" (click)="createNote()">Create</button> -->
 </div>
 <div #noteBody class="noteBody">

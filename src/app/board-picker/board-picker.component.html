@@ -1,9 +1,9 @@
 
-<h1>Boards</h1>
-<div class="boardViewsOpcion" (click)="goToSettings()">
+<h1 i18n>Boards</h1>
+<div class="boardViewsOpcion" (click)="goToSettings()" i18n>
     Settings
 </div>
-<button (click)="clearAllBoards()">Clear All Boards</button>
+<button (click)="clearAllBoards()" i18n>Clear All Boards</button>
 <div class="pinned">
     @for (board of boards; track $index) {
         @if(board.isStarred){

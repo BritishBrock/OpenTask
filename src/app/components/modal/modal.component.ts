@@ -37,19 +37,19 @@ export class TaskModalComponent {
   stickyNoteComponent?:any;
   taskOpcions = [
     {
-      title:"Task Details",
+      title:$localize`Task Details`,
       onclick:()=>{
         this.component = TaskDetailsComponent;
       }
     },
     {
-      title:"Task Styling",
+      title:$localize`Task Styling`,
       onclick:()=>{
         this.component = TaskStylingComponent;
       }
     },
     {
-      title:"Task Date",
+      title:$localize`Task Date`,
       onclick:()=>{
         this.component = TaskDateComponent;
       }
@@ -95,7 +95,7 @@ export class TaskModalComponent {
 
   taskListOpcions = [
     {
-      title:"Tasklist Details",
+      title:$localize`Tasklist Details`,
       onclick:()=>{
         this.taklistcomponent = TaskListDetailsComponent;
       }
@@ -108,7 +108,7 @@ export class TaskModalComponent {
     //   }
     // },
     {
-      title:"Tasklist Styling",
+      title:$localize`Tasklist Styling`,
       onclick:()=>{
         this.input;
         this.taklistcomponent = TaskListStylingComponent;

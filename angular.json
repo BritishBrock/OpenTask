@@ -4,6 +4,10 @@
   "newProjectRoot": "projects",
   "projects": {
     "OpenTask": {
+      "i18n": {
+        "sourceLocale":"en-US",
+        "locales": {"es":"src/locale/messages.es.json","en":"src/locale/messages.json"}
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,6 +28,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "localize":["es","en"],
             "outputPath": "public",
             "index": "src/index.html",
             "browser": "src/main.ts",

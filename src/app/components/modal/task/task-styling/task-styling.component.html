@@ -1,5 +1,5 @@
 <div class="taskColorsBody">
-    <h1>Choose Card Color</h1>
+    <h1 i18n>Choose Card Color</h1>
     <div class="colorPicker" [ngStyle]=" !stylingSettings.HSLColors ? {'display': 'flex','justify-content': 'center','align-items': 'center'} : {}">
         @if (!stylingSettings.HSLColors) {
             <input type="color" [(ngModel)]="task.colorTag" name="" id=""> 
@@ -7,7 +7,7 @@
             <app-color-slider (colorEmiter)="updateTaskColor($event)"></app-color-slider>
         }
      </div>
-     <h1>Choose Card Color Type</h1>
+     <h1 i18n>Choose Card Color Type</h1>
     <div class="type">
         
         

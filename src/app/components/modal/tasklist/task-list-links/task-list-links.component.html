@@ -1,10 +1,10 @@
-<h1>tasklist links</h1>
+<h1 i18n>tasklist links</h1>
 
 @if(taskList.relatesTo){
     {{taskList.relatesTo.title }}
 
-    <button (click)="deleteLink()">Delete</button>
-    <button (click)="goTo(taskList.relatesTo.pos)">goTo</button>
+    <button (click)="deleteLink()" i18n>Delete</button>
+    <button (click)="goTo(taskList.relatesTo.pos)" i18n>goTo</button>
     
     <h1>
         Tasks

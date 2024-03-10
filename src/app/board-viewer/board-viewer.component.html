@@ -19,7 +19,7 @@
                 </div>
             }
             <div >
-                <div (click)="isQuickBoardSelectOpen = !isQuickBoardSelectOpen" class="boardViewsOpcion">
+                <div (click)="isQuickBoardSelectOpen = !isQuickBoardSelectOpen" class="boardViewsOpcion" i18n>
                     Starred Boards <span *ngIf="!isQuickBoardSelectOpen"> &downarrow;</span><span *ngIf="isQuickBoardSelectOpen"> &uparrow;</span>
                 </div>
                 @if(isQuickBoardSelectOpen){
@@ -30,10 +30,10 @@
                    }
                 }
             </div>
-            <div class="boardViewsOpcion" (click)="goToSettings()">
+            <div class="boardViewsOpcion" (click)="goToSettings()" i18n>
                 Settings
             </div>
-            <div class="boardViewsOpcion" (click)="returnToBoardSelction()">
+            <div class="boardViewsOpcion" (click)="returnToBoardSelction()" i18n>
                 Return to boards
             </div>
         </div>
