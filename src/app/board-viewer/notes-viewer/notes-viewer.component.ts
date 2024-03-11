@@ -30,15 +30,6 @@ import {
             '0.5s ease',
             style({
               height: '*',
-              opacity: '1',
-
-              'box-shadow': 'none',
-            })
-          ),
-          animate(
-            '0.5s ease',
-            style({
-              height: '*',
               opacity: 1,
 
               'box-shadow': 'none',
