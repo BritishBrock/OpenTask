@@ -8,15 +8,12 @@
 
     <div class="noteGrid">
         @for (note of notes; track $index) {
-                <div [id]="note.id"  [ngStyle]="{'grid-row':getGridSpan(note.id) } " (mousedown)="pickUpNote(note,$index)" class="note list">
+                <div class="note list">
                     {{note.title}}
                     <pre>{{note.descripcion}}</pre>
+                    <button (click)="deleteNote($index)">Delete</button>
                 </div>
                 <!-- <app-note [id]="note.id" (mousedown)="pickUpNote(note,$index)" [note]="note"></app-note> -->
         }
-        <div class="note" id="selected" *ngIf="noteSelectd">
-            {{noteSelectd.title}}
-            <pre>{{noteSelectd.descripcion}}</pre>
-        </div>
     </div>
 </div>
