@@ -7,13 +7,15 @@
 <div #noteBody class="noteBody">
 
     <div class="noteGrid">
-        @for (note of notes; track $index) {
+        <div   [@anim] *ngFor="let note of notes;index as $index">
+            
+     
                 <div class="note list">
                     {{note.title}}
                     <pre>{{note.descripcion}}</pre>
                     <button (click)="deleteNote($index)">Delete</button>
                 </div>
                 <!-- <app-note [id]="note.id" (mousedown)="pickUpNote(note,$index)" [note]="note"></app-note> -->
-        }
+            </div>
     </div>
 </div>

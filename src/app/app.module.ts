@@ -31,6 +31,7 @@ import { NoteComponent } from './components/note/note.component';
 import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/default-menu-selector.component';
 import { StylingComponent } from './settings/styling/styling.component';
 import { ColorSliderComponent } from './components/inputs/color-slider/color-slider.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ColorSliderComponent } from './components/inputs/color-slider/color-sli
     TaskStylingComponent,
     TaskDetailsComponent,
     BoardViewerComponent,
+
     TaskViewerListComponent,
     TaskDateComponent,
     TaskViewerCalendarComponent,
@@ -70,6 +72,7 @@ import { ColorSliderComponent } from './components/inputs/color-slider/color-sli
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
