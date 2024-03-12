@@ -111,23 +111,8 @@ pos:any = {x:0,y:0}
           }
       }
      
-
-
-
-
-
     })
-    this.htmlElement.addEventListener("mouseup",(event:any)=>{
-      if(!this.noteGrabbed)return;
-      let isIn = false;
-      for(let i = 0; i < this.notes.length;i++){
-        if(this.notes[i].id == this.noteGrabbed.id){
-          isIn  =true;
-        }
-      }
-      if(!isIn)this.notes.splice(this.prevPosition,0,this.noteGrabbed);
-     delete this.noteGrabbed
-    })
+    
 
   }
   
@@ -139,13 +124,14 @@ pos:any = {x:0,y:0}
     let n = new Note(this.noteTitle)
 
     n.descripcion = this.noteDesc;
-    this.notes.splice(Math.floor(Math.random()*this.notes.length),0,n);
+    this.notes.push(n);
     this.noteDesc = "";
     this.noteTitle = "";
     this.isNoteCreationActive = false;
   }
   isNoteCreationActive:boolean = false;
-  deleteNote(index:any){
+  deleteNote(index:any,event:any){
+    event.preventDefault()
     this.notes.splice(index,1);
   }
   noteGrabbed:any;
@@ -158,4 +144,29 @@ pos:any = {x:0,y:0}
    document.getElementById("copy")!.style.left =event.x +"px";
    document.getElementById("copy")!.style.top =event.y +"px";
   }
+  switchStart(note:any,index:number){
+    if(!this.noteSwitch){
+      this.noteSwitch = note;
+      this.notePos = index;
+    }else{
+
+      
+
+
+
+        // this.notes.splice(index,1)
+        // this.notes.splice(this.notePos,1)
+
+        // this.notes.splice(index,0,this.noteSwitch)
+        // this.notes.splice(this.notePos,0,note)
+
+      this.notes[index]= this.noteSwitch;
+      this.notes[this.notePos]= note;
+
+     delete this.notePos;
+     delete this.noteSwitch;
+    }
+  }
+  notePos:any;
+  noteSwitch:any;
 }

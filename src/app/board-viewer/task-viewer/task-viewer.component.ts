@@ -322,7 +322,7 @@ createSelect(event:any){
         'touchmove',
         (event: any) => {
           event.preventDefault();
-         
+          
           if (this.isModalOpen) return;
           var touch = event.targetTouches[0];
           
