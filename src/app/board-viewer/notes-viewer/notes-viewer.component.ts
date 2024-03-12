@@ -79,7 +79,7 @@ pos:any = {x:0,y:0}
       if(!this.noteGrabbed)return;
 
       document.getElementById("copy")!.style.position ="absolute";
-      document.getElementById("copy")!.style.left =event.x +"px";
+      document.getElementById("copy")!.style.left =event.x -50 +"px";
       document.getElementById("copy")!.style.top =event.y +"px";
       if( event.x  > this.pos.x +100  || event.x < this.pos.x -100 
         ||  event.y  > this.pos.y +100  || event.y < this.pos.y -100 
@@ -116,6 +116,14 @@ pos:any = {x:0,y:0}
 
     })
     this.htmlElement.addEventListener("mouseup",(event:any)=>{
+      if(!this.noteGrabbed)return;
+      let isIn = false;
+      for(let i = 0; i < this.notes.length;i++){
+        if(this.notes[i].id == this.noteGrabbed.id){
+          isIn  =true;
+        }
+      }
+      if(!isIn)this.notes.splice(this.prevPosition,0,this.noteGrabbed);
      delete this.noteGrabbed
     })
 
@@ -139,8 +147,10 @@ pos:any = {x:0,y:0}
     this.notes.splice(index,1);
   }
   noteGrabbed:any;
+  prevPosition:number = 0;
   grabNote(note:any,index:number,event:any){
    this.noteGrabbed = note;
+   this.prevPosition = index;
    this.notes.splice(index,1)
    document.getElementById("copy")!.style.position ="absolute";
    document.getElementById("copy")!.style.left =event.x +"px";
