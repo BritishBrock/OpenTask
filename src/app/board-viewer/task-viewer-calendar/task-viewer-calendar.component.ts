@@ -28,43 +28,45 @@ export class TaskViewerCalendarComponent {
 
   switchMonth(month: any) {
     this.currentMonth += month;
-    if(this.currentMonth < 0 ){
+    if (this.currentMonth < 0) {
       this.currentYear--;
-      this.currentMonth  = 11;
+      this.currentMonth = 11;
     }
-    if(this.currentMonth> 11 ){
+    if (this.currentMonth > 11) {
       this.currentMonth = 0;
       this.currentYear++;
     }
+    if(this.allDates.length == 0){
     this.allDates = [];
-     for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
-        if (
-          this.TaskViewerBoardService.globalTasks[i].endDate ||
-          this.TaskViewerBoardService.globalTasks[i].startDate
-        )
-          this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
-      }
+    for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
+      if (
+        this.TaskViewerBoardService.globalTasks[i].endDate ||
+        this.TaskViewerBoardService.globalTasks[i].startDate
+      )
+        this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
+    }
+    for (
+      let i = 0;
+      i < this.TaskViewerBoardService.globalTaskLists.length;
+      i++
+    ) {
       for (
-        let i = 0;
-        i < this.TaskViewerBoardService.globalTaskLists.length;
-        i++
+        let y = 0;
+        y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
+        y++
       ) {
-        for (
-          let y = 0;
-          y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
-          y++
-        ) {
-          if (
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
-          )
-            this.addToDateMap(
-              this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
-            );
-        }
+        if (
+          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
+          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
+        )
+          this.addToDateMap(
+            this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
+          );
       }
+    }
+  }
     this.showCalendar(this.currentMonth, this.currentYear);
-    
+
     this.addTasksToCalender();
   }
 
@@ -172,13 +174,19 @@ export class TaskViewerCalendarComponent {
 
     this.addTasksToCalender();
   }
-
-  createTaskInCalender(task: Task, CreateTitle: boolean) {
+  taksThisMonth:Task[] = []
+  createTaskInCalender(task: Task, CreateTitle: boolean, startTile: boolean) {
+    
     let taskDiv = document.createElement('div');
     taskDiv.style.width = '100%';
     taskDiv.style.height = '20px';
     taskDiv.style.background = task.colorTag;
-    if (CreateTitle) taskDiv.textContent = task.name;
+
+    if (CreateTitle) {
+      taskDiv.style.borderRadius = '0 5px 5px 0';
+      taskDiv.textContent = task.name;
+    }
+
     taskDiv.onclick = () => {
       this.modalService.taskModal.next(task);
     };
@@ -187,6 +195,7 @@ export class TaskViewerCalendarComponent {
 
   addTasksToCalender() {
     let auxFirst: any[] = [];
+    this.taksThisMonth = [];
     for (let i = 0; i < this.allDates.length; i++) {
       if (
         this.allDates[i][0] !== 'NaN-NaN-NaN' &&
@@ -214,7 +223,9 @@ export class TaskViewerCalendarComponent {
         ) {
           document
             .getElementById('C-' + new Date(this.allDates[i][1]).getDate())!
-            .append(this.createTaskInCalender(this.allDates[i][2], true));
+            .append(
+              this.createTaskInCalender(this.allDates[i][2], true, false)
+            );
         }
       } else if (this.allDates[i][1] === 'NaN-NaN-NaN') {
         if (
@@ -223,7 +234,9 @@ export class TaskViewerCalendarComponent {
         ) {
           document
             .getElementById('C-' + new Date(this.allDates[i][0]).getDate())!
-            .append(this.createTaskInCalender(this.allDates[i][2], true));
+            .append(
+              this.createTaskInCalender(this.allDates[i][2], true, false)
+            );
         }
       } else {
         if (
@@ -248,13 +261,17 @@ export class TaskViewerCalendarComponent {
                 .getElementById(
                   'C-' + (new Date(this.allDates[i][1]).getDate() + j)
                 )!
-                .append(this.createTaskInCalender(this.allDates[i][2], false));
+                .append(
+                  this.createTaskInCalender(this.allDates[i][2], false, false)
+                );
             } else {
               document
                 .getElementById(
                   'C-' + (new Date(this.allDates[i][1]).getDate() + j)
                 )!
-                .append(this.createTaskInCalender(this.allDates[i][2], true));
+                .append(
+                  this.createTaskInCalender(this.allDates[i][2], true, false)
+                );
             }
           }
         }
@@ -304,13 +321,16 @@ export class TaskViewerCalendarComponent {
         if (i === 0 && j < firstDay) {
           let cell = document.createElement('div');
           let cellText = document.createTextNode('');
-          cell.classList.add('tableCell');
+          if (i == 0) cell.classList.add('tableCell1');
+          else cell.classList.add('tableCell');
           cell.appendChild(cellText);
           row.appendChild(cell);
         } else if (date > daysInMonth) {
           let cell = document.createElement('div');
           let cellText = document.createTextNode('');
-          cell.classList.add('tableCell');
+          if (i == 0) cell.classList.add('tableCell1');
+          else cell.classList.add('tableCell');
+
           cell.appendChild(cellText);
           row.appendChild(cell);
         } else {
@@ -325,7 +345,9 @@ export class TaskViewerCalendarComponent {
           ) {
             cell.classList.add('bg-info');
           } // color today's date
-          cell.classList.add('tableCell');
+
+          if (i == 0) cell.classList.add('tableCell1');
+          else cell.classList.add('tableCell');
           cell.id = 'C-' + c;
           cell.appendChild(cellText);
 

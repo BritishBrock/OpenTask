@@ -10,15 +10,47 @@
   .calenderNav {
     height: 75px;
     width: 100%;
-    background-color: beige;
+    border-bottom: 1px solid rgb(193, 193, 193);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+
+    .dateSwitcher{
+      display: flex;
+      .dateMover{
+        border-radius: 100%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s ease-in;
+        cursor: pointer;
+      }.dateMover:hover{
+        background-color: rgba(40, 40, 40, 0.722);
+        color: white;
+      }
+      .currentDate{
+        margin: 0 25px;
+        width: 100px;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
   .calender{
     width: 100%;
     height: 100%;
     display: flex;
     .left{
-      width: 500px;
+      width: 300px;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .right{
       width: 100%;
@@ -30,7 +62,9 @@
       .days {
         width: 100%;
         height: 20px;
-        border: 1px solid black;
+        border-left: 1px solid rgb(193, 193, 193);
+        display: flex;
+        justify-content: center;
       }
     }
    
@@ -46,9 +80,23 @@
             .tableCell {
               width: 100%;
               height: auto;
-              border: 1px solid black;
+              border: 1px solid rgb(193, 193, 193);
+              border-right: none;
+              border-top: none;
+              display: flex;
+              flex-direction: column;
+             align-items: center;
             }
-    
+            .tableCell1 {
+              width: 100%;
+              height: auto;
+              border: 1px solid rgb(193, 193, 193);
+              border-top: none;
+              border-right: none;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
           }
         }
       }
