@@ -59,6 +59,8 @@ export class TaskModalComponent {
   closeModal(){
     this.isTaskModalOpen = false
     this.taskModalService.TaskModalOpen.next(false)
+    this.taskModalService.TaskModalClosedEvent.next(true)
+
   }
 
   Delete(type:number){
