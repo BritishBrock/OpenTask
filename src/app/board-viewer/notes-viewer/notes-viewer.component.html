@@ -7,15 +7,25 @@
 <div #noteBody class="noteBody">
 
     <div class="noteGrid">
-        <div   [@anim] *ngFor="let note of notes;index as $index">
-            
-     
+        <div [id]="note.id" [@anim] *ngFor="let note of notes;index as $index" class="notes">
+            <div  class="movablePart" (mousedown)="grabNote(note,$index,$event)"></div>
                 <div class="note list">
                     {{note.title}}
                     <pre>{{note.descripcion}}</pre>
                     <button (click)="deleteNote($index)">Delete</button>
                 </div>
                 <!-- <app-note [id]="note.id" (mousedown)="pickUpNote(note,$index)" [note]="note"></app-note> -->
-            </div>
+        </div>
+        <div [id]="'copy'" class="notes" [style]="noteGrabbed ? {'display':'flex'}:{'display':'none'}">
+            <div  class="movablePart"></div>
+                <div class="note list">
+                    @if( noteGrabbed){
+                        
+                        {{noteGrabbed.title}}
+                        <pre>{{noteGrabbed.descripcion}}</pre>
+                    }
+                </div>
+                <!-- <app-note [id]="note.id" (mousedown)="pickUpNote(note,$index)" [note]="note"></app-note> -->
+        </div>
     </div>
 </div>

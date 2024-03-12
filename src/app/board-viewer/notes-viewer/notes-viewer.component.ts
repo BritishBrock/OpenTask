@@ -65,9 +65,60 @@ export class NotesViewerComponent {
   noteSelectd: any;
   constructor(private elRef: ElementRef, private changeDetector: ChangeDetectorRef,private globalBoards:BoardService) {}
   htmlElement!: HTMLElement;
+
+  x:any;
+
+pos:any = {x:0,y:0}
+
   @ViewChild("noteBody") notebody!:ElementRef;
   ngOnInit() {
     //this.notes = this.globalBoards.activeBoard!.boardNotes;
+    this.htmlElement = this.elRef.nativeElement;
+    this.htmlElement.addEventListener("mousemove",(event:any)=>{
+      
+      if(!this.noteGrabbed)return;
+
+      document.getElementById("copy")!.style.position ="absolute";
+      document.getElementById("copy")!.style.left =event.x +"px";
+      document.getElementById("copy")!.style.top =event.y +"px";
+      if( event.x  > this.pos.x +100  || event.x < this.pos.x -100 
+        ||  event.y  > this.pos.y +100  || event.y < this.pos.y -100 
+        ){
+        for(let i = 0; i < this.notes.length;i++){
+          if(this.notes[i].id == this.noteGrabbed.id){
+            this.notes.splice(i,1)
+          }
+          }
+          for(let i = 0; i < this.notes.length;i++){
+            if(
+               event.x > document.getElementById(this.notes[i].id+"")!.offsetLeft &&
+               event.x < document.getElementById(this.notes[i].id+"")!.offsetLeft +document.getElementById(this.notes[i].id+"")!.clientWidth &&
+               event.y > document.getElementById(this.notes[i].id+"")!.offsetTop &&
+               event.y < document.getElementById(this.notes[i].id+"")!.offsetTop +document.getElementById(this.notes[i].id+"")!.clientHeight 
+               ){
+                if(this.x)clearInterval(this.x)
+                this.x = setTimeout(()=>{
+                  this.notes.splice(i,0,this.noteGrabbed);
+                  this.pos.x = event.x;
+                  this.pos.y = event.y;
+                  clearInterval(this.x);
+                },1000)
+                  
+                  
+              }
+          }
+      }
+     
+
+
+
+
+
+    })
+    this.htmlElement.addEventListener("mouseup",(event:any)=>{
+     delete this.noteGrabbed
+    })
+
   }
   
   noteTitle:string = "";
@@ -86,5 +137,13 @@ export class NotesViewerComponent {
   isNoteCreationActive:boolean = false;
   deleteNote(index:any){
     this.notes.splice(index,1);
+  }
+  noteGrabbed:any;
+  grabNote(note:any,index:number,event:any){
+   this.noteGrabbed = note;
+   this.notes.splice(index,1)
+   document.getElementById("copy")!.style.position ="absolute";
+   document.getElementById("copy")!.style.left =event.x +"px";
+   document.getElementById("copy")!.style.top =event.y +"px";
   }
 }
