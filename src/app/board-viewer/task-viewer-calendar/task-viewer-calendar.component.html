@@ -1,10 +1,18 @@
 
 <div class="mainCalenderView">
 <div class="calenderNav">
-  
+
+  <button (click)="switchMonth(-1)">Prev month</button>
+  {{this.currentMonth}}
+  <button (click)="switchMonth(1)">Next month</button>
+  {{this.currentYear}}
 </div>
-  
-  <div class="table" id="calendar">
+<div class="calender">
+  <div class="left">
+
+  </div>
+  <div class="right">
+    <div class="table" id="calendar">
       <div class="weekDays">
         
         <div class="days">Mon</div>
@@ -18,6 +26,9 @@
       <div id="calendar-body" class="calendarbody">
       </div>
     </div>
+  </div>
+</div>
+ 
 
 
     <app-modal></app-modal>

@@ -12,7 +12,7 @@ export class TaskViewerCalendarComponent {
   constructor(
     private TaskViewerBoardService: TaskViewerBoardService,
     private modalService: TaskModalService
-  ) {}
+  ) { }
 
   currentYear: any;
   selectYear: any;
@@ -25,6 +25,48 @@ export class TaskViewerCalendarComponent {
   taskEndDates: any = {};
   taskStartDates: any = {};
   allDates: any = [];
+
+  switchMonth(month: any) {
+    this.currentMonth += month;
+    if(this.currentMonth < 0 ){
+      this.currentYear--;
+      this.currentMonth  = 11;
+    }
+    if(this.currentMonth> 11 ){
+      this.currentMonth = 0;
+      this.currentYear++;
+    }
+    this.allDates = [];
+     for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
+        if (
+          this.TaskViewerBoardService.globalTasks[i].endDate ||
+          this.TaskViewerBoardService.globalTasks[i].startDate
+        )
+          this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
+      }
+      for (
+        let i = 0;
+        i < this.TaskViewerBoardService.globalTaskLists.length;
+        i++
+      ) {
+        for (
+          let y = 0;
+          y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
+          y++
+        ) {
+          if (
+            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
+            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
+          )
+            this.addToDateMap(
+              this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
+            );
+        }
+      }
+    this.showCalendar(this.currentMonth, this.currentYear);
+    
+    this.addTasksToCalender();
+  }
 
   addToDateMap(task: Task) {
     let key =
@@ -194,13 +236,13 @@ export class TaskViewerCalendarComponent {
             let j = 0;
             j <=
             new Date(this.allDates[i][0]).getDate() -
-              new Date(this.allDates[i][1]).getDate();
+            new Date(this.allDates[i][1]).getDate();
             j++
           ) {
             if (
               j !=
               new Date(this.allDates[i][0]).getDate() -
-                new Date(this.allDates[i][1]).getDate()
+              new Date(this.allDates[i][1]).getDate()
             ) {
               document
                 .getElementById(
@@ -275,7 +317,7 @@ export class TaskViewerCalendarComponent {
           let cell = document.createElement('div');
           let cellText = document.createTextNode(date + '');
           let c = date + '';
-          cell.onclick = () => {};
+          cell.onclick = () => { };
           if (
             date === this.today.getDate() &&
             year === this.today.getFullYear() &&
