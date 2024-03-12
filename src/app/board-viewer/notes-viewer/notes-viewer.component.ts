@@ -72,7 +72,9 @@ pos:any = {x:0,y:0}
 
   @ViewChild("noteBody") notebody!:ElementRef;
   ngOnInit() {
-    //this.notes = this.globalBoards.activeBoard!.boardNotes;
+    this.globalBoards.boardUpdates.subscribe(() => {
+    this.notes = this.globalBoards.activeBoard!.boardNotes;
+    })
     this.htmlElement = this.elRef.nativeElement;
     this.htmlElement.addEventListener("mousemove",(event:any)=>{
       
