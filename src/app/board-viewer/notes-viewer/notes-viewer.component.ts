@@ -27,7 +27,7 @@ import {
         }),
         sequence([
           animate(
-            '0.5s ease',
+            '0.5s ease-in-out',
             style({
               height: '*',
               opacity: 1,
