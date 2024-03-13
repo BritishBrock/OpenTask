@@ -29,6 +29,9 @@ import { StickynoteComponent } from './components/modal/stickynote/stickynote.co
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NoteComponent } from './components/note/note.component';
 import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/default-menu-selector.component';
+import { StylingComponent } from './settings/styling/styling.component';
+import { ColorSliderComponent } from './components/inputs/color-slider/color-slider.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -42,6 +45,7 @@ import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/d
     TaskStylingComponent,
     TaskDetailsComponent,
     BoardViewerComponent,
+
     TaskViewerListComponent,
     TaskDateComponent,
     TaskViewerCalendarComponent,
@@ -58,6 +62,8 @@ import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/d
     StickynoteComponent,
     NoteComponent,
     DefaultMenuSelectorComponent,
+    StylingComponent,
+    ColorSliderComponent,
 
 
   ],
@@ -66,6 +72,7 @@ import { DefaultMenuSelectorComponent } from './settings/default-menu-selector/d
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

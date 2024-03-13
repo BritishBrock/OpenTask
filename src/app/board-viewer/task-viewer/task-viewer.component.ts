@@ -119,45 +119,49 @@ export class TaskViewerComponent {
   createTask(x: number, y: number) {
     let t = new Task('new task');
     t.pos = {
-      x: this.dragService.currentBardPos.x * -1 + x,
-      y: this.dragService.currentBardPos.y * -1 + y,
+      x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
+      y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
     };
     this.taskviewerService.globalTasks.push(t);
     this.isCreating = '';
-    this.htmlElement.style.backgroundColor = 'white';
+    
   }
-  createTaskList(x: number, y: number) {
+  createTaskList(x: number,y: number) {
     let t = new TaskList();
+    console.log(this.dragService.currentBardPos.x)
     t.pos = {
-      x: this.dragService.currentBardPos.x * -1 + x,
-      y: this.dragService.currentBardPos.y * -1 + y,
+      x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
+      y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
     };
     this.taskviewerService.globalTaskLists.push(t);
     this.isCreating = '';
-    this.htmlElement.style.backgroundColor = 'white';
+
   }
   createStickyNote(x: number, y: number) {
     let t = new StickyNote();
     t.pos = {
-      x: this.dragService.currentBardPos.x * -1 + x,
-      y: this.dragService.currentBardPos.y * -1 + y,
+      x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
+      y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
     };
     this.taskviewerService.globalStickyNotes.push(t);
     this.isCreating = '';
-    this.htmlElement.style.backgroundColor = 'white';
+
   }
 
   isModalOpen = false;
 
   ngOnInit() {
     this.dragService.currentZoom = 1;
-    this.dragService.currentZoomOffset.x = 0;
-    this.dragService.currentZoomOffset.y = 0;
     this.tasks = this.taskviewerService.globalTasks;
     this.taskLists = this.taskviewerService.globalTaskLists;
     this.stickyNotes = this.taskviewerService.globalStickyNotes;
-
+    this.dragService.currentZoom  =1;
     this.boardService.boardUpdates.subscribe(() => {
+      this.dragService.currentBardPos = this.boardService.activeBoard!.boardOffset;
+      if (this.TaskViewerBoard){
+        this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
+        this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
+      }
       this.tasks = this.taskviewerService.globalTasks;
       this.taskLists = this.taskviewerService.globalTaskLists;
       this.stickyNotes = this.taskviewerService.globalStickyNotes;
@@ -170,10 +174,9 @@ export class TaskViewerComponent {
     this.htmlElement = this.elRef.nativeElement;
  
     document.oncontextmenu = (e) => {
-      if (!this.settingsService.userSettings.general.customContextMenu)
-        return true;
-      this.ContextMenuService.switchContextMenu();
-      this.ContextMenuService.changeDisplayOfContextMenu({ x: e.x, y: e.y });
+
+      if (!this.settingsService.userSettings.general.customContextMenu) return true
+
       return false;
     };
 
@@ -188,6 +191,7 @@ export class TaskViewerComponent {
       if (event.key == 'Shift') this.isselect = false;
     });
     window.addEventListener('wheel', (event) => {
+      if(this.isModalOpen) return;
       if (event.deltaY == -100) {
         this.updateZoom(0.05)
       } else if (event.deltaY == 100) {
@@ -197,6 +201,15 @@ export class TaskViewerComponent {
 
     this.select.classList.add('selector');
     this.elRef.nativeElement.addEventListener('mousedown', (event: any) => {
+
+      if(event.which == 3){
+        if (!this.ContextMenuService._isOpen){
+          this.ContextMenuService.switchContextMenu();
+          this.ContextMenuService.changeDisplayOfContextMenu({ x:event.x, y: event.y });
+        }else{
+          this.ContextMenuService.switchContextMenu();
+        }
+      }
       if (this.dragService.Tasks) return;
 
       this.isselectM = true;
@@ -244,12 +257,13 @@ export class TaskViewerComponent {
   zoom2: number = 100;
   updateZoom(amount:number){
     if (!this.TaskViewerBoard) return;
-    console.log(this.dragService.currentZoom)
     if(this.dragService.Tasks)delete this.dragService.Tasks;
     if (this.dragService.currentZoom +amount > 1.5 ||this.dragService.currentZoom + amount< 0.5) return;
     this.dragService.currentZoom += amount;
     this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
     this.moveBoard()
+
+    this.zoom2 = this.dragService.currentZoom * 100
   }
 
   changeZoom() {
@@ -259,17 +273,24 @@ export class TaskViewerComponent {
     this.TaskViewerBoard.nativeElement.style.scale =
       this.dragService.currentZoom + '';
       this.moveBoard()
+
+
+
+  }
+  resetZoom(){
+    if (!this.TaskViewerBoard) return;
+    this.dragService.currentZoom = 1;
+    this.TaskViewerBoard.nativeElement.style.scale = this.dragService.currentZoom + '';
+    this.zoom2 = this.dragService.currentZoom * 100
+
+
   }
   auxzoom = 1;
   moveBoard(){
     if(this.auxzoom == this.dragService.currentZoom) return;
-    this.dragService.currentZoomOffset = {
-      x:  this.dragService.currentZoomOffset.x +(this.auxzoom < this.dragService.currentZoom ?  375 : -375),
-      y: this.dragService.currentZoomOffset.y +(this.auxzoom < this.dragService.currentZoom ?  375 : -375)
-    }
     this.dragService.setBoardPos({
-      x:this.dragService.currentBardPos.x +  (this.auxzoom < this.dragService.currentZoom ?  375 : -375),
-      y:this.dragService.currentBardPos.y + (this.auxzoom < this.dragService.currentZoom ?  375 : -375)
+      x:this.dragService.currentBardPos.x ,
+      y:this.dragService.currentBardPos.y,
     }
     )
     this.auxzoom = this.dragService.currentZoom;
@@ -294,15 +315,14 @@ createSelect(event:any){
     if (this.TaskViewerBoard) {
       this.dragService.viewBoard = this.TaskViewerBoard.nativeElement;
       //set view in the center
-  
+     
       this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
       this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
-
-      this.TaskViewerBoard.nativeElement.addEventListener(
+        this.TaskViewerBoard.nativeElement.addEventListener(
         'touchmove',
         (event: any) => {
           event.preventDefault();
-         
+          
           if (this.isModalOpen) return;
           var touch = event.targetTouches[0];
           
@@ -387,7 +407,7 @@ createSelect(event:any){
   }
   taskListHightlighted?:TaskList;
   checkPos(){
-    let taskList = this.taskviewerService.getTaskListsAtPosition(this.dragService.Tasks.pos);
+    let taskList = this.taskviewerService.getTaskListsAtPosition(this.dragService.Tasks);
     if(taskList)this.taskListHightlighted =taskList;
     else {
       this.taskListHightlighted?.htmlElement.getElementsByClassName("dropBox")[0].classList.remove("hoverdover");

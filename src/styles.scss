@@ -8,17 +8,44 @@
 :root{
     --base_text: "Poppins", sans-serif;
     --base_weight:400;
+    --bgColor:white;
+    --txtColor:black;
+    --navColor:rgba(0, 0, 0, 0.764);
+    --buttonBgColor:black;
+    --buttonTxtColor:white;
+    --boardBgColor:#e0e0e0;
+    --boardShadow:#8f8f8f;
+    --hoverOver: rgb(94, 118, 255);
 }
-.style1{
+.darkmode{
     --base_text: "Poppins", sans-serif;
-    --base_weight:800;
+    --base_weight:400;
+    --bgColor:#202124;
+    --txtColor:rgb(255, 255, 255);
+    --navColor:rgba(255, 255, 255, 0.691);
+    --buttonBgColor:white;
+    --buttonTxtColor:black;
+    --boardBgColor:#474747;
+    --boardShadow:black;
+    --hoverOver: rgb(94, 118, 255);
+}
+.custom{
+    --base_text: "Poppins", sans-serif;
+    --base_weight:400;
+    --bgColor:#202124;
+    --txtColor:rgb(255, 255, 255);
+    --navColor:rgba(255, 255, 255, 0.691);
+    --buttonBgColor:white;
+    --buttonTxtColor:black;
+    --boardBgColor:#474747;
+    --boardShadow:black;
+    --hoverOver: rgb(94, 118, 255);
 }
 
 
 
 
-*{
-    
+*{  
     box-sizing: border-box;
     margin: 0;
     padding: 0;

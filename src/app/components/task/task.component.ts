@@ -31,7 +31,7 @@ export class TaskComponent {
   }
   ngOnInit() {
     if (this.isInModal) return;
-
+    this.nativeElement!.style.zIndex = this.task.zIndex +"";
     this.nativeElement!.addEventListener('touchend', (event: any) => {
       this.lastTap = detectDoubleTapClosure(this.lastTap,this.taskModalService.taskModal,this.task)
       this.DragService.Tasks.htmlElement!.style.position = 'absolute';
@@ -113,10 +113,10 @@ export class TaskComponent {
 
   ngAfterViewInit() {
     this.nativeElement!.addEventListener('mousedown', (event: any) => {
+      event.preventDefault()
       switch (event.which) {
         case 1:
-          if (this.ContextMenuService._isOpen)
-            this.ContextMenuService.switchContextMenu();
+         
           if (!this.DragService.Tasks) {
            
 
@@ -124,8 +124,11 @@ export class TaskComponent {
           }
           break;
         case 2:
+         
           break;
         case 3:
+            this.ContextMenuService.setElement(this.task);
+
           break;
       }
     });

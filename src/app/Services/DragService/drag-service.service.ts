@@ -45,23 +45,23 @@ export class DragServiceService {
 
   setBoardPos(pos:Coord){
     if(!this.viewBoard)return;
-
+    
     this.currentBardPos.y =  pos.y ;
     this.currentBardPos.x = pos.x;
-
     let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
     let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-    if(this.currentBardPos.y - this.currentZoomOffset.y >0)this.currentBardPos.y = this.currentZoomOffset.y
-    if(this.currentBardPos.x - this.currentZoomOffset.x >0)this.currentBardPos.x = this.currentZoomOffset.x
-    if(this.currentBardPos.y + this.currentZoomOffset.y< (this.viewBoard.clientHeight - vh)*-1 )this.currentBardPos.y =  (this.currentZoomOffset.y + (this.viewBoard.clientHeight - vh ))*-1
-    if(this.currentBardPos.x + this.currentZoomOffset.x < (this.viewBoard.clientWidth - vw)*-1) this.currentBardPos.x =   (this.currentZoomOffset.x + (this.viewBoard.clientWidth - vw ))*-1
+
+    if(this.currentBardPos.y  >0)this.currentBardPos.y = 0
+    if(this.currentBardPos.x >0)this.currentBardPos.x = 0
+    if(this.currentBardPos.y < (this.viewBoard.clientHeight*(this.currentZoom) - vh)*-1 )this.currentBardPos.y = (this.viewBoard.clientHeight*(this.currentZoom) - vh )*-1
+    if( this.currentBardPos.x < (this.viewBoard.clientWidth*(this.currentZoom) - vw)*-1) this.currentBardPos.x =    (this.viewBoard.clientWidth*(this.currentZoom) - vw )*-1
     this.viewBoard.style.left = this.currentBardPos.x  + 'px';
     this.viewBoard.style.top = this.currentBardPos.y + 'px';
 
   }
 
   getPlaceOfDropped(){
-    let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks.pos);
+    let taskList = this.taskViewerService.getTaskListsAtPosition(this.Tasks);
     if(taskList == undefined){
       if(this.Tasks.taskListId){
         this.taskViewerService.getFromGlobalTasksList(this.Tasks.taskListId)?.removeFromList(this.Tasks.id);

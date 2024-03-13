@@ -59,10 +59,12 @@ export class BoardPickerComponent {
   }
   addBoard() {
     this.boardService.addEmptyBoard();
+    this.boards = this.boardService.globalBoards;
   }
   clearAllBoards(){
     this.DBService.deleteBoards();
     this.boards = []
+    this.boardService.globalBoards = []
   }
   saveBoards() {
     this.DBService.storeBoards(this.boards);
@@ -73,6 +75,7 @@ export class BoardPickerComponent {
     for(let i = 0; i <  this.boards.length;i++){
       if(this.boards[i].id == boardId)this.boards.splice(i,1)
     }
+  this.saveBoards();
   }
  
   duplicateBoard(board:Board){

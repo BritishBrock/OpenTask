@@ -13,6 +13,7 @@ export class Task{
     taskListId?:number;
     isInTaskList:boolean = false;
     descripcion?:string;
+    zIndex:number = 2;
     cardColorTagType:number = 0;
     endDate?:Date;
     startDate?:Date;

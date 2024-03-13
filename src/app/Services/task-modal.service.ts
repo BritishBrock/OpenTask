@@ -13,7 +13,7 @@ export class TaskModalService {
   
   taskModal:Subject<Task> = new Subject<Task>();
   taskListModal:Subject<TaskList> = new Subject<TaskList>();
- stickyNoteModal:Subject<StickyNote> = new Subject<StickyNote>();
-
+  stickyNoteModal:Subject<StickyNote> = new Subject<StickyNote>();
+  TaskModalClosedEvent:Subject<boolean> = new Subject<boolean>();
   TaskModalOpen:Subject<boolean> = new Subject<boolean>()
 }

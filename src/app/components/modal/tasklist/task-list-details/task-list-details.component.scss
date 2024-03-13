@@ -37,6 +37,36 @@
         background-color: black;
         cursor: pointer;
     }
+    
+}
+.tasks{
+    width: 100%;
+    .task{
+        user-select: none;
+        border-radius: 10px;
+        background-color: whitesmoke;
+        width: 50px;
+        width: 100%;
+        padding: 10px 10px;
+        font-size: 1.2em;
+        display: flex;
+        position: relative;
+        .deleteTask{
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            right: 10px;
+            color: white;
+            font-size: 0.8em;
+            padding: 2px 2px;
+            background-color: rgb(168, 0, 0);
+            border-radius: 5px;
+        }
+    }
+    .task:hover{
+        border: 2px solid var(--hoverOver);
+    }
 }
 
 .description{

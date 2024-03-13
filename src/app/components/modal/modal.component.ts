@@ -59,6 +59,8 @@ export class TaskModalComponent {
   closeModal(){
     this.isTaskModalOpen = false
     this.taskModalService.TaskModalOpen.next(false)
+    this.taskModalService.TaskModalClosedEvent.next(true)
+
   }
 
   Delete(type:number){
@@ -100,13 +102,13 @@ export class TaskModalComponent {
         this.taklistcomponent = TaskListDetailsComponent;
       }
     },
-    {
-      title:"Tasklist Links",
-      onclick:()=>{
-        this.input = {taskList:this.taskList, event:this.event};
-        this.taklistcomponent = TaskListLinksComponent;
-      }
-    },
+    // {
+    //   title:"Tasklist Links",
+    //   onclick:()=>{
+    //     this.input = {taskList:this.taskList, event:this.event};
+    //     this.taklistcomponent = TaskListLinksComponent;
+    //   }
+    // },
     {
       title:"Tasklist Styling",
       onclick:()=>{

@@ -4,6 +4,7 @@ import { DragServiceService } from '../../Services/DragService/drag-service.serv
 import { TaskModalService } from '../../Services/task-modal.service';
 import { Coord } from '../../interfaces/Coord/Coord';
 import { detectDoubleTapClosure } from '../../event/customEvents/doubleTapEvent';
+import { ContextMenuService } from '../../Services/ContextMenu/context-menu.service';
 
 @Component({
   selector: 'app-sticky-note',
@@ -16,7 +17,8 @@ export class StickyNoteComponent {
 
   constructor(private elRef:ElementRef,
     private DragService:DragServiceService,
-    private taskModalService:TaskModalService
+    private taskModalService:TaskModalService,
+    private ContextMenuService:ContextMenuService,
     ) {
     this.nativeElement = this.elRef.nativeElement;
   }
@@ -82,6 +84,7 @@ export class StickyNoteComponent {
 
     
     if(!this.nativeElement) return;
+    this.nativeElement.style.zIndex = this.stickyNote.zIndex +"";
     if(this.stickyNote.width){
       this.nativeElement!.style.width = this.stickyNote.width
     }
@@ -117,6 +120,14 @@ export class StickyNoteComponent {
       if(!this.DragService.Tasks) this.DragService.selectHTMLElement(this.stickyNote)
     })
 
+
+    this.nativeElement.addEventListener("mousedown",(event:any)=>{
+      switch (event.which) {
+          case 3:
+            this.ContextMenuService.setElement(this.stickyNote);
+          break;
+      }
+    })
   
   
     

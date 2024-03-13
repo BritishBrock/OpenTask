@@ -1,10 +1,19 @@
-
+.pinned{
+    padding-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    justify-content: center;
+    gap: 100px;
+    background-color: var(--bgColor);
+}
 .mainBoardPicker{
     padding-top: 100px;
     display: grid;
     grid-template-columns: repeat(3,auto);
     justify-content: center;
     gap: 100px;
+    background-color: var(--bgColor);
+}
     .board{
         width: 300px;
         height: 300px;
@@ -12,9 +21,9 @@
         cursor: pointer;
         flex-direction: column;
         position: relative;
-        background: #e0e0e0;
-        box-shadow:  28px 28px 67px #b3b3b3,
-                    -28px -28px 67px #ffffff;
+        background: var(--boardBgColor);
+        box-shadow:  28px 28px 67px var(--boardShadow),
+                    -28px -28px 67px var(--bgColor);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -59,7 +68,7 @@
         }
         .boardDelete{
             top: 10px;
-            right:10px;
+            right:20px;
         }
         .boardEditName{
             top:50%;
@@ -97,9 +106,9 @@
         width: 300px;
         height: 300px;
         border-radius: 59px;
-        background: #e0e0e0;
-        box-shadow:  28px 28px 67px #b3b3b3,
-                    -28px -28px 67px #ffffff;
+        background: var(--boardBgColor);
+        box-shadow:  28px 28px 67px var(--boardShadow),
+                    -28px -28px 67px var(--bgColor);
         border:5px dashed black;
         display: flex;
         justify-content: center;
@@ -114,7 +123,7 @@
         height: 300px;
         scale: 1.1;
         border-radius:60px;
-        background: #e0e0e0;
+        background: var(--boardBgColor);
         box-shadow:  0px 0px 100px rgba(129, 33, 255, 0.582);
         border:5px dashed rgb(129, 33, 255);
         color: rgb(129, 33, 255);
@@ -123,7 +132,6 @@
         align-items: center;
         font-size: 60px;
     }
-}
 
 
 .wip{

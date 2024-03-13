@@ -51,15 +51,15 @@ export class TaskViewerBoardService {
 
 
 
-  getTaskListsAtPosition(coord:Coord){
-      //need possible fix later one. Boundries not correct i believe.
-      let globalTaskListsArray =this.globalTaskLists
+  getTaskListsAtPosition(element:any){
+      if(element.type != "task")return undefined;
+      let globalTaskListsArray =this.globalTaskLists;
       for(let i = 0; i < globalTaskListsArray.length;i++){
         if(
-          coord.x < globalTaskListsArray[i].pos.x + globalTaskListsArray[i].htmlElement.clientWidth &&
-          coord.x > globalTaskListsArray[i].pos.x &&
-          coord.y < globalTaskListsArray[i].pos.y + globalTaskListsArray[i].htmlElement.clientHeight &&
-          coord.y > globalTaskListsArray[i].pos.y 
+          element.pos.x + element.htmlElement.clientWidth < globalTaskListsArray[i].pos.x + globalTaskListsArray[i].htmlElement.clientWidth &&
+          element.pos.x  > globalTaskListsArray[i].pos.x &&
+          element.pos.y < globalTaskListsArray[i].pos.y + globalTaskListsArray[i].htmlElement.clientHeight &&
+          element.pos.y > globalTaskListsArray[i].pos.y 
         ){return globalTaskListsArray[i];}
       }
       return undefined;

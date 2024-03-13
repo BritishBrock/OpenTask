@@ -24,6 +24,12 @@ export class StickynoteComponent {
     window.addEventListener("mouseup",()=>{
       this.isDrawing = false;
     })
+    this.c.addEventListener("touchstart",()=>{
+      this.isDrawing = true;
+    })
+    window.addEventListener("touchend",()=>{
+      this.isDrawing = false;
+    })
 
     this.c.addEventListener("mousemove",(event:any)=>{
      if(!this.isDrawing)return;
@@ -34,6 +40,19 @@ export class StickynoteComponent {
       ctx.fillStyle = "black";
       ctx?.fill();
     })
+    this.c.addEventListener("touchmove",(event:any)=>{
+      event.preventDefault();
+      if(!this.isDrawing)return;
+      if(!ctx)return;
+      if(!this.c)return;
+       ctx.beginPath();
+       
+       var touch = event.targetTouches[0];
+       console.log(touch)
+       ctx?.arc((touch.pageX-this.c.offsetLeft), (this.c.offsetTop -touch.pageY) *-1,2,0,2 * Math.PI)
+       ctx.fillStyle = "black";
+       ctx?.fill();
+     })
   }
 
 

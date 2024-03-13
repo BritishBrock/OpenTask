@@ -1,2 +1,6 @@
-<router-outlet></router-outlet>
+<div class="main" [ngClass]="settingsService.userSettings.styling.customStyles ? 'custom':
+settingsService.userSettings.styling.darkMode ? 'darkmode':''
+">
+    <router-outlet></router-outlet>
+</div>
 

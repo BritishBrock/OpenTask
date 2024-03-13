@@ -1,10 +1,30 @@
 
 <div class="mainCalenderView">
 <div class="calenderNav">
+
+  <div class="dateSwitcher">
+    <div (click)="switchMonth(-1)" class="dateMover">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-math-lower"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 18l-14 -6l14 -6" /></svg>
+    </div>
+    <div class="currentDate">
+      {{this.currentMonth + 1}}/{{this.currentYear}}
+    </div>
+    <div (click)="switchMonth(1)" class="dateMover">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-math-greater"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 18l14 -6l-14 -6" /></svg>
+    </div>
+  </div>
+ 
   
 </div>
-  
-  <div class="table" id="calendar">
+<div class="calender">
+  <div class="left">
+    <h1>Tasks</h1>
+    @for (task of  this.allDates; track $index) {
+      <div class="task">{{task[2].name}}</div>
+    }
+  </div>
+  <div class="right">
+    <div class="table" id="calendar">
       <div class="weekDays">
         
         <div class="days">Mon</div>
@@ -18,6 +38,9 @@
       <div id="calendar-body" class="calendarbody">
       </div>
     </div>
+  </div>
+</div>
+ 
 
 
     <app-modal></app-modal>
