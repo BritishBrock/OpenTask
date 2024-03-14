@@ -25,7 +25,7 @@
                 @if(isQuickBoardSelectOpen){
                    @for (board of allBoards; track $index) {
                         @if(board.isStarred){
-                            <div class="boardOption" (click)="goToBoard(board.id)">{{board.name}}  {{ board.id}}</div>
+                            <div class="boardOption" (click)="goToBoard(board.id)">{{board.name}}</div>
                         }
                    }
                 }
