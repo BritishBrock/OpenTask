@@ -112,7 +112,10 @@ pos:any = {x:0,y:0}
       }
      
     })
-    
+    this.htmlElement.addEventListener("mouseup",(event:any)=>{
+      if(!this.noteGrabbed) return;
+      delete this.noteGrabbed;
+    })
 
   }
   
