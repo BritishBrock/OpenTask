@@ -12,28 +12,16 @@ export class StylingComponent {
   ngOnInit(){
     this.settingsService.updatedSettings.subscribe(()=>{
       this.stylingSettings = this.settingsService.userSettings.styling;
+      if(this.stylingSettings.customStyles.isActive)this.updateStyles();
     })
+    if(this.stylingSettings.customStyles.isActive)this.updateStyles();
   }
 
-  customStylesColors:any = {
-    bgColor:"#253535",
-    txtColor:"black",
-    navColor:"rgba(0, 0, 0, 0.764)",
-    buttonBgColor:"black",
-    buttonTxtColor:"white",
-    boardBgColor:"#e0e0e0",
-    boardShadow:"#8f8f8f",
-  }
+ 
 
   updateStyles(){
-    var r:any = document.querySelector('.custom');
-    console.log(this.customStylesColors)
-    if(!r)return;
-    Object.entries(this.customStylesColors).every(([key,value])=>{
-      r.style.setProperty('--'+key, value);
-      return true;
-    })
+   this.settingsService.updateStyles();
   }
-
+ 
   
 }

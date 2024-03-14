@@ -21,7 +21,18 @@ export class SettingsService {
     styling:{
       HSLColors:false,
       darkMode:false,
-      customStyles:false,
+      customStyles:{
+        isActive:true,
+        styles:{
+          bgColor:"#253535",
+          txtColor:"black",
+          navColor:"rgba(0, 0, 0, 0.764)",
+          buttonBgColor:"black",
+          buttonTxtColor:"white",
+          boardBgColor:"#e0e0e0",
+          boardShadow:"#8f8f8f",
+        }
+      },
     }
   }
   userSettings:userSettings = JSON.parse(JSON.stringify(this.default));
@@ -29,6 +40,7 @@ export class SettingsService {
   loadSettings(){
     if(localStorage.getItem("settings") != null)
     this.userSettings = JSON.parse(localStorage.getItem("settings")!)
+  this.updateStyles();
   }
   resetSettings(){
     this.userSettings = JSON.parse(JSON.stringify(this.default))
@@ -37,6 +49,25 @@ export class SettingsService {
   }
   saveSettings(){
     localStorage.setItem("settings",JSON.stringify(this.userSettings))
+  }
+
+  updateStyles(){
+    if(this.userSettings.styling.customStyles.isActive){
+      var r:any = document.getElementById('main');
+      if(!r)return;
+      Object.entries(this.userSettings.styling.customStyles.styles).every(([key,value])=>{
+        r.style.setProperty('--'+key, value);
+        return true;
+      })
+    }else{
+   
+        var r:any = document.getElementById('main');
+        if(!r)return;
+        Object.entries(this.userSettings.styling.customStyles.styles).every(([key,value])=>{
+          r.style.removeProperty('--'+key, value);
+          return true;
+        })
+      }
   }
 
 
@@ -56,6 +87,9 @@ export interface userSettings{
   styling:{
     HSLColors:boolean,
     darkMode:boolean,
-    customStyles:boolean,
+    customStyles:{
+      isActive:boolean,
+      styles?:any,
+    },
   }
 }

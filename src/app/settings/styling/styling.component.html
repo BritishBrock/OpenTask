@@ -7,16 +7,16 @@
     <div class="gOption2"> <input type="checkbox" [(ngModel)]="stylingSettings.darkMode"/> </div>
 </div>
 <div class="generlSettingsOption">
-    <div class="gOption1">Custom Styling </div>
-    <div class="gOption2"> <input type="checkbox" [(ngModel)]="stylingSettings.customStyles"/> </div>
+    <div class="gOption1">Custom Styling</div>
+    <div class="gOption2"> <input type="checkbox" [(ngModel)]="stylingSettings.customStyles.isActive"/> </div>
 </div>
-@if (stylingSettings.customStyles) {
+@if (stylingSettings.customStyles.isActive) {
 
-@for (item of customStylesColors | keyvalue; track $index) {
-    {{item.key}} : <input type="color" name="" id="" [(ngModel)]="customStylesColors[item.key+'']">
+@for (item of this.stylingSettings.customStyles.styles | keyvalue; track $index) {
+    {{item.key}} : <input type="color" name="" id="" [(ngModel)]="this.stylingSettings.customStyles.styles[item.key+'']">
     <br>
 }
-<button (click)="updateStyles()">Update Styles</button>
 }
+<button (click)="updateStyles()">Update Styles</button>
 
 
