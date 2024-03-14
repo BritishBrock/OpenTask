@@ -92,67 +92,8 @@ export class TaskViewerCalendarComponent {
 
   ngOnInit() {
     this.modalService.TaskModalClosedEvent.subscribe(() => {
-      this.allDates = [];
-
-      for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
-        if (
-          this.TaskViewerBoardService.globalTasks[i].endDate ||
-          this.TaskViewerBoardService.globalTasks[i].startDate
-        )
-          this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
-      }
-      for (
-        let i = 0;
-        i < this.TaskViewerBoardService.globalTaskLists.length;
-        i++
-      ) {
-        for (
-          let y = 0;
-          y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
-          y++
-        ) {
-          if (
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
-          )
-            this.addToDateMap(
-              this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
-            );
-        }
-      }
-
-      this.showCalendar(this.currentMonth, this.currentYear);
-
-      this.addTasksToCalender();
+      this.updateCalendar();
     });
-
-    for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
-      if (
-        this.TaskViewerBoardService.globalTasks[i].endDate ||
-        this.TaskViewerBoardService.globalTasks[i].startDate
-      )
-        this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
-    }
-    for (
-      let i = 0;
-      i < this.TaskViewerBoardService.globalTaskLists.length;
-      i++
-    ) {
-      for (
-        let y = 0;
-        y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
-        y++
-      ) {
-        if (
-          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
-          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
-        )
-          this.addToDateMap(
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
-          );
-      }
-    }
-
     this.today = new Date();
     this.currentMonth = this.today.getMonth();
 
@@ -172,10 +113,8 @@ export class TaskViewerCalendarComponent {
       'Nov',
       'Dec',
     ];
+    this.updateCalendar();
 
-    this.showCalendar(this.currentMonth, this.currentYear);
-
-    this.addTasksToCalender();
   }
   taksThisMonth:Task[] = []
   createTaskInCalender(task: Task, CreateTitle: boolean, startTile: boolean) {
@@ -195,48 +134,52 @@ export class TaskViewerCalendarComponent {
     };
     return taskDiv;
   }
-  boardPicked?:number;
+  boardPicked?:number = this.boardService.activeBoard?.id;
   switchBoard(boardIndex:any){
     if(!this.boardPicked)return;
-    console.log(this.boardPicked)
     this.boardService.setActiveBoard(this.boardPicked);
-
-    this.allDates = [];
-
-    for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
-      if (
-        this.TaskViewerBoardService.globalTasks[i].endDate ||
-        this.TaskViewerBoardService.globalTasks[i].startDate
-      )
-        this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
-    }
-    for (
-      let i = 0;
-      i < this.TaskViewerBoardService.globalTaskLists.length;
-      i++
-    ) {
-      for (
-        let y = 0;
-        y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
-        y++
-      ) {
-        if (
-          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
-          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
-        )
-          this.addToDateMap(
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
-          );
-      }
-    }
-
-    this.showCalendar(this.currentMonth, this.currentYear);
-
-    this.addTasksToCalender();
+    this.updateCalendar();
 
 
 
   }
+
+updateCalendar(){
+  
+  this.allDates = [];
+
+  for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
+    if (
+      this.TaskViewerBoardService.globalTasks[i].endDate ||
+      this.TaskViewerBoardService.globalTasks[i].startDate
+    )
+      this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
+  }
+  for (
+    let i = 0;
+    i < this.TaskViewerBoardService.globalTaskLists.length;
+    i++
+  ) {
+    for (
+      let y = 0;
+      y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
+      y++
+    ) {
+      if (
+        this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
+        this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
+      )
+        this.addToDateMap(
+          this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
+        );
+    }
+  }
+
+  this.showCalendar(this.currentMonth, this.currentYear);
+
+  this.addTasksToCalender();
+}
+   
   addTasksToCalender() {
     let auxFirst: any[] = [];
     this.taksThisMonth = [];
