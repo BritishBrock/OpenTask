@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Task } from '../../Models/Task/Task';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 import { TaskModalService } from '../../Services/task-modal.service';
+import { BoardService } from '../../Services/board/board.service';
+import { Board } from '../../Models/Board/Board';
 
 @Component({
   selector: 'app-task-viewer-calendar',
@@ -11,7 +13,8 @@ import { TaskModalService } from '../../Services/task-modal.service';
 export class TaskViewerCalendarComponent {
   constructor(
     private TaskViewerBoardService: TaskViewerBoardService,
-    private modalService: TaskModalService
+    private modalService: TaskModalService,
+    private boardService:BoardService,
   ) { }
 
   currentYear: any;
@@ -21,7 +24,7 @@ export class TaskViewerCalendarComponent {
   months: any;
   currentMonth: any;
   today: any;
-
+  allBoards:Board[] = this.boardService.globalBoards;
   taskEndDates: any = {};
   taskStartDates: any = {};
   allDates: any = [];
@@ -192,7 +195,48 @@ export class TaskViewerCalendarComponent {
     };
     return taskDiv;
   }
+  boardPicked?:number;
+  switchBoard(boardIndex:any){
+    if(!this.boardPicked)return;
+    console.log(this.boardPicked)
+    this.boardService.setActiveBoard(this.boardPicked);
 
+    this.allDates = [];
+
+    for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
+      if (
+        this.TaskViewerBoardService.globalTasks[i].endDate ||
+        this.TaskViewerBoardService.globalTasks[i].startDate
+      )
+        this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
+    }
+    for (
+      let i = 0;
+      i < this.TaskViewerBoardService.globalTaskLists.length;
+      i++
+    ) {
+      for (
+        let y = 0;
+        y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
+        y++
+      ) {
+        if (
+          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
+          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
+        )
+          this.addToDateMap(
+            this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
+          );
+      }
+    }
+
+    this.showCalendar(this.currentMonth, this.currentYear);
+
+    this.addTasksToCalender();
+
+
+
+  }
   addTasksToCalender() {
     let auxFirst: any[] = [];
     this.taksThisMonth = [];
