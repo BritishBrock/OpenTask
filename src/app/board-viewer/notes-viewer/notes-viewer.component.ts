@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Note } from '../../Models/Note/Note';
-import { Subject } from 'rxjs';
+import { Subject, first } from 'rxjs';
 import { BoardService } from '../../Services/board/board.service';
 import {
   style,
@@ -81,15 +81,25 @@ pos:any = {x:0,y:0}
       if(!this.noteGrabbed)return;
 
       document.getElementById("copy")!.style.position ="absolute";
-      document.getElementById("copy")!.style.left =event.x -50 +"px";
-      document.getElementById("copy")!.style.top =event.y +"px";
+      document.getElementById("copy")!.style.left =event.x -   (document.getElementById("copy")!.clientWidth/2) +"px";
+      document.getElementById("copy")!.style.top =event.y - 10 +"px";
       if( event.x  > this.pos.x +100  || event.x < this.pos.x -100 
         ||  event.y  > this.pos.y +100  || event.y < this.pos.y -100 
         ){
-        for(let i = 0; i < this.notes.length;i++){
-          if(this.notes[i].id == this.noteGrabbed.id){
-            this.notes.splice(i,1)
+          for(let i = 0; i < this.notes.length;i++){
+            if(this.notes[i].id == this.noteGrabbed.id){
+              this.notes.splice(i,1)
+            }
           }
+
+          if( event.y > document.getElementById(this.notes[this.notes.length-1].id+"")!.offsetTop +document.getElementById(this.notes[this.notes.length-1].id+"")!.clientHeight ){
+            if(this.x)clearInterval(this.x)
+            this.x = setTimeout(()=>{
+              this.notes.push(this.noteGrabbed);
+              this.pos.x = event.x;
+              this.pos.y = event.y;
+              clearInterval(this.x);
+            },300) 
           }
           for(let i = 0; i < this.notes.length;i++){
             if(
@@ -104,21 +114,44 @@ pos:any = {x:0,y:0}
                   this.pos.x = event.x;
                   this.pos.y = event.y;
                   clearInterval(this.x);
-                },1000)
-                  
-                  
+                },300) 
               }
           }
+
+
       }
      
     })
     
-
-  }
+    this.htmlElement.addEventListener("mouseup",(event:any)=>{
+      if(!this.noteGrabbed) return;
+      delete this.noteGrabbed;
+    })
+    this.htmlElement.addEventListener("touchstart",(event:any)=>{
+     
+   
+      if(this.isFirstTouch){this.count++;}
+      if(this.count > 1 ){
+        this.isFirstTouch = false;
+        this.count = 0;
+        if(this.noteSwitch && !this.isFirstTouch){
+          document.getElementById(this.noteSwitch.id)!.style.border = "none";
+         
+          delete this.notePos;
+       delete this.noteSwitch;
   
+        }
+      }
+
+     
+ 
+
+    })
+  }
+  count =0;
   noteTitle:string = "";
   noteDesc:string = "";
- 
+  isFirstTouch:any =true;
   createNote(){
     if(!this.isNoteCreationActive)return;
     let n = new Note(this.noteTitle)
@@ -141,31 +174,34 @@ pos:any = {x:0,y:0}
    this.prevPosition = index;
    this.notes.splice(index,1)
    document.getElementById("copy")!.style.position ="absolute";
-   document.getElementById("copy")!.style.left =event.x +"px";
-   document.getElementById("copy")!.style.top =event.y +"px";
+   document.getElementById("copy")!.style.left =event.x -   (document.getElementById("copy")!.clientWidth/2) +"px";
+   document.getElementById("copy")!.style.top =event.y -10+"px";
   }
-  switchStart(note:any,index:number){
-    if(!this.noteSwitch){
-      this.noteSwitch = note;
-      this.notePos = index;
-    }else{
-
-      
-
-
-
-        // this.notes.splice(index,1)
-        // this.notes.splice(this.notePos,1)
-
-        // this.notes.splice(index,0,this.noteSwitch)
-        // this.notes.splice(this.notePos,0,note)
-
-      this.notes[index]= this.noteSwitch;
-      this.notes[this.notePos]= note;
-
-     delete this.notePos;
-     delete this.noteSwitch;
-    }
+  switchStart(note:any,index:number,event:any){
+      event.preventDefault()
+      if(!this.noteSwitch){
+        document.getElementById(note.id)!.style.border = "5px solid blue";
+        this.noteSwitch = note;
+        this.notePos = index;
+        this.isFirstTouch = true;
+      }else{
+  
+        
+  
+  
+  
+          // this.notes.splice(index,1)
+          // this.notes.splice(this.notePos,1)
+  
+          // this.notes.splice(index,0,this.noteSwitch)
+          // this.notes.splice(this.notePos,0,note)
+          this.notes[index]= this.noteSwitch;
+          this.notes[this.notePos]= note;
+          document.getElementById(this.noteSwitch.id)!.style.border = "none";
+       delete this.notePos;
+       delete this.noteSwitch;
+      }
+    
   }
   notePos:any;
   noteSwitch:any;

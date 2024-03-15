@@ -57,27 +57,29 @@
    align-items: center;
     flex-direction: column;
     .notes{
-        
+        border-radius: 20px;
         display: flex;
         max-width: 900px;
+        position: relative;
         width: 95%;
+        justify-content: center;
+    
         .movablePart{
-            height: 50%;
-            width: 50px;
-            background: white;
-            background-image: radial-gradient(black 1px, transparent 0);
-            background-size: 10px 10px;
+            height: 100%;
+            width:100%;
+            position: absolute;
+           
             opacity: 0;
-            background-position: -19px -19px;
+            z-index: 3;
+            cursor: move;
             transition: all 0.5s ease;
         }
         .movablePart:hover{
-
             opacity: 0.3;
 
         }
     .note{
-        width: 90%;
+        width: 100%;
         max-width: 800px;
         min-height: 200px;
         height: auto;
@@ -111,6 +113,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 5;
             cursor: pointer;
             background-color: rgb(135, 135, 135);
             transition: all 0.3s ease-in;
@@ -119,6 +122,7 @@
         .deleteNote:hover{
             background-color: var(--txtColor);
             color: var(--bgColor);
+            
         }
     }
     }

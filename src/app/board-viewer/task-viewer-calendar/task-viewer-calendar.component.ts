@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Task } from '../../Models/Task/Task';
 import { TaskViewerBoardService } from '../../Services/taskViewerBoard/task-viewer-board.service';
 import { TaskModalService } from '../../Services/task-modal.service';
+import { BoardService } from '../../Services/board/board.service';
+import { Board } from '../../Models/Board/Board';
 
 @Component({
   selector: 'app-task-viewer-calendar',
@@ -11,7 +13,8 @@ import { TaskModalService } from '../../Services/task-modal.service';
 export class TaskViewerCalendarComponent {
   constructor(
     private TaskViewerBoardService: TaskViewerBoardService,
-    private modalService: TaskModalService
+    private modalService: TaskModalService,
+    private boardService:BoardService,
   ) { }
 
   currentYear: any;
@@ -21,7 +24,7 @@ export class TaskViewerCalendarComponent {
   months: any;
   currentMonth: any;
   today: any;
-
+  allBoards:Board[] = this.boardService.globalBoards;
   taskEndDates: any = {};
   taskStartDates: any = {};
   allDates: any = [];
@@ -89,67 +92,8 @@ export class TaskViewerCalendarComponent {
 
   ngOnInit() {
     this.modalService.TaskModalClosedEvent.subscribe(() => {
-      this.allDates = [];
-
-      for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
-        if (
-          this.TaskViewerBoardService.globalTasks[i].endDate ||
-          this.TaskViewerBoardService.globalTasks[i].startDate
-        )
-          this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
-      }
-      for (
-        let i = 0;
-        i < this.TaskViewerBoardService.globalTaskLists.length;
-        i++
-      ) {
-        for (
-          let y = 0;
-          y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
-          y++
-        ) {
-          if (
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
-          )
-            this.addToDateMap(
-              this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
-            );
-        }
-      }
-
-      this.showCalendar(this.currentMonth, this.currentYear);
-
-      this.addTasksToCalender();
+      this.updateCalendar();
     });
-
-    for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
-      if (
-        this.TaskViewerBoardService.globalTasks[i].endDate ||
-        this.TaskViewerBoardService.globalTasks[i].startDate
-      )
-        this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
-    }
-    for (
-      let i = 0;
-      i < this.TaskViewerBoardService.globalTaskLists.length;
-      i++
-    ) {
-      for (
-        let y = 0;
-        y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
-        y++
-      ) {
-        if (
-          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
-          this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
-        )
-          this.addToDateMap(
-            this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
-          );
-      }
-    }
-
     this.today = new Date();
     this.currentMonth = this.today.getMonth();
 
@@ -169,10 +113,8 @@ export class TaskViewerCalendarComponent {
       'Nov',
       'Dec',
     ];
+    this.updateCalendar();
 
-    this.showCalendar(this.currentMonth, this.currentYear);
-
-    this.addTasksToCalender();
   }
   taksThisMonth:Task[] = []
   createTaskInCalender(task: Task, CreateTitle: boolean, startTile: boolean) {
@@ -185,6 +127,8 @@ export class TaskViewerCalendarComponent {
     if (CreateTitle) {
       taskDiv.style.borderRadius = '0 5px 5px 0';
       taskDiv.textContent = task.name;
+    }if(startTile){
+      taskDiv.style.borderRadius = '5px 0 0 5px';
     }
 
     taskDiv.onclick = () => {
@@ -192,7 +136,52 @@ export class TaskViewerCalendarComponent {
     };
     return taskDiv;
   }
+  boardPicked?:number = this.boardService.activeBoard?.id;
+  switchBoard(boardIndex:any){
+    if(!this.boardPicked)return;
+    this.boardService.setActiveBoard(this.boardPicked);
+    this.updateCalendar();
 
+
+
+  }
+
+updateCalendar(){
+  
+  this.allDates = [];
+
+  for (let i = 0; i < this.TaskViewerBoardService.globalTasks.length; i++) {
+    if (
+      this.TaskViewerBoardService.globalTasks[i].endDate ||
+      this.TaskViewerBoardService.globalTasks[i].startDate
+    )
+      this.addToDateMap(this.TaskViewerBoardService.globalTasks[i]);
+  }
+  for (
+    let i = 0;
+    i < this.TaskViewerBoardService.globalTaskLists.length;
+    i++
+  ) {
+    for (
+      let y = 0;
+      y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;
+      y++
+    ) {
+      if (
+        this.TaskViewerBoardService.globalTaskLists[i].tasks[y].endDate ||
+        this.TaskViewerBoardService.globalTaskLists[i].tasks[y].startDate
+      )
+        this.addToDateMap(
+          this.TaskViewerBoardService.globalTaskLists[i].tasks[y]
+        );
+    }
+  }
+
+  this.showCalendar(this.currentMonth, this.currentYear);
+ 
+  this.addTasksToCalender();
+}
+   
   addTasksToCalender() {
     let auxFirst: any[] = [];
     this.taksThisMonth = [];
@@ -216,63 +205,28 @@ export class TaskViewerCalendarComponent {
     this.allDates = [...auxFirst, ...this.allDates];
 
     for (let i = 0; i < this.allDates.length; i++) {
-      if (this.allDates[i][0] === 'NaN-NaN-NaN') {
-        if (
-          this.currentMonth == new Date(this.allDates[i][1]).getMonth() &&
-          this.currentYear == new Date(this.allDates[i][1]).getFullYear()
-        ) {
-          document
-            .getElementById('C-' + new Date(this.allDates[i][1]).getDate())!
-            .append(
-              this.createTaskInCalender(this.allDates[i][2], true, false)
-            );
+      var getDaysArray = function(start:any, end:any) {
+        for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+            arr.push(new Date(dt));
         }
-      } else if (this.allDates[i][1] === 'NaN-NaN-NaN') {
-        if (
-          this.currentMonth == new Date(this.allDates[i][0]).getMonth() &&
-          this.currentYear == new Date(this.allDates[i][0]).getFullYear()
-        ) {
-          document
-            .getElementById('C-' + new Date(this.allDates[i][0]).getDate())!
-            .append(
-              this.createTaskInCalender(this.allDates[i][2], true, false)
-            );
-        }
-      } else {
-        if (
-          this.currentMonth == new Date(this.allDates[i][0]).getMonth() &&
-          this.currentYear == new Date(this.allDates[i][0]).getFullYear() &&
-          this.currentMonth == new Date(this.allDates[i][1]).getMonth() &&
-          this.currentYear == new Date(this.allDates[i][1]).getFullYear()
-        ) {
-          for (
-            let j = 0;
-            j <=
-            new Date(this.allDates[i][0]).getDate() -
-            new Date(this.allDates[i][1]).getDate();
-            j++
-          ) {
-            if (
-              j !=
-              new Date(this.allDates[i][0]).getDate() -
-              new Date(this.allDates[i][1]).getDate()
-            ) {
-              document
-                .getElementById(
-                  'C-' + (new Date(this.allDates[i][1]).getDate() + j)
-                )!
-                .append(
-                  this.createTaskInCalender(this.allDates[i][2], false, false)
-                );
-            } else {
-              document
-                .getElementById(
-                  'C-' + (new Date(this.allDates[i][1]).getDate() + j)
-                )!
-                .append(
-                  this.createTaskInCalender(this.allDates[i][2], true, false)
-                );
-            }
+        return arr;
+      };
+
+      let arr = getDaysArray(new Date(this.allDates[i][1]),new Date(this.allDates[i][0]));
+      for(let x = 0; x < arr.length;x++){
+        if(this.currentMonth == new Date(arr[x]).getMonth() &&
+            this.currentYear == new Date(arr[x]).getFullYear()
+        ){
+          if(x == arr.length-1){
+            document.getElementById('C-' + (new Date(arr[x]).getDate())
+                    )!.append(this.createTaskInCalender(this.allDates[i][2], true, false));
+          }else if(x == 0 ){
+            document.getElementById('C-' + (new Date(arr[x]).getDate())
+                    )!.append(this.createTaskInCalender(this.allDates[i][2], false, true));
+          }
+          else{
+            document.getElementById('C-' + (new Date(arr[x]).getDate())
+            )!.append(this.createTaskInCalender(this.allDates[i][2], false, false));
           }
         }
       }
