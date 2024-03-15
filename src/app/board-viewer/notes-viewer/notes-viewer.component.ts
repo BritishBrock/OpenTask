@@ -86,10 +86,20 @@ pos:any = {x:0,y:0}
       if( event.x  > this.pos.x +100  || event.x < this.pos.x -100 
         ||  event.y  > this.pos.y +100  || event.y < this.pos.y -100 
         ){
-        for(let i = 0; i < this.notes.length;i++){
-          if(this.notes[i].id == this.noteGrabbed.id){
-            this.notes.splice(i,1)
+          for(let i = 0; i < this.notes.length;i++){
+            if(this.notes[i].id == this.noteGrabbed.id){
+              this.notes.splice(i,1)
+            }
           }
+
+          if( event.y > document.getElementById(this.notes[this.notes.length-1].id+"")!.offsetTop +document.getElementById(this.notes[this.notes.length-1].id+"")!.clientHeight ){
+            if(this.x)clearInterval(this.x)
+            this.x = setTimeout(()=>{
+              this.notes.push(this.noteGrabbed);
+              this.pos.x = event.x;
+              this.pos.y = event.y;
+              clearInterval(this.x);
+            },1000) 
           }
           for(let i = 0; i < this.notes.length;i++){
             if(
@@ -104,11 +114,11 @@ pos:any = {x:0,y:0}
                   this.pos.x = event.x;
                   this.pos.y = event.y;
                   clearInterval(this.x);
-                },1000)
-                  
-                  
+                },1000) 
               }
           }
+
+
       }
      
     })
