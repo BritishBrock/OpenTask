@@ -7,8 +7,8 @@
 <div #noteBody class="noteBody">
 
     <div class="noteGrid">
-        <div [id]="note.id" [@anim] *ngFor="let note of notes;index as $index" class="notes">
-            <div  class="movablePart" (mousedown)="grabNote(note,$index,$event)"></div>
+        <div [id]="note.id" [@anim] *ngFor="let note of notes;index as $index" class="notes" >
+            <div  class="movablePart"  (mousedown)="grabNote(note,$index,$event)"></div>
                 <div class="note list" (touchstart)="switchStart(note,$index,$event)" >
                     <div class="title">
                         {{note.title}}

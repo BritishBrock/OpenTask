@@ -81,8 +81,8 @@ pos:any = {x:0,y:0}
       if(!this.noteGrabbed)return;
 
       document.getElementById("copy")!.style.position ="absolute";
-      document.getElementById("copy")!.style.left =event.x -50 +"px";
-      document.getElementById("copy")!.style.top =event.y +"px";
+      document.getElementById("copy")!.style.left =event.x -   (document.getElementById("copy")!.clientWidth/2) +"px";
+      document.getElementById("copy")!.style.top =event.y - 10 +"px";
       if( event.x  > this.pos.x +100  || event.x < this.pos.x -100 
         ||  event.y  > this.pos.y +100  || event.y < this.pos.y -100 
         ){
@@ -99,7 +99,7 @@ pos:any = {x:0,y:0}
               this.pos.x = event.x;
               this.pos.y = event.y;
               clearInterval(this.x);
-            },1000) 
+            },300) 
           }
           for(let i = 0; i < this.notes.length;i++){
             if(
@@ -114,7 +114,7 @@ pos:any = {x:0,y:0}
                   this.pos.x = event.x;
                   this.pos.y = event.y;
                   clearInterval(this.x);
-                },1000) 
+                },300) 
               }
           }
 
@@ -174,8 +174,8 @@ pos:any = {x:0,y:0}
    this.prevPosition = index;
    this.notes.splice(index,1)
    document.getElementById("copy")!.style.position ="absolute";
-   document.getElementById("copy")!.style.left =event.x +"px";
-   document.getElementById("copy")!.style.top =event.y +"px";
+   document.getElementById("copy")!.style.left =event.x -   (document.getElementById("copy")!.clientWidth/2) +"px";
+   document.getElementById("copy")!.style.top =event.y -10+"px";
   }
   switchStart(note:any,index:number,event:any){
       event.preventDefault()
