@@ -58,10 +58,9 @@ export class BoardViewerComponent {
             this.done = false;
             document.getElementById("animate2")?.classList.remove('animate2');
             document.getElementById("animate")?.classList.remove('animate');
+            setTimeout(()=>{ document.getElementById("animate2")?.classList.add('animate2');})
+            setTimeout(()=>{   document.getElementById("animate")?.classList.add('animate');  this.done = true;})
 
-            this.loadTransition();
-            this.loadTransition2();
-          
           }
           if( this.boardService.globalBoards.length == 0){
               this.DBService.openDB();
@@ -134,66 +133,6 @@ export class BoardViewerComponent {
       },
       
     ]
-    loadTransition2(){
-
-      setTimeout(()=>{ document.getElementById("animate2")?.classList.add('animate2');})
-     
-
-    }
-    loadTransition(){
-      setTimeout(()=>{   document.getElementById("animate")?.classList.add('animate');  this.done = true;})
-    
-
-
-      // let transition = document.createElement("div");
-      // let transition1 = document.createElement("div");
-      // let transition2 = document.createElement("div");
-      // transition.style.width = "100%";
-      // transition.style.height = "100%";
-      // transition.style.position = "fixed";
-      // transition.style.left = "0px"
-      // transition.style.top = "100%";
-      // transition.style.backgroundColor = "black";
-      // transition.style.zIndex = "2000000000";
-
-      // transition1.style.width = "100%";
-      // transition1.style.height = "100px";
-      // transition1.style.position = "fixed";
-      // transition1.style.left = "0px"
-      // transition1.style.top = "100%";
-      // transition1.style.backgroundColor = "#646464";
-      // transition1.style.zIndex = "2000000000";
-
-      // transition2.style.width = "100%";
-      // transition2.style.height = "100px";
-      // transition2.style.position = "fixed";
-      // transition2.style.left = "0px"
-      // transition2.style.top = "100%";
-      // transition2.style.zIndex = "2000000000";
-      // transition2.style.backgroundColor = "#cdcdcd";
-      // let i = 150;
-      // let i1 = 145;
-      // let i2 = 140;
-      // let x = setInterval(()=>{
-      //   transition.style.top = i+"%";
-      //   transition1.style.top = i1+"%";
-      //   transition2.style.top = i2+"%";
-      //   i--;
-      //   i1--;
-      //   i2--;
-      //   if(i == 0){
-      //     this.done = true;
-
-      //   }
-      //   if(i == -110){
-      //    clearInterval(x);
-      //   }
-      // },5)
-
-      // html.append(transition);
-      // html.append(transition1);
-      // html.append(transition2);
-    }
     done:boolean = !this.settings.userSettings.general.showLoadEffect;
     returnToBoardSelction(){
       this.router.navigateByUrl("/");
