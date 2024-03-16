@@ -11,5 +11,27 @@ display: none;
         align-items: center;
         cursor:pointer;
         user-select: none; 
+        
     }
+    
+    .create{
+        position: relative;
+        .createMenu{
+            display: none;
+            flex-direction: column;
+            width: 200px;
+            background-color: gray;
+            height: 300px;
+            position: absolute;
+            left: 100%;
+            top: 0;
+        }
+    }
+    .create:hover{
+        .createMenu{
+            display: grid;
+
+        }
+    }
+   
 }
