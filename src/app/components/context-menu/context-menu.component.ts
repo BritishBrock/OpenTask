@@ -14,7 +14,7 @@ import { StickyNote } from '../../Models/stickyNote/stickyNote';
   styleUrl: './context-menu.component.scss'
 })
 export class ContextMenuComponent {
-    constructor(private ContextMenuService:ContextMenuService,private settingsService:SettingsService,private dragService:DragServiceService, private taskviewerService:TaskViewerBoardService){
+    constructor(public ContextMenuService:ContextMenuService,private settingsService:SettingsService,private dragService:DragServiceService, private taskviewerService:TaskViewerBoardService){
 
     }
     contextPos:Coord = {x:0,y:0}
@@ -35,6 +35,7 @@ export class ContextMenuComponent {
     maxIndex:any = 0;
     createMenu:boolean = false;
     moveZIndex(direction:number){
+      console.log("f")
       if(!this.ContextMenuService.element || !this.ContextMenuService.element.zIndex)return;
       this.ContextMenuService.element.zIndex+=direction;
       if(this.ContextMenuService.element.zIndex > this.maxIndex)this.maxIndex = this.ContextMenuService.element.zIndex;
@@ -50,6 +51,7 @@ export class ContextMenuComponent {
     }
     createElement(type:number){
       this.ContextMenuService.isOpen.next(false);
+      console.log("f")
       switch(type){
         case 0:
           this.createTask(this.contextPos.x,this.contextPos.y)
@@ -67,8 +69,8 @@ export class ContextMenuComponent {
     createTask(x: number, y: number) {
       let t = new Task('new task');
       t.pos = {
-        x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
-        y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
+        x:  x,
+        y:  y,
       };
       this.taskviewerService.globalTasks.push(t);
 
@@ -76,8 +78,8 @@ export class ContextMenuComponent {
     createTaskList(x: number,y: number) {
       let t = new TaskList();
       t.pos = {
-        x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
-        y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
+        x:  x,
+        y:  y,
       };
       this.taskviewerService.globalTaskLists.push(t);
 
@@ -85,8 +87,8 @@ export class ContextMenuComponent {
     createStickyNote(x: number, y: number) {
       let t = new StickyNote();
       t.pos = {
-        x: this.dragService.currentBardPos.x*(1/this.dragService.currentZoom) *-1 + x,
-        y: this.dragService.currentBardPos.y *(1/this.dragService.currentZoom) *-1 + y,
+        x:  x,
+        y:  y,
       };
       this.taskviewerService.globalStickyNotes.push(t);
 

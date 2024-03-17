@@ -1,9 +1,10 @@
 <div id="contextMenuBody">
+    <div class="backDrop" (mousedown)=" this.ContextMenuService.isOpen.next(false);"></div>
     <div class="item" (click)="moveZIndex(1)">Move Up</div>
     <div class="item" (click)="moveZIndex(-1)">Move Down</div>
     <div class="item" (click)="setZIndex(0)">Move To Back</div>
     <div class="item" (click)="setZIndex(this.maxIndex+1)">Move To Front</div>
-    <div class="item create" (click)="createMenu = true"> 
+    <div class="item create"> 
         Create
         <div class="createMenu">
             <div class="item" (click)="createElement(0)">Create Task</div>

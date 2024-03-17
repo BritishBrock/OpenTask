@@ -33,16 +33,16 @@ export class SettingsComponent {
       }
     },
     {
-      title:"Keybinds",
+      title:"Default Screen",
       onclick:(index:number)=>{
-        this.currentlyActiveSettingsMenu = KeybindsComponent;
+        this.currentlyActiveSettingsMenu = DefaultMenuSelectorComponent;
         this.setActive(index);
       }
     },
     {
-      title:"Default menu",
+      title:"Keybinds",
       onclick:(index:number)=>{
-        this.currentlyActiveSettingsMenu = DefaultMenuSelectorComponent;
+        this.currentlyActiveSettingsMenu = KeybindsComponent;
         this.setActive(index);
       }
     },
