@@ -9,11 +9,35 @@
         position: relative;
         width: 300px;
         border-right: 5px solid gray;
-        transition: all 0.3s;
+        transition: all 1s ;
         .settingsOption{
             display: flex;
-             width: 100%;
-               transition: all 0.3s;
+            /* justify-content: center; */
+            width: 100%;
+            align-items: center;
+            padding: 14px;
+            color: var(--txtColor);
+            font-size: 1.3em;
+            text-transform: capitalize;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 1s ;
+            .txt{
+                transition: transform 0.3s ease;
+            }
+        }
+        .settingsOption:hover{
+            background-color: gainsboro;
+            .txt{
+          transform: translateX(15px);
+            }
+        }
+        .active{
+            background-color: gainsboro;
+            color: black;
+            .txt{
+            transform: translateX(15px);
+            }
         }
         .closeMenu{
             position: absolute;
@@ -22,9 +46,9 @@
             width: 25px;
             height: 25px;
             border-radius: 100%;
-            background-color: black;
-            color: white;
-       
+            background-color: var(--txtColor);
+            color: var(--bgColor);;
+            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,9 +57,9 @@
     }
    
     .closed{
-        width: 25px;
+        width: 30px;
         .settingsOption{   
-             transform: translateX(-100px);
+             transform: translateX(-400px);
         }
     }
     .mainSettingsContent{
