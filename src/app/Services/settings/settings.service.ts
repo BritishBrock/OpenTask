@@ -22,7 +22,7 @@ export class SettingsService {
       HSLColors:false,
       darkMode:false,
       customStyles:{
-        isActive:true,
+        isActive:false,
         styles:{
           bgColor:"#253535",
           txtColor:"black",

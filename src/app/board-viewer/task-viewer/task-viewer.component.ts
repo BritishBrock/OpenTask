@@ -201,11 +201,14 @@ export class TaskViewerComponent {
 
     this.select.classList.add('selector');
     this.elRef.nativeElement.addEventListener('mousedown', (event: any) => {
-
+      
       if(event.which == 3){
         if (!this.ContextMenuService._isOpen){
           this.ContextMenuService.switchContextMenu();
-          this.ContextMenuService.changeDisplayOfContextMenu({ x:event.x, y: event.y });
+          console.log((this.dragService.currentBardPos.x*(1/this.dragService.currentZoom))*-1 )
+          this.ContextMenuService.changeDisplayOfContextMenu({ 
+            x:(this.dragService.currentBardPos.x*(1/this.dragService.currentZoom))* -1 + (event.x*(1/this.dragService.currentZoom)) , 
+          y: (this.dragService.currentBardPos.y*(1/this.dragService.currentZoom))* -1 + (event.y*(1/this.dragService.currentZoom))})
         }else{
           this.ContextMenuService.switchContextMenu();
         }

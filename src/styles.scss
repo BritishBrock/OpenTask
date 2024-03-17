@@ -58,3 +58,33 @@ html,body{
 }
 
 
+.button{
+    border: 2px solid var(--txtColor);
+    background-color: var(--bgColor);
+    color: var(--txtColor);
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    height: 50px;
+    transition: all 0.2s ease-in-out;
+}
+.button:hover{
+    border: 2px solid var(--txtColor);
+    background-color: var(--txtColor);
+    color: var(--bgColor);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+//Here put other types of buttons
+
+
+.bDelete{
+    background-color: rgb(229 22 22);
+    color: white;
+}
+.bDelete:hover{
+    background-color: rgb(130, 8, 8);
+    color: white;
+}
+
