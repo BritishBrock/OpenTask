@@ -66,5 +66,17 @@
         width: 100%;
         overflow-y: auto;
         padding: 25px;
+        
+    }
+}
+.settingsButtons{
+    width: 100%;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    height:100px;
+    display: flex;
+    *{
+        margin: 10px 20px;
     }
 }
