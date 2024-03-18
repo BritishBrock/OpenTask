@@ -18,7 +18,9 @@
           
               @if(!stickyNote.isImageActive || !stickyNote.image){
 
-                <pre  style="text-overflow: ellipsis;overflow: hidden;">{{stickyNote.descripcion}}</pre> 
+                <pre  style="   overflow: hidden;
+                white-space: pre-wrap;
+                overflow-wrap: break-word;">{{stickyNote.descripcion}}</pre> 
               }@else {
                 <img draggable="false"  style=" user-select: none; width: 500px; height: 500px;" [src]="stickyNote.image">
               }

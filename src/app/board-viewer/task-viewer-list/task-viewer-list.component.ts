@@ -15,8 +15,8 @@ export class TaskViewerListComponent {
   tasks:Task[]= []
   taskLists:TaskList[]= []
   ngOnInit(){
-    this.tasks = [...this.TaskViewerBoardService.globalTasks];
-    this.taskLists = [...this.TaskViewerBoardService.globalTaskLists];
+    this.tasks = this.TaskViewerBoardService.globalTasks;
+    this.taskLists =this.TaskViewerBoardService.globalTaskLists;
     for(let i = 0;i < this.TaskViewerBoardService.globalTaskLists.length;i++){
       for(let y = 0; y < this.TaskViewerBoardService.globalTaskLists[i].tasks.length;y++){
         this.tasks.push(this.TaskViewerBoardService.globalTaskLists[i].tasks[y])

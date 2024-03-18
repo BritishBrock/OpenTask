@@ -27,36 +27,50 @@ export class SettingsComponent {
   settingsMenu = [
     {
       title:"general",
-      onclick:()=>{
+      onclick:(index:number)=>{
         this.currentlyActiveSettingsMenu = GeneralComponent;
-      
+        this.setActive(index);
+      }
+    },
+    {
+      title:"Default Screen",
+      onclick:(index:number)=>{
+        this.currentlyActiveSettingsMenu = DefaultMenuSelectorComponent;
+        this.setActive(index);
       }
     },
     {
       title:"Keybinds",
-      onclick:()=>{
+      onclick:(index:number)=>{
         this.currentlyActiveSettingsMenu = KeybindsComponent;
-      }
-    },
-    {
-      title:"Default menu",
-      onclick:()=>{
-        this.currentlyActiveSettingsMenu = DefaultMenuSelectorComponent;
+        this.setActive(index);
       }
     },
     {
       title:"Styling",
-      onclick:()=>{
+      onclick:(index:number)=>{
         this.currentlyActiveSettingsMenu = StylingComponent;
+        this.setActive(index);
       }
     },
     {
       title:"Back",
-      onclick:()=>{
+      onclick:(index:number)=>{
         this.location.back();
+        this.setActive(index);
       }
     }
   ]
+
+  setActive(index:number){
+    let menus = document.getElementsByClassName("settingsOption");
+    for(let i = 0; i < menus.length;i++){
+      if(menus[i].classList.contains("active"))menus[i].classList.remove("active")
+    }
+    menus[index].classList.add("active");
+  }
+
+
   isSettingsNavOpen:boolean = true;
   togleNav(){
     this.isSettingsNavOpen  = !this.isSettingsNavOpen;
