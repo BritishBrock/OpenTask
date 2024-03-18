@@ -94,6 +94,9 @@ export class TaskViewerCalendarComponent {
     this.modalService.TaskModalClosedEvent.subscribe(() => {
       this.updateCalendar();
     });
+    this.boardService.boardUpdates.subscribe(() => {
+      this.updateCalendar();
+    })
     this.today = new Date();
     this.currentMonth = this.today.getMonth();
 
