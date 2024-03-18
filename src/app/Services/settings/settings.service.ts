@@ -11,6 +11,12 @@ export class SettingsService {
   default:userSettings = {
     keybinds:{
       multiSelect:"shift",
+      placeholder1:"shift",
+      placeholder2:"shift",
+      placeholder3:"shift",
+      placeholder4:"shift",
+      placeholder5:"shift",
+      placeholder6:"shift",
     },
     general:{
       customContextMenu:false,
