@@ -14,17 +14,11 @@
             </div>
         }
     </div>
-    
-    <div class="mainSettingsContent">
-<<<<<<< HEAD
-        <button (click)="saveSettings()" i18n>Save Changes</button>
-        <button (click)="resetSettings()">Reset Settings</button>
-=======
->>>>>>> Development
+
         <ng-container *ngComponentOutlet="currentlyActiveSettingsMenu "/>
-    </div>
+
 </div>
-<div class="settingsButtons">
-    <button (click)="saveSettings()" class="button">Save Changes</button>
-    <button (click)="resetSettings()" class="button">Reset Settings</button>
+<div class="settingsButtons" >
+    <button (click)="saveSettings()" class="button" i18n >Save Changes</button>
+    <button (click)="resetSettings()" class="button" i18n>Reset Settings</button>
 </div>

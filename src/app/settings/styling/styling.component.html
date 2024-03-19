@@ -1,13 +1,13 @@
 <div class="generlSettingsOption">
-    <div class="gOption1">HSL colors </div>
+    <div class="gOption1" i18n>HSL colors </div>
     <div class="gOption2"> <input type="checkbox" [(ngModel)]="stylingSettings.HSLColors"/> </div>
 </div>
 <div class="generlSettingsOption">
-    <div class="gOption1">Dark Mode </div>
+    <div class="gOption1" i18n>Dark Mode </div>
     <div class="gOption2"> <input type="checkbox" [(ngModel)]="stylingSettings.darkMode"/> </div>
 </div>
 <div class="generlSettingsOption">
-    <div class="gOption1">Custom Styling</div>
+    <div class="gOption1" i18n>Custom Styling</div>
     <div class="gOption2"> <input type="checkbox" [(ngModel)]="stylingSettings.customStyles.isActive"/> </div>
 </div>
 @if (stylingSettings.customStyles.isActive) {
