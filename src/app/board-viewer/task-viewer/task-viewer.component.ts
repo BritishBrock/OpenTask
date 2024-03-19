@@ -99,12 +99,12 @@ export class TaskViewerComponent {
   constructor(
     private FactoryService: FactoryService,
     private elRef: ElementRef,
-    private dragService: DragServiceService,
+    public dragService: DragServiceService,
     private taskviewerService: TaskViewerBoardService,
     private taskModalService: TaskModalService,
     private boardService: BoardService,
     private ContextMenuService: ContextMenuService,
-    private settingsService: SettingsService
+    public settingsService: SettingsService
   ) {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
@@ -148,6 +148,12 @@ export class TaskViewerComponent {
 
   }
 
+
+goToX:number = 0;
+goToY:number= 0;
+goToBoardPos(){
+  this.dragService.setBoardPos({x:this.goToX*-1,y:this.goToY*-1})
+}
   isModalOpen = false;
 
   ngOnInit() {

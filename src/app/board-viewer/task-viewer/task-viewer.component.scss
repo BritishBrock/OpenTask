@@ -45,7 +45,24 @@
 
 
 }
-
+.boardPosMain{
+  position: fixed;
+  left: 50%;
+  user-select: none;
+  transform: translateX(-50%);
+  cursor: pointer;
+  bottom: 10px;
+  border-radius: 100px;
+  width: 500px;
+  display: flex;
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  .boardPos{
+    display: flex;
+  }
+}
 .zoom{
   position: fixed;
   left: 100px;

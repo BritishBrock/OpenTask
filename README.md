@@ -1,27 +1,34 @@
 # OpenTask
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.0.
+Have you ever wanted to create tasks and customize them to your liking well...
+Welcome to OpenTask, a task management website for all of your organising needs with loads of features we think you might like from built in calendar, list, simple note and visual views.
+Customize however you like and play around with the features all you like.
 
-## Development server
+## Who are we?
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+We are a small group called Bittonic that create all types of software, from apps, websites and even games. Currently we only have OpenTask but we will be expaning that catalog soon with even more AMAZING PROJECTS!!!!
 
-## Code scaffolding
+## How it works?
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+OpenTask bases it`s self on being fully OpenSource, free and no account needed, all of your data is saved locally on your PC. And we do that by using the indexdDB API built in to most browsers, so dont worry about not having enough space.
 
-## Build
+## Core Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+    - Task creation.
+    - Tasks lists to keep your tasks organized.
+    - Sitcky notes for simple reminders.
+    - A selection of view modes like calendar, list, visual and even simple note views.
+    - Simple shapes creation and customization.
+    - An all local saving system using IndexdDB.
+    - NO account needed and NO paywall.
+    - And loads more.
 
-## Running unit tests
+## Where do we keep track of everything?
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+You can find where we keep track of everything by looking at the OpenTask project board where we detail every issue we have currently.
+Also you can keep up to date with the work and projects we are working on in our discord:
 
-## Running end-to-end tests
+[Our Discord] (https://discord.gg/9ASfmreU)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

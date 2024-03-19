@@ -13,11 +13,43 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        height: 75px;
+        
+        background: rgb(240 240 240);
         .keyName{
+            flex: 8;
+            font-size: 1.2em;
             font-weight: 600;
+            padding-left: 10px;
+            text-transform: capitalize;
         }
         .value{
+            background: rgb(205 205 205);
+            flex: 2;
+            height: 100%;
+            margin-left: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: 400;
 
+        }
+        .edit{
+           
+
+            background: rgb(144, 133, 255);
+            background-color: var(--txtColor);
+            fill:var(--bgColor);
+            width: 30px;
+            height: 100%;
+            flex: 1;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            cursor: pointer;
         }
 
     }
