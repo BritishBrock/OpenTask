@@ -21,6 +21,7 @@ export class SettingsService {
     general:{
       customContextMenu:false,
       showLoadEffect:false,
+      showGoToBoardPosition:false,
       defaultMenu:"Visual",
       
     },
@@ -89,6 +90,7 @@ export interface userSettings{
     customContextMenu:boolean,
     showLoadEffect:boolean,
     defaultMenu:string,
+    showGoToBoardPosition:boolean,
   },
   styling:{
     HSLColors:boolean,

@@ -101,7 +101,6 @@ export class BoardViewerComponent {
         this.isNavClosed = false
         this.router.navigateByUrl("/b/"+boardId);
       }
-
     boardViews = [
       {
         title:"Visual Task",

@@ -45,3 +45,15 @@
         +
     </div>
 </div>
+
+@if(settingsService.userSettings.general.showGoToBoardPosition){
+    <div class="boardPosMain" >
+        <div class="boardPos">
+            x: <input type="text" [(ngModel)]="goToX">
+        </div>
+        <div class="boardPos">
+            y: <input type="text" [(ngModel)]="goToY">
+        </div>
+        <button (click)="goToBoardPos()" class="button">Go To</button>
+    </div>
+}
