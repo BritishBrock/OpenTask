@@ -164,6 +164,7 @@ goToBoardPos(){
     this.dragService.currentZoom  =1;
     this.boardService.boardUpdates.subscribe(() => {
       this.dragService.currentBardPos = this.boardService.activeBoard!.boardOffset;
+      if(this.dragService.currentBardPos.x > 0 || this.dragService.currentBardPos.y > 0) this.dragService.currentBardPos = {x:0,y:0}
       if (this.TaskViewerBoard){
         this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
         this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';
