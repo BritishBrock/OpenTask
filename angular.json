@@ -6,7 +6,7 @@
     "OpenTask": {
       "i18n": {
         "sourceLocale":"en-US",
-        "locales": {"es":"src/locale/messages.es.json","en":"src/locale/messages.json"}
+        "locales": {"es":"src/locale/messages.es.json","en":"src/locale/messages.json","fr":"src/locale/messages.fr.json"}
       },
       "projectType": "application",
       "schematics": {
@@ -28,7 +28,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "localize":["es","en"],
+            "localize":["es","en","fr"],
             "outputPath": "public",
             "index": "src/index.html",
             "browser": "src/main.ts",
