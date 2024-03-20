@@ -26,35 +26,35 @@ export class SettingsComponent {
   }
   settingsMenu = [
     {
-      title:"general",
+      title:$localize`general`,
       onclick:(index:number)=>{
         this.currentlyActiveSettingsMenu = GeneralComponent;
         this.setActive(index);
       }
     },
     {
-      title:"Default Screen",
+      title:$localize`Default Screen`,
       onclick:(index:number)=>{
         this.currentlyActiveSettingsMenu = DefaultMenuSelectorComponent;
         this.setActive(index);
       }
     },
     {
-      title:"Keybinds",
+      title:$localize`Keybinds`,
       onclick:(index:number)=>{
         this.currentlyActiveSettingsMenu = KeybindsComponent;
         this.setActive(index);
       }
     },
     {
-      title:"Styling",
+      title:$localize`Styling`,
       onclick:(index:number)=>{
         this.currentlyActiveSettingsMenu = StylingComponent;
         this.setActive(index);
       }
     },
     {
-      title:"Back",
+      title:$localize`Back`,
       onclick:(index:number)=>{
         this.location.back();
         this.setActive(index);
