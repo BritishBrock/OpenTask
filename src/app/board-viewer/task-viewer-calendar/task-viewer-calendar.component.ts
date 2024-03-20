@@ -101,21 +101,10 @@ export class TaskViewerCalendarComponent {
     this.currentMonth = this.today.getMonth();
 
     this.currentYear = this.today.getFullYear();
+ 
+    this.months = [$localize`Jan`, $localize`Feb`, $localize`Mar`, $localize`Abr`,$localize`May`,$localize`Jun`, $localize`Jul`, $localize`Aug`, $localize`Sep`,$localize`Oct`,$localize`Nov`,$localize`Dic`];
 
-    this.months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
+
     this.updateCalendar();
 
   }

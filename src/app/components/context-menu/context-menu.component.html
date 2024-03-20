@@ -1,4 +1,10 @@
 <div id="contextMenuBody">
+<<<<<<< HEAD
+    <div class="item" (click)="moveZIndex(1)" i18n>Move Up</div>
+    <div class="item" (click)="moveZIndex(-1)" i18n>Move Down</div>
+    <div class="item" (click)="setZIndex(0)" i18n>Move To Back</div>
+    <div class="item" (click)="setZIndex(this.maxIndex+1)" i18n>Move To Front</div>
+=======
     <div class="backDrop" (mousedown)=" this.ContextMenuService.isOpen.next(false);"></div>
     <div class="item" (click)="moveZIndex(1)">Move Up</div>
     <div class="item" (click)="moveZIndex(-1)">Move Down</div>
@@ -13,4 +19,5 @@
         </div>
     </div>
    
+>>>>>>> Development
 </div>
