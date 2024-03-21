@@ -32,29 +32,41 @@ export class StickynoteComponent {
     })
 
     this.c.addEventListener("mousemove",(event:any)=>{
-     if(!this.isDrawing)return;
-     if(!ctx)return;
-     if(!this.c)return;
-      ctx.beginPath();
-      ctx?.arc((event.x-this.c.offsetLeft -550 ), (this.c.offsetTop -event.y +50) *-1,2,0,2 * Math.PI)
-      ctx.fillStyle = "black";
-      ctx?.fill();
+  
     })
-    this.c.addEventListener("touchmove",(event:any)=>{
-      event.preventDefault();
-      if(!this.isDrawing)return;
-      if(!ctx)return;
-      if(!this.c)return;
-       ctx.beginPath();
-       
-       var touch = event.targetTouches[0];
-       console.log(touch)
-       ctx?.arc((touch.pageX-this.c.offsetLeft), (this.c.offsetTop -touch.pageY) *-1,2,0,2 * Math.PI)
-       ctx.fillStyle = "black";
-       ctx?.fill();
-     })
+   
   }
 
+
+  draw(event:any){
+
+    this.c = <HTMLCanvasElement>this.canvas.nativeElement;
+    if(!this.c)return;
+    let ctx = this.c.getContext("2d");
+
+    if(!this.isDrawing)return;
+    if(!ctx)return;
+    if(!this.c)return;
+    console.log(event);
+     ctx.beginPath();
+     ctx?.arc(event.layerX,event.layerY,2,0,2 * Math.PI)
+     ctx.fillStyle = "black";
+     ctx?.fill();
+  }
+  drawPhone(event:any){
+    this.c = <HTMLCanvasElement>this.canvas.nativeElement;
+    if(!this.c)return;
+    let ctx = this.c.getContext("2d");
+    event.preventDefault();
+    if(!this.isDrawing)return;
+    if(!ctx)return;
+    if(!this.c)return;
+     ctx.beginPath();
+     var touch = event.targetTouches[0];
+     ctx?.arc((touch.pageX - this.c.getBoundingClientRect().x), (touch.pageY - this.c.getBoundingClientRect().y),2,0,2 * Math.PI)
+     ctx.fillStyle = "black";
+     ctx?.fill();
+  }
 
   saveDrawing(){
      if(!this.c) return;

@@ -7,7 +7,7 @@
     <h1 i18n>Change Sticky Note Colour</h1>
     <input type="color" [(ngModel)]="stickyNote.color" i18n>
     Show Image<input type="checkbox" name="" [(ngModel)]="stickyNote.isImageActive" id="">
-        <canvas #canvas width="500" height="500" style="border: 1px solid black; user-select: none; position: relative;"> 
+        <canvas (mousemove)="draw($event)" (touchmove)="drawPhone($event)" #canvas width="500" height="500" style="border: 1px solid black; user-select: none; position: relative;"> 
     
         </canvas>
         <button (click)="saveDrawing()" i18n>save drawing</button>
