@@ -99,12 +99,12 @@ export class TaskViewerComponent {
   constructor(
     private FactoryService: FactoryService,
     private elRef: ElementRef,
-    private dragService: DragServiceService,
+    public dragService: DragServiceService,
     private taskviewerService: TaskViewerBoardService,
     private taskModalService: TaskModalService,
     private boardService: BoardService,
     private ContextMenuService: ContextMenuService,
-    private settingsService: SettingsService
+    public settingsService: SettingsService
   ) {
     //   this.elRef.nativeElement.addEventListener('contextmenu', (event:any) => {
     //     event.preventDefault();
@@ -148,6 +148,12 @@ export class TaskViewerComponent {
 
   }
 
+
+goToX:number = 0;
+goToY:number= 0;
+goToBoardPos(){
+  this.dragService.setBoardPos({x:this.goToX*-1,y:this.goToY*-1})
+}
   isModalOpen = false;
 
   ngOnInit() {
@@ -158,6 +164,7 @@ export class TaskViewerComponent {
     this.dragService.currentZoom  =1;
     this.boardService.boardUpdates.subscribe(() => {
       this.dragService.currentBardPos = this.boardService.activeBoard!.boardOffset;
+      if(this.dragService.currentBardPos.x > 0 || this.dragService.currentBardPos.y > 0) this.dragService.currentBardPos = {x:0,y:0}
       if (this.TaskViewerBoard){
         this.TaskViewerBoard.nativeElement.style.left = this.dragService.currentBardPos.x + 'px';
         this.TaskViewerBoard.nativeElement.style.top = this.dragService.currentBardPos.y + 'px';

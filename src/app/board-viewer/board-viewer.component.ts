@@ -101,31 +101,30 @@ export class BoardViewerComponent {
         this.isNavClosed = false
         this.router.navigateByUrl("/b/"+boardId);
       }
-
     boardViews = [
       {
-        title:"Visual Task",
+        title:$localize`Visual Task` ,
         onclick:()=>{
           this.component = TaskViewerComponent;
           this.isNavClosed=false;
         }
       },
       {
-        title:"List Tasks",
+        title:$localize`List Task`,
         onclick:()=>{
           this.component = TaskViewerListComponent;
           this.isNavClosed=false;
         }
       },
       {
-        title:"List Calender",
+        title:$localize`List Calender`,
         onclick:()=>{
           this.component = TaskViewerCalendarComponent;
           this.isNavClosed=false;
         }
       },
       {
-        title:"Notes ",
+        title:$localize`Notes`,
         onclick:()=>{
           this.component = NotesViewerComponent;
           this.isNavClosed=false;

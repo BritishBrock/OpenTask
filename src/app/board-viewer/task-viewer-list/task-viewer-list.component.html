@@ -14,20 +14,20 @@
           <div class='title-table-container'>
             <div class='subtitle' >Tasks</div>
             <select name="" id="" [(ngModel)]="orderType" (change)="OrderList()">
-              <option value="0">Newest</option>
-              <option value="1">Oldest</option>
+              <option value="0" i18n >Newest</option>
+              <option value="1" i18n>Oldest</option>
             </select>
           </div>
           <div>
             <table>
               <thead>
 
-                  <th>Name</th>
-                  <th>descripcion</th>
-                  <th>colorTag</th>
-                  <th>cardColorTagType</th>
+                  <th i18n>Name</th>
+                  <th i18n>descripcion</th>
+                  <th i18n>colorTag</th>
+                  <th i18n>cardColorTagType</th>
 
-                  <th>options</th>
+                  <th i18n>options</th>
               </thead>
               <tbody>
       
@@ -67,17 +67,17 @@
       
    <div class='main-table-containter'>
     <div class='title-table-container'>
-      <div class='subtitle'>Tasks</div>
-      <button class='select-button'> Reciente </button>
+      <div class='subtitle' i18n>Tasks</div>
+      <button class='select-button' i18n> Recent </button>
     </div>
     <div>
       <table>
         <thead>
             <th></th>
-            <th>id</th>
-            <th>title</th>
-            <th>Relates To</th>
-            <th>Locked</th>
+            <th i18n>id</th>
+            <th i18n>title</th>
+            <th i18n>Relates To</th>
+            <th i18n>Locked</th>
         </thead>
         <tbody>
   

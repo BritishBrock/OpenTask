@@ -14,7 +14,10 @@ export class KeybindsComponent {
   keybindings = this.settingsService.userSettings.keybinds;
 
   ngOnInit(){
-     window.addEventListener("keydown",this.handler)
+     window.addEventListener("keydown",this.handler);
+     this.settingsService.updatedSettings.subscribe(()=>{
+      this.keybindings = this.settingsService.userSettings.keybinds;
+    })
   }
 
   changeKey(keybind:string){

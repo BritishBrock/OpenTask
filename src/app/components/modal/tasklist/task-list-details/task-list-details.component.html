@@ -12,15 +12,15 @@
         
     </div>
     <div class="divider"></div>
-    @if(taskList.tasks.length>0){
-        <h1>{{taskList.tasks.length}} Task{{taskList.tasks.length == 1 ? "": 's'}}  <button (click)="taskVisible = !taskVisible">Show Tasks</button></h1>
+    @if(taskList.tasks.length>0 ){
+        <h1 i18n>{{taskList.tasks.length}} Task{{taskList.tasks.length == 1 ? "": 's'}}  <button (click)="taskVisible = !taskVisible"  >Show Tasks</button></h1>
         <div class="tasks" *ngIf="taskVisible">
             @for (task of taskList.tasks; track $index) {
                 <div class="task">
                     <div class="taskName">
                         {{task.name}}
                     </div>
-                    <div class="deleteTask" (click)="deleteTaskFromTasklist($index)">
+                    <div class="deleteTask" (click)="deleteTaskFromTasklist($index)" i18n>
                         Delete
                     </div>
                 </div>
