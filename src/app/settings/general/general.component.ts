@@ -14,4 +14,8 @@ export class GeneralComponent {
       this.generalSettings = this.settingsService.userSettings.general;
     })
   }
+
+  changLanguage(language:string){
+    window.location.replace('https://opentask-556b9.web.app/'+language)
+  }
 }
