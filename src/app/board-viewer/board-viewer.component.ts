@@ -117,7 +117,7 @@ export class BoardViewerComponent {
         }
       },
       {
-        title:$localize`List Calender`,
+        title:$localize`Task Calendar`,
         onclick:()=>{
           this.component = TaskViewerCalendarComponent;
           this.isNavClosed=false;
