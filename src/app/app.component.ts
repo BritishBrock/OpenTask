@@ -4,6 +4,7 @@ import { Board } from './Models/Board/Board';
 import { Router } from '@angular/router';
 import { SettingsService } from './Services/settings/settings.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,4 +16,5 @@ export class AppComponent {
   ngOnInit(){
     this.settingsService.loadSettings();
   }
+  
 }
