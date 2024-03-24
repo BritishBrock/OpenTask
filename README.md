@@ -30,5 +30,8 @@ Also you can keep up to date with the work and projects we are working on in our
 
 [Our Discord] (https://discord.gg/9ASfmreU)
 
+## Healpers
 
+Brock - Developer
+Juan - Project maneger
 
