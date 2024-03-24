@@ -32,6 +32,6 @@ Also you can keep up to date with the work and projects we are working on in our
 
 ## Healpers
 
-Brock - Developer
-Juan - Project maneger
+- Brock - Developer
+- Juan - Project maneger
 
