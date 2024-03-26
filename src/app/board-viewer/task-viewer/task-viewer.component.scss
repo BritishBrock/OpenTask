@@ -1,49 +1,61 @@
 :host{
   display: flex;
     position: relative;
-
+    *{
+      user-select: none;
+    }
 }
 .TaskViewerBoard{
     position: fixed;
     width: 15000px;
     height: 15000px;
     transform-origin: top left;
-    background: 
-    linear-gradient( /* background color fading left to right , to blend with every others gradient bg */
-      to left, 
-      transparent, 
-      transparent),
-    repeating-linear-gradient( /* horizontal white lines hidding a row of dots */
-      to bottom,
-      transparent 0,
-      transparent 80px,
-      white 32px,
-      white 40px,
-      transparent 40px
-    ),
-    repeating-linear-gradient( /* vertical lines hidding a col of dots */
-      to right,
-      transparent 0,
-      transparent 80px,
-      white 1px,
-      white 40px,
-      transparent 80px
-    ),
-    radial-gradient( /* dot repeated via background-size */
-        circle at 1px 1px,
-        #2f4e79 1px,
-        transparent 1px,
-        transparent 1px
-      )
-      0 0 / 16px 16px ;
-      background-blend-mode: 
-      multiply, /* only blend the first layer to keep dots hidden */
-      normal, 
-      normal, 
-      normal;
+}
+.defaultBackground{
+  background: 
+  linear-gradient( /* background color fading left to right , to blend with every others gradient bg */
+    to left, 
+    transparent, 
+    transparent),
+  repeating-linear-gradient( /* horizontal white lines hidding a row of dots */
+    to bottom,
+    transparent 0,
+    transparent 80px,
+    white 32px,
+    white 40px,
+    transparent 40px
+  ),
+  repeating-linear-gradient( /* vertical lines hidding a col of dots */
+    to right,
+    transparent 0,
+    transparent 80px,
+    white 1px,
+    white 40px,
+    transparent 80px
+  ),
+  radial-gradient( /* dot repeated via background-size */
+      circle at 1px 1px,
+      #2f4e79 1px,
+      transparent 1px,
+      transparent 1px
+    )
+    0 0 / 16px 16px ;
+    background-blend-mode: 
+    multiply, /* only blend the first layer to keep dots hidden */
+    normal, 
+    normal, 
+    normal;
 
-
-
+}
+.customBackground{
+  width: 100svw;
+  height: 100svh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 .boardPosMain{
   position: fixed;

@@ -28,6 +28,9 @@ export class SettingsService {
     styling:{
       HSLColors:false,
       darkMode:false,
+      customBackground:{
+        isActive:false,
+      },
       customStyles:{
         isActive:false,
         styles:{
@@ -95,6 +98,11 @@ export interface userSettings{
   styling:{
     HSLColors:boolean,
     darkMode:boolean,
+    customBackground:{
+      isActive:boolean,
+      solidColor?:string,
+      image?:any,
+    }
     customStyles:{
       isActive:boolean,
       styles?:any,

@@ -1,6 +1,11 @@
-<div #TaskViewerBoard class="TaskViewerBoard">
+<div  [ngClass]=" settingsService.userSettings.styling.customBackground.isActive ? 'customBackground' : ''" [style]="settingsService.userSettings.styling.customBackground.image 
+ ? {'background-image':settingsService.userSettings.styling.customBackground.image,}
+ : {'background-color': settingsService.userSettings.styling.customBackground.solidColor,}
+ ">
+</div>
+<div #TaskViewerBoard class="TaskViewerBoard" [ngClass]=" !settingsService.userSettings.styling.customBackground.isActive ? 'defaultBackground' : ''">
     <canvas id="canvas"></canvas>
-
+ 
     @for (taskList of taskLists; track $index) {
         <ng-container *ngComponentOutlet="taskList.component  inputs: {taskList:taskList}; "/>
     }
