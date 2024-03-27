@@ -23,5 +23,15 @@ export class StylingComponent {
    this.settingsService.updateStyles();
   }
  
-  
+  setFile(event:any){
+    var file = event.target.files[0];
+
+    var reader = new FileReader();
+    reader.onloadend = ()=>{
+      this.stylingSettings.customBackground.image = "url(" + reader.result + ")"; 
+    }
+    if(file){
+        reader.readAsDataURL(file);
+    }
+  }
 }

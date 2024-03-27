@@ -115,7 +115,9 @@ export class TaskViewerComponent {
   toggleCreateMenu() {
     this.isCreateMenuOpen = !this.isCreateMenuOpen;
   }
-
+  checkImage(){
+    console.log(this.settingsService.userSettings.styling.customBackground.image)
+  }
   createTask(x: number, y: number) {
     let t = new Task('new task');
     t.pos = {
@@ -199,9 +201,10 @@ goToBoardPos(){
     });
     window.addEventListener('wheel', (event) => {
       if(this.isModalOpen) return;
-      if (event.deltaY == -100) {
+      if (event.deltaY< 0) {
+  
         this.updateZoom(0.05)
-      } else if (event.deltaY == 100) {
+      } else if (event.deltaY > 0) {
         this.updateZoom(-0.05)
       }
     });

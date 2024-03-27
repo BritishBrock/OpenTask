@@ -1,6 +1,11 @@
-<div #TaskViewerBoard class="TaskViewerBoard">
+<div  [ngClass]=" settingsService.userSettings.styling.customBackground.isActive ? 'customBackground' : ''" [style]="settingsService.userSettings.styling.customBackground.image 
+ ? {'background-image':settingsService.userSettings.styling.customBackground.image,}
+ : {'background-color': settingsService.userSettings.styling.customBackground.solidColor,}
+ ">
+</div>
+<div #TaskViewerBoard class="TaskViewerBoard" [ngClass]=" !settingsService.userSettings.styling.customBackground.isActive ? 'defaultBackground' : ''">
     <canvas id="canvas"></canvas>
-
+ 
     @for (taskList of taskLists; track $index) {
         <ng-container *ngComponentOutlet="taskList.component  inputs: {taskList:taskList}; "/>
     }
@@ -40,7 +45,7 @@
     <div class="zoomB1" (click)="updateZoom(-0.05)">
         -
     </div>
-    <input type="range" min="55" max="145" step="5" (input)="changeZoom()" [(ngModel)]="zoom2" class="slider" id="myRange">
+    <input type="range" min="55" max="145" step="5" (input)="changeZoom()" [(ngModel)]="zoom2" class="slider" id="myRange" style="transform: rotateZ(-90deg);">
     <div class="zoomB2" (click)="updateZoom(0.05)">
         +
     </div>
